@@ -1,5 +1,7 @@
 function graf(){
 
+	registerUploadFile();
+
 $('#save-btn').click(function(){
 	$('#myChart').get(0).toBlob(function(blob){
     var subor = $('input[name="subor"]').val();

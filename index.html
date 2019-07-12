@@ -21,6 +21,7 @@
 	<script src="./js/canvas-toBlob.js"></script>
 	<script src="./js/FileSaver.min.js"></script>
 	<script src="./js/graf.js"></script>
+	<script src="./js/upload.js"></script>
 
 </head>
 
@@ -30,40 +31,35 @@
       	<div class="chart-container" style="position: relative" >
 		 	<canvas id="myChart"></canvas>
     	</div>
-					
+
 		<div  class="container-fluid	">
 			<div class="row">
     			<div class="col-sm" id="border-col-sm">
-    				
-				<form action="upload.php" method="post" enctype="multipart/form-data" target="upload_target" >
-				    File: <input name="myfile" type="file" />
-				          <input type="submit" name="submitBtn" value="Upload" />
-				</form>
-
-	      			<form id = "uploadForm" 
-						enctype = "multipart/form-data" 
-						action = "upload" 
+	      			<form id = "uploadForm"
+						enctype = "multipart/form-data"
+						action = "upload"
 						method = "post">
 
 			  			<div class="form-group">
-			    			<label for="exampleFormControlFile1" id="label1">Vyberte súbor vo formáte .xlsx</label>
-			    			<input type="file" name="file" class="form-control-file" id="exampleFormControlFile1"> <br>
-			    			<input type="submit" value="Nahrať" name="submit"> Nahratie súboru
+
+			    			<label for="file" id="label1">Vyberte súbor vo formáte .xlsx</label>
+			    			<input type="file" name="file" class="form-control-file" id="file"> <br>
+			    			<input type="button" value="Nahrať" id="but_upload" name="submit"> Nahratie súboru
 			  			</div>
 					</form>
-			
+
 					<button type="button" id="save-btn">Uložiť obrázok</button>
 					<input type="text" name="subor" placeholder="Zadajte názov obrázka">
     			</div>
 
-    			<div class="col-sm" id="border-col-sm">
+    			<div class="col-sm" id="resultdiv">
     			</div>
-		
+
 			</div>
 		</div>
-	</div>	
+	</div>
 <!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <!--  Popper -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
