@@ -25,15 +25,21 @@
 </head>
 
 <body onload="graf()">
-	<div class="container ">
+	<div class="container-fluid">
 
       	<div class="chart-container" style="position: relative" >
 		 	<canvas id="myChart"></canvas>
     	</div>
 					
-		<div  class="container">
+		<div  class="container-fluid	">
 			<div class="row">
     			<div class="col-sm" id="border-col-sm">
+    				
+				<form action="upload.php" method="post" enctype="multipart/form-data" target="upload_target" >
+				    File: <input name="myfile" type="file" />
+				          <input type="submit" name="submitBtn" value="Upload" />
+				</form>
+
 	      			<form id = "uploadForm" 
 						enctype = "multipart/form-data" 
 						action = "upload" 
