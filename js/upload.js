@@ -1,3 +1,12 @@
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
 registerUploadFile = () => {
     $("#but_upload").click(function() {
         var fd = new FormData();
@@ -37,13 +46,13 @@ registerUploadFile = () => {
                         novyRiadok.find(".selectpicker").append(option);
                      };
 
-                    // Pridanie multiselectu 
+                    // Pridanie multiselectu
                     novyRiadok.find(".selectpicker").selectpicker();
                     novyRiadok.find("button[role='button']").last().remove();
 
                     // Pridanie nového riadku
                     novyRiadok.appendTo($('.row'));
-                    
+
                     // Zmazanie riadku
                     let riadok = novyRiadok;
                     riadok.find("#delete-vkladanie").click(function(){
@@ -56,34 +65,45 @@ registerUploadFile = () => {
                     for (let i = 0; i < response.data.length; i++) { // Prechádzanie riadkov odpovede
                         let row = response.data[i]; // Uloženie jedného riadku do premennej row, riadok má tvar objektu
                         for (let key in row) {
-                            if (!dataObject[key]){ 
+                            if (!dataObject[key]){
                             dataObject[key] = [];
                             }
-                            dataObject[key].push(parseFloat(row[key])); // Urobí atribút s názvom akutálneho stĺpca 
+                            dataObject[key].push(parseFloat(row[key])); // Urobí atribút s názvom akutálneho stĺpca
                         }
                     }
 
                     riadok.find('#add-to-chart').click(function(){
                         let stlpcestring = $("#" + novyRiadok.attr("id")).find(".btn.dropdown-toggle.btn-light").attr("title");
                         let stlpce = stlpcestring.split(", ");
-                        
+
                         // Pridanie hodnôt na os y
-                        for (let i = 0; i < stlpce.length; i++){ 
-                            window.chart.data.datasets[i].data = dataObject[stlpce[i]];
+                        for (let i = 0; i < stlpce.length; i++){
+                            window.chart.options.legend.display = true;
+                            window.chart.options.title.display = true;
+                            window.chart.data.datasets[i] = {
+                              data: dataObject[stlpce[i]],
+                              label: stlpce[i].slice(0, 20),
+                              fullLabel: stlpce[i],
+                              fill: false,
+                              backgroundColor: "transparent",
+                              borderColor: getRandomColor(),
+                              borderWidth: 1
+                            }
                         }
 
                         // Pridanie hodnôt na os x
                         for (let i = 0; i < response.data.length; i++) {
-                            window.chart.data.labels.push(i + 1);                        
+                            window.chart.data.labels.push(i + 1)
+                            window.chart.data.labels.sort((a, b) => a - b);
                         }
 
                         // Pridanie legendy
-                        for (let i = 0; i < stlpce.length; i++) {
-                            window.chart.options.legend.display = true; 
-                            window.chart.options.title.display = true; 
-                            window.chart.data.datasets[i].label = stlpce[i].slice(0, 20);
-                        }
-                                      
+                        // for (let i = 0; i < stlpce.length; i++) {
+                        //     window.chart.options.legend.display = true;
+                        //     window.chart.options.title.display = true;
+                        //     window.chart.data.datasets[i].label = stlpce[i].slice(0, 20);
+                        // }
+
                         window.chart.update();
                     });
 
@@ -98,12 +118,15 @@ registerUploadFile = () => {
                         //     }
 
                         // Zmazanie stĺpcov z grafu
-                        for (let i = 0; i < stlpce.length; i++){ 
+                        for (let i = 0; i < stlpce.length; i++){
+                          /* if (odstranenyString === stlpecString) {
+                            window.chart.data.datasets.filter(d => d.fullLabel !== odstranenyString)
+                          }*/
                             window.chart.data.datasets[0].data = [];
                         }
-        
-                        window.chart.update(); 
-                    });                   
+
+                        window.chart.update();
+                    });
 
                     alert('Súbor bol úspešne nahraný! ', response);
                 }

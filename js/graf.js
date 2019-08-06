@@ -12,7 +12,7 @@ $('#save-btn').click(function(){
 $('input[type="file"]').change(function(e){
     var fileName = e.target.files[0].name;
     alert('Bol vybratý "' + fileName +  '" súbor.');
-}); 
+});
 
 
 // Global option
@@ -27,27 +27,7 @@ window.chart = new Chart(ctx, {
     type: 'line',
     data: {
         labels: [],
-        datasets: [{
-            label: '',
-            data: [],
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgba(255, 99, 132, 1)',
-            borderWidth: 1
-            },
-            {
-            label: '',
-            data: [],
-            backgroundColor: 'blue',
-            borderColor: 'green',
-            borderWidth: 1
-            },
-            {
-            label: '',
-            data: [],
-            backgroundColor: 'yellow',
-            borderColor: 'green',
-            borderWidth: 1
-        }],
+        datasets: [{}],
     },
 options: {
         responsive: true,
@@ -106,7 +86,16 @@ options: {
                 },
 
             }]
-        }
+        },
+        pan: {
+          enabled: true,
+          mode: 'xy'
+      },
+
+      zoom: {
+          enabled: true,
+          mode: 'xy',
+      }
     }
 });
 }

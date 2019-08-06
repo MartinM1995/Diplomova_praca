@@ -7,7 +7,7 @@
 	<!--Responsive meta tag-->
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Diplomová práca</title>
-	
+
 	<!-- CSS styles -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -22,7 +22,9 @@
 	<script type="text/javascript" src="./js/Chart.bundle.js"></script>
 	<script type="text/javascript" src="./js/Chart.bundle.min.js"></script>
 	<script type="text/javascript" src="./js/Chart.js"></script>
-	<script type="text/javascript" src="./js/Chart.min.js"></script>
+  <script type="text/javascript" src="./js/Chart.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.3"></script>
 	<script type="text/javascript" src="./js/canvas-toBlob.js"></script>
 	<script type="text/javascript" src="./js/FileSaver.min.js"></script>
 	<script type="text/javascript" src="./js/graf.js"></script>
@@ -47,9 +49,9 @@
 			  			<div class="form-group">
 			    			<label class="label">Vyberte súbor vo formáte .xlsx</label><hr>
 
-			    			<input type="file" name="file" class="form-control-file" id="file"> 
+			    			<input type="file" name="file" class="form-control-file" id="file">
 
-			    			<input type="button" class="btn btn-outline-primary" value="Nahrať" id="but_upload" name="submit"> Nahratie súboru <br> 
+			    			<input type="button" class="btn btn-outline-primary" value="Nahrať" id="but_upload" name="submit"> Nahratie súboru <br>
 
 				  			<div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
 								<div class="btn-group mr-2" role="group" aria-label="First group">
@@ -68,7 +70,7 @@
 		    		<div class="col">
 		    			<label class="label">Načítaný súbor</label> <br> <hr>
 		    			<input id="target" value="" type="button" class="btn btn-primary dropdown-toggle"></input>
-			
+
 						<select class="selectpicker" multiple data-live-search="true" title="Vyberte stĺpce" data-actions-box="true">
 						</select>
 
