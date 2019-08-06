@@ -68,32 +68,6 @@
 
     });
 
-    // const fs = require('fs')
-    //
-    // fs.readFile('./test.json', (err, data) => {
-    //   if (err) throw err;
-    //   console.log(data);
-    // });
-
-    // const storeData = (data, path) => {
-    //   try {
-    //     fs.writeFileSync('./test.json', JSON.stringify(data))
-    //   } catch (err) {
-    //     console.error(err)
-    //   }
-    // }
-
-    // var result = result();
-
-    // const fs = require('fs');
-    // fs.writeFile("data.json", result, function(err) {
-    // if(err) {
-    //     return console.log(err);
-    // }
-
-    // console.log("The file was saved!");
-    // });
-
     app.use('/css', express.static('css'));
     app.use('/js', express.static('js'));
     app.use('/images', express.static('images'));
