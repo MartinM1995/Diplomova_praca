@@ -1,3 +1,65 @@
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
+function renderChart(chartModel){
+    window.chart.options.legend.display = true;
+    window.chart.options.title.display = true;
+    window.chart.data.datasets = [];
+    window.chart.data.labels = [];
+   
+
+    let maxLength = 0;
+
+    for (let col in chartModel) {
+        window.chart.data.datasets.push({
+            data: chartModel[col].data,
+            label: chartModel[col].label,
+            fill: false,
+            backgroundColor: "transparent",
+            borderColor: chartModel[col].borderColor,
+            borderWidth: 1
+        });
+
+    if (maxLength < chartModel[col].data.length)
+        maxLength = chartModel[col].data.length;
+    }
+
+    for (let i = 0; i < maxLength; i++) {
+        window.chart.data.labels.push(i + 1);
+    }
+
+     // window.chart.options.scales = {
+     //    xAxes: [{
+     //            gridLines: {
+     //                display: true,
+     //                color: 'black',
+     //                borderDash: [2]
+     //            },
+     //            scaleLabel: {
+     //                display: true,
+     //                labelString: 'Čas(s)',
+     //                fontColor: 'black'
+     //            },
+     //            ticks:{
+     //                userCallback: function(item, index) {
+     //                    if (!(index % 0.5)) return item;
+     //                    },
+     //                min: 0,
+     //                stepSize: 50,
+     //            },
+
+     //        }]
+     //    };
+
+    window.chart.update();
+}
+
 registerUploadFile = () => {
     $("#but_upload").click(function() {
         var fd = new FormData();
@@ -33,20 +95,20 @@ registerUploadFile = () => {
                     // Pridanie stĺpcov do dropdownu
                     const columns = Object.keys(response.data[0]);
                     for (let i = 0; i < columns.length; i++) {
-                        const option = "<option> "+ columns[i] +" </option>";
+                        const option = "<option>" + columns[i] + "</option>";
                         novyRiadok.find(".selectpicker").append(option);
                      };
 
-                    // Pridanie multiselectu 
+                    // Pridanie multiselectu
                     novyRiadok.find(".selectpicker").selectpicker();
                     novyRiadok.find("button[role='button']").last().remove();
 
                     // Pridanie nového riadku
                     novyRiadok.appendTo($('.row'));
-                    
+
                     // Zmazanie riadku
                     let riadok = novyRiadok;
-                    riadok.find("#delete-vkladanie").click(function(){
+                    riadok.find("#delete-novyRiadok").click(function(){
                         $("#" + novyRiadok.attr("id")).remove();
                         alert("Súbor bol zmazaný.");
                     });
@@ -56,35 +118,56 @@ registerUploadFile = () => {
                     for (let i = 0; i < response.data.length; i++) { // Prechádzanie riadkov odpovede
                         let row = response.data[i]; // Uloženie jedného riadku do premennej row, riadok má tvar objektu
                         for (let key in row) {
-                            if (!dataObject[key]){ 
+                            if (!dataObject[key]){
                             dataObject[key] = [];
                             }
-                            dataObject[key].push(parseFloat(row[key])); // Urobí atribút s názvom akutálneho stĺpca 
+                            dataObject[key].push(parseFloat(row[key])); // Urobí atribút s názvom akutálneho stĺpca
                         }
                     }
+
+                    window.uploadedData[fileName] = dataObject;
 
                     riadok.find('#add-to-chart').click(function(){
                         let stlpcestring = $("#" + novyRiadok.attr("id")).find(".btn.dropdown-toggle.btn-light").attr("title");
                         let stlpce = stlpcestring.split(", ");
+
+                        for (let i = 0; i < stlpce.length; i++){
+                            window.chartModel[fileName + "_" + stlpce[i]] = {
+                                data: window.uploadedData[fileName][stlpce[i]],
+                                label: fileName + "_" + stlpce[i],
+                                borderColor: getRandomColor()
+                            }
+                        }
+
+                        renderChart(chartModel);
+
+                    });
+
+                    riadok.find('#sum_co_co2').click(function(){
+                        let stlpcestring = $("#" + novyRiadok.attr("id")).find(".btn.dropdown-toggle.btn-light").attr("title");
+                        let stlpce = stlpcestring.split(", ");
+
+                        // for (let i = 0; i < stlpce.length; i++){
+                        //     window.chartModel[fileName + "_" + stlpce[i]] = 
+                        // }
+
+                        // let pole1 = []; 
+                        // let pole2 = [];
+                        // let vysledok = [];
+
+                        // for(let i = 0; i < stlpce.length; i++){
+                        //     window.chartModel[fileName + "_" + stlpce[i]] = pole1.push(stlpce[i].length);
+                        //     window.chartModel[fileName + "_" + stlpce[i]] = pole2.push(stlpce[i].length);
+
+                        //     pole1 =  array[i].val();
+                        // }
+                        // for(var i = 0; i < pole1.length; i++){
+                        //    vysledok.push(pole1[i] + pole2[i]);
+                        // }    
+
+                        // console.log("Výsledný stĺpec: ", stlpce.length);
                         
-                        // Pridanie hodnôt na os y
-                        for (let i = 0; i < stlpce.length; i++){ 
-                            window.chart.data.datasets[i].data = dataObject[stlpce[i]];
-                        }
 
-                        // Pridanie hodnôt na os x
-                        for (let i = 0; i < response.data.length; i++) {
-                            window.chart.data.labels.push(i + 1);                        
-                        }
-
-                        // Pridanie legendy
-                        for (let i = 0; i < stlpce.length; i++) {
-                            window.chart.options.legend.display = true; 
-                            window.chart.options.title.display = true; 
-                            window.chart.data.datasets[i].label = stlpce[i].slice(0, 20);
-                        }
-                                      
-                        window.chart.update();
                     });
 
                     // Zmazanie z grafu
@@ -92,18 +175,12 @@ registerUploadFile = () => {
                         let stlpcestring = $("#" + novyRiadok.attr("id")).find(".btn.dropdown-toggle.btn-light").attr("title");
                         let stlpce = stlpcestring.split(", ");
 
-                        // Potrebujem podmienku, aby zmazalo label až vtedy, keď už je len jeden graf
-                        // for (let i = 0; i < response.data.length; i++) {
-                        //     window.chart.data.labels.pop();
-                        //     }
-
-                        // Zmazanie stĺpcov z grafu
-                        for (let i = 0; i < stlpce.length; i++){ 
-                            window.chart.data.datasets[0].data = [];
+                        for (let i = 0; i < stlpce.length; i++){
+                            delete window.chartModel[fileName + "_" + stlpce[i]];
                         }
-        
-                        window.chart.update(); 
-                    });                   
+
+                        renderChart(chartModel);
+                    });
 
                     alert('Súbor bol úspešne nahraný! ', response);
                 }

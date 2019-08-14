@@ -1,18 +1,22 @@
 function myPage(){
 
-	registerUploadFile();
+    registerUploadFile();
 
+window.chartModel = {};
+window.uploadedData = {};
+
+   
 $('#save-btn').click(function(){
-	$('#myChart').get(0).toBlob(function(blob){
+    $('#myChart').get(0).toBlob(function(blob){
         var subor = $('input[name="subor"]').val();
-		saveAs(blob, subor + ".png")
-	});
+        saveAs(blob, subor + ".png")
+    });
 });
 
 $('input[type="file"]').change(function(e){
     var fileName = e.target.files[0].name;
     alert('Bol vybratý "' + fileName +  '" súbor.');
-}); 
+});
 
 
 // Global option
@@ -27,27 +31,7 @@ window.chart = new Chart(ctx, {
     type: 'line',
     data: {
         labels: [],
-        datasets: [{
-            label: '',
-            data: [],
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgba(255, 99, 132, 1)',
-            borderWidth: 1
-            },
-            {
-            label: '',
-            data: [],
-            backgroundColor: 'blue',
-            borderColor: 'green',
-            borderWidth: 1
-            },
-            {
-            label: '',
-            data: [],
-            backgroundColor: 'yellow',
-            borderColor: 'green',
-            borderWidth: 1
-        }],
+        datasets: [],
     },
 options: {
         responsive: true,
@@ -62,7 +46,7 @@ options: {
 
         legend:{
             position: 'top',
-            display: false,
+            display: true,
             fontStyle: 'bold',
         },
 
@@ -83,8 +67,7 @@ options: {
                     borderDash: [2]
                 },
                 ticks:{
-                    beginAtZero: true,
-
+                    beginAtZero: true
                 },
                 scaleLabel: {
                     display: true,
@@ -104,8 +87,22 @@ options: {
                     labelString: 'Čas(s)',
                     fontColor: 'black'
                 },
+                ticks:{
+                    beginAtZero: true,
+                    min: 0,
+                    stepSize: 50,
+                },
 
             }]
+        },
+        pan: {
+          enabled: true,
+          mode: 'xy'
+        },
+
+        zoom: {
+          enabled: true,
+          mode: 'xy',
         }
     }
 });
