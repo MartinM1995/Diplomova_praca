@@ -11,7 +11,7 @@ Návrh a realizácia webovej aplikácie pre analýzu technologických dát o pro
 
 Popis:
 
-- vytvorenie základu webovej aplikácie pre načítanie a spracovanie dát, 
+- vytvorenie základu webovej aplikácie pre načítanie a spracovanie dát,
 
 - vstupy webovej aplikácie realizovať vo forme XLS súborov
 
@@ -54,12 +54,20 @@ spresnenie, resp. čo ďalej:
 pripomienky:
 
 - os x - zobraziť hodnoty času: 1052, nie 1052s
-       - popis: čas, s  
+       - popis: čas, s
        - nastaviť vypis hodnôt po 100 s
 
 - os y - zobraziť hodnoty koncentracie: 95
-       - popis: koncentrácia, %  
+       - popis: koncentrácia, %
 
+## Odkazy
 
+### ES6 ( nova verzia javascriptu)
 
+https://medium.com/@etherealm/named-export-vs-default-export-in-es6-affb483a0910
+
+### MongoDB
+
+https://www.mongodb.com/
+https://www.tutorialspoint.com/mongodb/
 
