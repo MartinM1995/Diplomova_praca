@@ -133,6 +133,7 @@
       if (maxLength < chartModel[col].data.length) maxLength = chartModel[col].data.length;
     }
 
+    // TODO: prist na to, ako vybrat nie len labels ale aj data
     for (let i = 0; i < maxLength; i++) {
       window.chart.data.labels.push(i);
     }
