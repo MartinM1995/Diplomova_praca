@@ -32,7 +32,7 @@
 <body>
   <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
-      <img src="img/logo_fberg.gif" alt="Logo FBERG" class="fberg-logo-navbar">
+      <img src="img/logo_fberg.gif" class="fberg-logo-navbar">
       APS
     </a>
   </nav>
@@ -43,13 +43,13 @@
         <div class="sidebar-sticky">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link active" href="/">
+              <a class="nav-link" href="/">
                 <i class="fa fa-file-excel-o"></i>
                 Správa súborov
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/nacitanie-suborov.html">
+              <a class="nav-link active" href="/nacitanie-suborov.html">
                 <i class="fa fa-table"></i>
                 Načítanie súborov
               </a>
@@ -79,29 +79,40 @@
       <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
         <div class="row">
           <div class="col" >
-
             <form id="uploadForm" enctype="multipart/form-data" action="upload" method="post">
               <div class="form-group">
-                <label class="label">Vyberte súbor vo formáte .xls alebo .xlsx</label>
+                <label class="label">Vyberte súbor vo formáte .xlsx</label>
                 <hr>
 
                 <input type="file" name="file" class="form-control-file" id="file">
 
                 <input type="button" class="btn btn-outline-primary" value="Nahrať" id="but_upload" name="submit"> Nahratie súboru <br>
+
+                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+                  <div class="btn-group mr-2" role="group" aria-label="First group">
+                    <input type="button" class="btn btn-outline-primary" value="Uložiť obrázok" id="save-btn">
+                  </div>
+                  <div class="input-group">
+                    <input type="text" name="subor"	class="form-control" placeholder="Zadajte názov obrázka" aria-label="Input group example" aria-describedby="btnGroupAddon">
+                  </div>
+                </div>
               </div>
             </form>
           </div>
 
           <div class="w-100">
-           <!--  <div id="vkladanie" class="d-none"> -->
+            <div id="vkladanie" class="d-none">
               <div class="col">
+                <label class="label">Načítaný súbor</label> <br> <hr>
+                <input id="target" value="" type="button" class="btn btn-primary dropdown-toggle"></input>
 
-              <div id="databaza-loading">Loading...</div>
-                  <alert id="databaza-no-data" class="warning">V databáze zatiaľ nie su žiadne dáta</alert>
-                  <div id="databaza-container">
+                <select class="selectpicker" multiple data-live-search="true" title="Vyberte stĺpce" data-actions-box="true">
+                </select>
 
-                <select title="Vyberte súbor" id="select-file"> </select>
-
+                <button type="button" id="add-to-chart" class="btn btn-outline-success">Pridať do grafu</button>
+                <button type="button" id="delete-from-chart"class="btn btn-outline-danger">Odstrániť z grafu</button>
+                <button type="button" id="delete-novyRiadok" class="btn btn-outline-secondary">Odstrániť súbor</button>
+                <button type="button" id="sum_co_co2" class="btn btn-outline-secondary">Vypočítať a vykresliť CO + CO2</button>
               </div>
             </div>
           </div>
@@ -110,7 +121,7 @@
           <h1 class="h2">Dashboard</h1>
         </div>
 
-         <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
+        <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
         <div class="my-4 w-100">
           <canvas id="myChart" height="25em" width="50em" ></canvas>
         </div>
@@ -129,7 +140,7 @@
 <!-- Bootstrap -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="js/bootstrap-select.js"></script>
-<script src='index.js'></script>
+<script src='nacitanie-suborov.js'></script>
 
 </body>
 </html>

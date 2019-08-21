@@ -45,7 +45,7 @@ router.post("/upload", function(req, res) {
       res.json({ error_code: 1, err_desc: "No file passed" });
       return;
     }
-    // tu je potrebne zistit, ci je subor xls alebo xlsx a podla toho pouzit spravnu funkciu
+    // Tu je potrebné zistiť, či je súbor xls alebo xlsx a podľa toho použiť správnu funkciu
     if (req.file.originalname.split(".")[req.file.originalname.split(".").length - 1] === "xlsx") {
       exceltojson = xlsxtojson;
     } else {
