@@ -43,13 +43,13 @@
         <div class="sidebar-sticky">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link active" href="/">
+              <a class="nav-link" href="/">
                 <i class="fa fa-table"></i>
                 Načítanie súborov
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/sprava-suborov.html">
+              <a class="nav-link active" href="/sprava-suborov.html">
                 <i class="fa fa-file-excel-o"></i>
                 Správa súborov
               </a>
@@ -78,21 +78,28 @@
 
       <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
         <div class="row">
-          <div class="col" >
-            <form id="uploadForm" enctype="multipart/form-data" action="upload" method="post">
-              <div class="form-group">
-                <!-- <label class="label">Vyberte súbor vo formáte .xls alebo .xlsx</label> -->
-                <h1 class="h2">Vyberte súbor vo formáte .xls alebo .xlsx</h1>
-                <hr>
 
-                <input type="file" name="file" class="form-control-file" id="file">
-
-                <input type="button" class="btn btn-outline-primary" value="Nahrať" id="but_upload" name="submit"> Nahratie súboru <br>
-                <hr>
-
+          <div class="w-100">
+              <div class="col">
+                <h1 class="h2">Výber súboru z databázy</h1> <br>
+                <div id="databaza-loading">Loading...</div>
+                <alert id="databaza-no-data" class="warning">V databáze zatiaľ nie su žiadne dáta</alert>
+                  <select title="Vyberte súbor" id="select-file"> </select>
+                  <button type="button" class="btn btn-success">Vyhovujúci</button>
+                  <button type="button" class="btn btn-danger">Nevyhovujúci</button>
+                  <hr>
               </div>
-            </form>
           </div>
+        </div>
+
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 ">
+         <!--  border-bottom  - ak chcem orámovať text zo spodu-->
+          <h1 class="h2">Vykreslené hodnoty CO + CO2</h1>
+        </div>
+
+        <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
+        <div class="my-4 w-100">
+          <canvas id="myChart" height="25em" width="50em" ></canvas>
         </div>
       </main>
     </div>
@@ -107,8 +114,7 @@
 <!-- Bootstrap -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="js/bootstrap-select.js"></script>
-<script src='index.js'></script>
+<script src='sprava-suborov.js'></script>
 
 </body>
 </html>
-
