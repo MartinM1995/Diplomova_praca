@@ -111,25 +111,6 @@ export function registerUploadFile() {
                 .attr("title");
               let stlpce = stlpcestring.split(", ");
 
-              // for (let i = 0; i < stlpce.length; i++){
-              //     window.chartModel[fileName + "_" + stlpce[i]] =
-              // }
-
-              // let pole1 = [];
-              // let pole2 = [];
-              // let vysledok = [];
-
-              // for(let i = 0; i < stlpce.length; i++){
-              //     window.chartModel[fileName + "_" + stlpce[i]] = pole1.push(stlpce[i].length);
-              //     window.chartModel[fileName + "_" + stlpce[i]] = pole2.push(stlpce[i].length);
-
-              //     pole1 =  array[i].val();
-              // }
-              // for(var i = 0; i < pole1.length; i++){
-              //    vysledok.push(pole1[i] + pole2[i]);
-              // }
-
-              // console.log("Výsledný stĺpec: ", stlpce.length);
             });
 
             // Zmazanie z grafu
