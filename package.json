@@ -10,7 +10,8 @@
     "watch:client": "rollup -c -w",
     "watch:server": "nodemon server/app.js --exec babel-node --presets @babel/preset-env",
     "dev": "npm-run-all --parallel watch:client watch:server",
-    "start": "node dist/app.js"
+    "start": "node dist/app.js",
+    "dropdb": "babel-node scripts/dropdb.js"
   },
   "keywords": [],
   "author": "",

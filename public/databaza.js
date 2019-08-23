@@ -16,12 +16,6 @@
   let fileId = null;
   let db = null;
 
-  $("#databaza-container").hide();
-  $("#databaza-loading").show();
-  $("#databaza-no-data").hide();
-
-  loadData();
-
   async function loadData() {
     db = await getData();
     if (db && db.data && db.data.length > 0) {
@@ -32,9 +26,11 @@
       select.on("change", e => {
         fileId = e.target.value;
         const data = db.data.find(d => d._id === fileId);
+        console.log(data);
         renderTable(data);
       });
       db.data.forEach(data => {
+        console.log(data._id);
         const option = `<option value=${data._id}>${data.name}</option>`;
         select.append(option);
       });
@@ -65,5 +61,11 @@
       return false;
     }
   }
+
+  $("#databaza-container").hide();
+  $("#databaza-loading").show();
+  $("#databaza-no-data").hide();
+
+  loadData();
 
 }($));

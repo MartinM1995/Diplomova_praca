@@ -84,10 +84,11 @@
                 <h1 class="h2">Výber súboru z databázy</h1> <br>
                 <div id="databaza-loading">Loading...</div>
                 <alert id="databaza-no-data" class="warning">V databáze zatiaľ nie su žiadne dáta</alert>
-                  <select title="Vyberte súbor" id="select-file"> </select>
-                  <button type="button" class="btn btn-success">Vyhovujúci</button>
-                  <button type="button" class="btn btn-danger">Nevyhovujúci</button>
-                  <hr>
+                <select title="Vyberte súbor" id="select-file"> </select>
+                <div id="file-status"></div>
+                <button type="button" class="btn btn-success" id="vyhovuje">Vyhovujúci</button>
+                <button type="button" class="btn btn-danger" id="nevyhovuje">Nevyhovujúci</button>
+                <hr>
               </div>
           </div>
         </div>

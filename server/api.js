@@ -68,7 +68,7 @@ router.post("/upload", function(req, res) {
             name: req.file.originalname,
             filePath: req.file.path,
             data: result,
-            status: "NOT_TESTED",
+            status: "Netestovaný",
           });
           doc.save(result, function(err, success) {
             if (err) {
@@ -84,5 +84,22 @@ router.post("/upload", function(req, res) {
     }
   });
 });
+
+router.post("/set-status/:id", function(req, res) {
+  console.log(req.body)
+  Data.updateOne({ _id: req.params.id }, { status: req.body.status }, function(err, result) {
+    if (err) {
+      res.json({ error_code: 1, err_desc: "Empty dataset" });
+    } else {
+      Data.findById(req.params.id, function(err, result) {
+        if (err) {
+          res.json({ error_code: 1, err_desc: "Empty dataset" });
+        } else {
+          res.json({ error_code: 0, err_desc: null, data: result });
+        }
+      });
+    }
+  });
+})
 
 export default router;

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-export const ALLOWED_STATUS = ["NOT_TESTED", "CORRECT", "CORRUPT"];
+export const ALLOWED_STATUS = ["Netestovaný", "Vyhovujúci", "Nevyhovujúci"];
 
 export const DataSchema = new mongoose.Schema(
   {
@@ -53,4 +53,15 @@ export function connectDB() {
   db.once("open", function() {
     console.log("Pripojenie do databázy prebehlo úspešne.");
   });
+}
+
+export function dropDB() {
+  DataModel.remove({}, function(err) {
+    if (err) {
+      console.log(err)
+      return
+    }
+
+    console.log("Databaza bola vymazana.")
+  })
 }

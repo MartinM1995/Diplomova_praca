@@ -3,77 +3,217 @@
 
   $ = $ && $.hasOwnProperty('default') ? $['default'] : $;
 
-    $('input[type="file"]').change(function(e) {
-      var fileName = e.target.files[0].name;
-      alert('Bol vybratý "' + fileName + '" súbor.');
-    });
+  function getRandomColor() {
+    var letters = "0123456789ABCDEF";
+    var color = "#";
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
 
-    var config = {
-      frontendUrl: 'http://localhost:3000',
-      backendUrl: 'http://localhost:3000'
+  function renderChart(chartModel) {
+    window.chart.options.legend.display = true;
+    window.chart.options.title.display = true;
+    window.chart.data.datasets = [];
+    window.chart.data.labels = [];
+
+    let maxLength = 0;
+    console.log(chartModel);
+    for (let col in chartModel) {
+      window.chart.data.datasets.push({
+        data: chartModel[col].data,
+        label: chartModel[col].label,
+        fill: false,
+        backgroundColor: "transparent",
+        borderColor: chartModel[col].borderColor,
+        borderWidth: 1,
+      });
+
+      if (maxLength < chartModel[col].data.length) maxLength = chartModel[col].data.length;
+    }
+    console.log(window.chart.data.datasets);
+
+    // TODO: prist na to, ako vybrat nie len labels ale aj data
+    for (let i = 0; i < maxLength; i++) {
+      window.chart.data.labels.push(i);
+    }
+    console.log(window.chart.data.labels);
+    // window.chart.data.labels = [0];
+    // let count = 0;
+    // while (count < maxLength) {
+    //   if (count % 25) {
+    //     window.chart.data.labels.push(window.chart.data.labels[i] + 25)
+    // }
+    // for (let i = 0; i < maxLength; i++) {
+    //   window.chart.data.labels.push(window.chart.data.labels[i] + 25)
+    // }
+
+    window.chart.options.scales = {
+      xAxes: [
+        {
+          gridLines: {
+            display: true,
+            color: "black",
+            borderDash: [2],
+          },
+          scaleLabel: {
+            display: true,
+            labelString: "Čas(s)",
+            fontColor: "black",
+          },
+          ticks: {
+            beginAtZero: true,
+            userCallback: function(item, index) {
+              if (!(index % 0.5)) return item;
+            },
+            min: 0,
+            max: 500,
+            stepSize: 50,
+          },
+        },
+      ],
     };
 
-    function registerUploadFile() {
-      $("#but_upload").click(function() {
-        var formData = new FormData();
-        var file = $("#file")[0].files[0];
-        console.log(file);
-        formData.append("file", file);
+    window.chart.update();
+  }
 
-        fetch(`${config.backendUrl}/api/upload`, {
-          method: "POST",
-          mode: "cors",
-          body: formData,
-        })
-          .then(res => res.json())
-          .then(response => {
-            if (response && response != 0) {
-              console.log("response: ", response);
-              window.myJSONData = response.data;
+  var config = {
+    frontendUrl: 'http://localhost:3000',
+    backendUrl: 'http://localhost:3000'
+  };
 
-              var fileName = $("input[type=file]")
-                .val()
-                .split("\\")
-                .pop();
-              $("#target").attr("value", "Súbor: " + fileName);
+  function registerUploadFile() {
+    $("#but_upload").click(function() {
+      var formData = new FormData();
+      var file = $("#file")[0].files[0];
+      console.log(file);
+      formData.append("file", file);
 
-              let novyRiadok = $("#vkladanie").clone();
+      fetch(`${config.backendUrl}/api/upload`, {
+        method: "POST",
+        mode: "cors",
+        body: formData,
+      })
+        .then(res => res.json())
+        .then(response => {
+          console.log(response);
+          if (response && response != 0) {
+            console.log("response: ", response);
+            window.myJSONData = response.data;
 
-              if (response.data && response.data[0]) {
-                // Pridanie stĺpcov do dropdownu
-                const columns = Object.keys(response.data[0]);
-                for (let i = 0; i < columns.length; i++) {
-                  const option = "<option>" + columns[i] + "</option>";
-                  novyRiadok.find(".selectpicker").append(option);
-                }
+            var fileName = $("input[type=file]")
+              .val()
+              .split("\\")
+              .pop();
+            $("#target").attr("value", "Súbor: " + fileName);
 
-                // Pridanie nového riadku
-                novyRiadok.appendTo($(".row"));
+            let novyRiadok = $("#vkladanie").clone();
+            novyRiadok.removeClass("d-none");
+            novyRiadok.addClass("div-css");
 
-                // Pridanie do grafu
-                let dataObject = {};
-                for (let i = 0; i < response.data.length; i++) {
-                  // Prechádzanie riadkov odpovede
-                  let row = response.data[i]; // Uloženie jedného riadku do premennej row, riadok má tvar objektu
-                  for (let key in row) {
-                    if (!dataObject[key]) {
-                      dataObject[key] = [];
-                    }
-                    dataObject[key].push(parseFloat(row[key])); // Urobí atribút s názvom akutálneho stĺpca
-                  }
-                }
+            // Pridanie nového ID pre novyRiadok
+            let n = $(".col").length;
+            let div_id = "div-id" + n++;
 
-                alert("Súbor bol úspešne nahraný! ", response);
+            novyRiadok.attr("id", function() {
+              return div_id;
+            });
+
+            if (response.data && response.data[0]) {
+              // Pridanie stĺpcov do dropdownu
+              const columns = Object.keys(response.data[0]);
+              for (let i = 0; i < columns.length; i++) {
+                const option = "<option>" + columns[i] + "</option>";
+                novyRiadok.find(".selectpicker").append(option);
               }
-            } else {
-              alert("Súbor sa nenahral!");
+
+              // Pridanie multiselectu
+              novyRiadok.find(".selectpicker").selectpicker();
+              novyRiadok
+                .find("button[role='button']")
+                .last()
+                .remove();
+
+              // Pridanie nového riadku
+              novyRiadok.appendTo($(".row"));
+
+              // Zmazanie riadku
+              let riadok = novyRiadok;
+              riadok.find("#delete-novyRiadok").click(function() {
+                $("#" + novyRiadok.attr("id")).remove();
+                alert("Súbor bol zmazaný.");
+              });
+
+              // Pridanie do grafu
+              let dataObject = {};
+              for (let i = 0; i < response.data.length; i++) {
+                // Prechádzanie riadkov odpovede
+                let row = response.data[i]; // Uloženie jedného riadku do premennej row, riadok má tvar objektu
+                for (let key in row) {
+                  if (!dataObject[key]) {
+                    dataObject[key] = [];
+                  }
+                  dataObject[key].push(parseFloat(row[key])); // Urobí atribút s názvom akutálneho stĺpca
+                }
+              }
+
+              window.uploadedData[fileName] = dataObject;
+
+              riadok.find("#add-to-chart").click(function() {
+                let stlpcestring = $("#" + novyRiadok.attr("id"))
+                  .find(".btn.dropdown-toggle.btn-light")
+                  .attr("title");
+                let stlpce = stlpcestring.split(", ");
+
+                for (let i = 0; i < stlpce.length; i++) {
+                  window.chartModel[fileName + "_" + stlpce[i]] = {
+                    data: window.uploadedData[fileName][stlpce[i]],
+                    label: fileName + "_" + stlpce[i],
+                    borderColor: getRandomColor(),
+                  };
+                }
+
+                renderChart(chartModel);
+              });
+
+              riadok.find("#sum_co_co2").click(function() {
+                let stlpcestring = $("#" + novyRiadok.attr("id"))
+                  .find(".btn.dropdown-toggle.btn-light")
+                  .attr("title");
+                let stlpce = stlpcestring.split(", ");
+
+              });
+
+              // Zmazanie z grafu
+              riadok.find("#delete-from-chart").click(function() {
+                let stlpcestring = $("#" + novyRiadok.attr("id"))
+                  .find(".btn.dropdown-toggle.btn-light")
+                  .attr("title");
+                let stlpce = stlpcestring.split(", ");
+
+                for (let i = 0; i < stlpce.length; i++) {
+                  delete window.chartModel[fileName + "_" + stlpce[i]];
+                }
+
+                renderChart(chartModel);
+              });
+
+              alert("Súbor bol úspešne nahraný! ", response);
             }
-          })
-          .catch(error => console.error("Error:", error));
-      });
-    }
+          } else {
+            alert("Súbor sa nenahral!");
+          }
+        })
+        .catch(error => console.error("Error:", error));
+    });
+  }
 
-    registerUploadFile();
+  $('input[type="file"]').change(function(e) {
+    var fileName = e.target.files[0].name;
+    alert('Bol vybratý "' + fileName + '" súbor.');
+  });
 
-  }($));
+  registerUploadFile();
 
+}($));

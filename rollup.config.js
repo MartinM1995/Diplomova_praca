@@ -3,14 +3,16 @@ export default [{
 	output: {
 		dir: './public/',
     format: 'iife',
-    sourcemaps: true
+    sourcemaps: true,
+    globals: ["$"]
 	}
 }, {
 	input: './client/analyza-dat.js',
 	output: {
 		dir: './public/',
     format: 'iife',
-    sourcemaps: true
+    sourcemaps: true,
+    globals: ["$"]
 	}
 },
 {
@@ -18,13 +20,23 @@ export default [{
 	output: {
 		dir: './public/',
     format: 'iife',
-    sourcemaps: true
+    sourcemaps: true,
+    globals: ["$"]
 	}
 },{
 	input: './client/databaza.js',
 	output: {
 		dir: './public/',
     format: 'iife',
-    sourcemaps: true
+    sourcemaps: true,
+    globals: ["$"]
+	}
+},{
+	input: './client/o-aplikacii.js',
+	output: {
+		dir: './public/',
+    format: 'iife',
+    sourcemaps: true,
+    globals: ["$"]
 	}
 }];

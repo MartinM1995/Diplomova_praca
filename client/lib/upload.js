@@ -1,15 +1,7 @@
 import $ from "jquery";
 import { renderChart } from "./graf";
+import { getRandomColor } from "./utils"
 import config from "../config";
-
-function getRandomColor() {
-  var letters = "0123456789ABCDEF";
-  var color = "#";
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
 
 export function registerUploadFile() {
   $("#but_upload").click(function() {
