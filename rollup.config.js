@@ -39,4 +39,12 @@ export default [{
     sourcemaps: true,
     globals: ["$"]
 	}
+},{
+  input: './client/vykreslovanie-dat.js',
+  output: {
+    dir: './public/',
+    format: 'iife',
+    sourcemaps: true,
+    globals: ["$"]
+  }
 }];

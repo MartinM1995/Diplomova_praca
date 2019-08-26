@@ -19,7 +19,6 @@
     window.chart.data.labels = [];
 
     let maxLength = 0;
-    console.log(chartModel);
     for (let col in chartModel) {
       window.chart.data.datasets.push({
         data: chartModel[col].data,
@@ -32,48 +31,10 @@
 
       if (maxLength < chartModel[col].data.length) maxLength = chartModel[col].data.length;
     }
-    console.log(window.chart.data.datasets);
 
-    // TODO: prist na to, ako vybrat nie len labels ale aj data
     for (let i = 0; i < maxLength; i++) {
       window.chart.data.labels.push(i);
     }
-    console.log(window.chart.data.labels);
-    // window.chart.data.labels = [0];
-    // let count = 0;
-    // while (count < maxLength) {
-    //   if (count % 25) {
-    //     window.chart.data.labels.push(window.chart.data.labels[i] + 25)
-    // }
-    // for (let i = 0; i < maxLength; i++) {
-    //   window.chart.data.labels.push(window.chart.data.labels[i] + 25)
-    // }
-
-    window.chart.options.scales = {
-      xAxes: [
-        {
-          gridLines: {
-            display: true,
-            color: "black",
-            borderDash: [2],
-          },
-          scaleLabel: {
-            display: true,
-            labelString: "Čas(s)",
-            fontColor: "black",
-          },
-          ticks: {
-            beginAtZero: true,
-            userCallback: function(item, index) {
-              if (!(index % 0.5)) return item;
-            },
-            min: 0,
-            max: 500,
-            stepSize: 50,
-          },
-        },
-      ],
-    };
 
     window.chart.update();
   }
@@ -97,7 +58,6 @@
       })
         .then(res => res.json())
         .then(response => {
-          console.log(response);
           if (response && response != 0) {
             console.log("response: ", response);
             window.myJSONData = response.data;
@@ -158,7 +118,7 @@
                 }
               }
 
-              window.uploadedData[fileName] = dataObject;
+              // window.uploadedData[fileName] = dataObject;
 
               riadok.find("#add-to-chart").click(function() {
                 let stlpcestring = $("#" + novyRiadok.attr("id"))
@@ -175,14 +135,6 @@
                 }
 
                 renderChart(chartModel);
-              });
-
-              riadok.find("#sum_co_co2").click(function() {
-                let stlpcestring = $("#" + novyRiadok.attr("id"))
-                  .find(".btn.dropdown-toggle.btn-light")
-                  .attr("title");
-                let stlpce = stlpcestring.split(", ");
-
               });
 
               // Zmazanie z grafu

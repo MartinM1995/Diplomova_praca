@@ -22,16 +22,20 @@
       $("#databaza-container").show();
       $("#databaza-loading").hide();
       $("#databaza-no-data").hide();
+      $('#select-file').removeClass("d-none");
+      $('#vyhovuje').removeClass("d-none");
+      $('#nevyhovuje').removeClass("d-none");
       const select = $("#select-file");
       select.on("change", e => {
         fileId = e.target.value;
         const data = db.data.find(d => d._id === fileId);
-        console.log(data);
+        console.log("Data:", data);
         renderTable(data);
       });
       db.data.forEach(data => {
         console.log(data._id);
         const option = `<option value=${data._id}>${data.name}</option>`;
+
         select.append(option);
       });
       select.selectpicker();
@@ -66,6 +70,20 @@
   $("#databaza-loading").show();
   $("#databaza-no-data").hide();
 
+  let data = null;
+
+  async function setup() {
+    const loadedData = await loadData();
+
+    $("#select-file").on("change", event => {
+      const id = event.target.value;
+      data = loadedData.data.find(d => d._id === id);
+      $('#file-status').removeClass("d-none");
+      document.getElementById("file-status").innerHTML = `Status: ${data.status}`;
+    });
+  }
+
+  setup();
   loadData();
 
 }($));

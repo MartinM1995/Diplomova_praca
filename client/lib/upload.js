@@ -17,7 +17,6 @@ export function registerUploadFile() {
     })
       .then(res => res.json())
       .then(response => {
-        console.log(response);
         if (response && response != 0) {
           console.log("response: ", response);
           window.myJSONData = response.data;
@@ -78,7 +77,7 @@ export function registerUploadFile() {
               }
             }
 
-            window.uploadedData[fileName] = dataObject;
+            // window.uploadedData[fileName] = dataObject;
 
             riadok.find("#add-to-chart").click(function() {
               let stlpcestring = $("#" + novyRiadok.attr("id"))
@@ -95,14 +94,6 @@ export function registerUploadFile() {
               }
 
               renderChart(chartModel);
-            });
-
-            riadok.find("#sum_co_co2").click(function() {
-              let stlpcestring = $("#" + novyRiadok.attr("id"))
-                .find(".btn.dropdown-toggle.btn-light")
-                .attr("title");
-              let stlpce = stlpcestring.split(", ");
-
             });
 
             // Zmazanie z grafu

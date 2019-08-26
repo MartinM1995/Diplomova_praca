@@ -1,7 +1,7 @@
 import $ from "jquery";
 import { getRandomColor } from "./utils";
 
-export function initMainGraf() {
+export function initMainGraf(loadedData) {
   window.chartModel = {};
   window.uploadedData = {};
 
@@ -86,13 +86,12 @@ export function initMainGraf() {
             },
             scaleLabel: {
               display: true,
-              labelString: "Čas(s)",
+              labelString: "Čas (s)",
               fontColor: "black",
             },
             ticks: {
               beginAtZero: true,
-              min: 0,
-              stepSize: 50,
+              min: 0
             },
           },
         ],
@@ -167,7 +166,7 @@ export function initDataManagementGraf(loadedData) {
             },
             scaleLabel: {
               display: true,
-              labelString: "Hodnoty",
+              labelString: "Koncentrácia (%)",
               fontColor: "black",
             },
           },
@@ -181,13 +180,12 @@ export function initDataManagementGraf(loadedData) {
             },
             scaleLabel: {
               display: true,
-              labelString: "Čas(s)",
+              labelString: "Čas (s)",
               fontColor: "black",
             },
             ticks: {
               beginAtZero: true,
               min: 0,
-              stepSize: 50,
             },
           },
         ],
@@ -204,18 +202,14 @@ export function initDataManagementGraf(loadedData) {
     },
   });
 
-  console.log(loadedData)
-
   if (loadedData) {
     const data = [];
     for (let i = 0; i < Object.keys(loadedData.data).length; i++) {
       data[i] = Number(loadedData.data[i]["k4_co"]) + Number(loadedData.data[i]["k4_co2"])
     }
-
     renderCOCO2Chart(data);
   }
 }
-
 
 export function renderCOCO2Chart(data) {
   window.chart.options.legend.display = true;
@@ -227,8 +221,8 @@ export function renderCOCO2Chart(data) {
     data,
     label: "k4_co + k4_co2",
     fill: false,
-    backgroundColor: "transparent",
-    borderColor: getRandomColor(),
+    backgroundColor: getRandomColor(),
+    borderColor: "transparent",
     borderWidth: 1,
   });
 
@@ -236,41 +230,6 @@ export function renderCOCO2Chart(data) {
   for (let i = 0; i < data.length; i++) {
     window.chart.data.labels.push(i);
   }
-  // window.chart.data.labels = [0];
-  // let count = 0;
-  // while (count < maxLength) {
-  //   if (count % 25) {
-  //     window.chart.data.labels.push(window.chart.data.labels[i] + 25)
-  // }
-  // for (let i = 0; i < maxLength; i++) {
-  //   window.chart.data.labels.push(window.chart.data.labels[i] + 25)
-  // }
-
-  window.chart.options.scales = {
-    xAxes: [
-      {
-        gridLines: {
-          display: true,
-          color: "black",
-          borderDash: [2],
-        },
-        scaleLabel: {
-          display: true,
-          labelString: "Čas(s)",
-          fontColor: "black",
-        },
-        ticks: {
-          beginAtZero: true,
-          userCallback: function(item, index) {
-            if (!(index % 0.5)) return item;
-          },
-          min: 0,
-          // max: 500,
-          stepSize: 50,
-        },
-      },
-    ],
-  };
 
   window.chart.update();
 }
@@ -282,7 +241,6 @@ export function renderChart(chartModel) {
   window.chart.data.labels = [];
 
   let maxLength = 0;
-  console.log(chartModel)
   for (let col in chartModel) {
     window.chart.data.datasets.push({
       data: chartModel[col].data,
@@ -295,48 +253,10 @@ export function renderChart(chartModel) {
 
     if (maxLength < chartModel[col].data.length) maxLength = chartModel[col].data.length;
   }
-  console.log(window.chart.data.datasets)
 
-  // TODO: prist na to, ako vybrat nie len labels ale aj data
   for (let i = 0; i < maxLength; i++) {
     window.chart.data.labels.push(i);
   }
-  console.log(window.chart.data.labels)
-  // window.chart.data.labels = [0];
-  // let count = 0;
-  // while (count < maxLength) {
-  //   if (count % 25) {
-  //     window.chart.data.labels.push(window.chart.data.labels[i] + 25)
-  // }
-  // for (let i = 0; i < maxLength; i++) {
-  //   window.chart.data.labels.push(window.chart.data.labels[i] + 25)
-  // }
-
-  window.chart.options.scales = {
-    xAxes: [
-      {
-        gridLines: {
-          display: true,
-          color: "black",
-          borderDash: [2],
-        },
-        scaleLabel: {
-          display: true,
-          labelString: "Čas(s)",
-          fontColor: "black",
-        },
-        ticks: {
-          beginAtZero: true,
-          userCallback: function(item, index) {
-            if (!(index % 0.5)) return item;
-          },
-          min: 0,
-          max: 500,
-          stepSize: 50,
-        },
-      },
-    ],
-  };
 
   window.chart.update();
 }

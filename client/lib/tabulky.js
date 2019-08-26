@@ -10,16 +10,20 @@ export async function loadData() {
     $("#databaza-container").show();
     $("#databaza-loading").hide();
     $("#databaza-no-data").hide();
+    $('#select-file').removeClass("d-none");
+    $('#vyhovuje').removeClass("d-none");
+    $('#nevyhovuje').removeClass("d-none");
     const select = $("#select-file");
     select.on("change", e => {
       fileId = e.target.value;
       const data = db.data.find(d => d._id === fileId);
-      console.log(data)
+      console.log("Data:", data)
       renderTable(data);
     });
     db.data.forEach(data => {
       console.log(data._id)
       const option = `<option value=${data._id}>${data.name}</option>`;
+
       select.append(option);
     });
     select.selectpicker();

@@ -66,18 +66,23 @@
     }
   }
 
-  function getRandomColor() {
-    var letters = "0123456789ABCDEF";
-    var color = "#";
-    for (var i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  }
-
-  function initDataManagementGraf(loadedData) {
+  function initMainGraf(loadedData) {
     window.chartModel = {};
     window.uploadedData = {};
+
+    $("#save-btn").click(function() {
+      $("#myChart")
+        .get(0)
+        .toBlob(function(blob) {
+          var subor = $('input[name="subor"]').val();
+          saveAs(blob, subor + ".png");
+        });
+    });
+
+    $('input[type="file"]').change(function(e) {
+      var fileName = e.target.files[0].name;
+      alert('Bol vybratý "' + fileName + '" súbor.');
+    });
 
     // Global option
     Chart.defaults.global.defaultFontFamily = "Georgia";
@@ -132,7 +137,7 @@
               },
               scaleLabel: {
                 display: true,
-                labelString: "Koncentrácia (%)",
+                labelString: "Hodnoty",
                 fontColor: "black",
               },
             },
@@ -151,7 +156,7 @@
               },
               ticks: {
                 beginAtZero: true,
-                min: 0,
+                min: 0
               },
             },
           ],
@@ -167,37 +172,6 @@
         },
       },
     });
-
-    if (loadedData) {
-      const data = [];
-      for (let i = 0; i < Object.keys(loadedData.data).length; i++) {
-        data[i] = Number(loadedData.data[i]["k4_co"]) + Number(loadedData.data[i]["k4_co2"]);
-      }
-      renderCOCO2Chart(data);
-    }
-  }
-
-  function renderCOCO2Chart(data) {
-    window.chart.options.legend.display = true;
-    window.chart.options.title.display = true;
-    window.chart.data.datasets = [];
-    window.chart.data.labels = [];
-
-    window.chart.data.datasets.push({
-      data,
-      label: "k4_co + k4_co2",
-      fill: false,
-      backgroundColor: getRandomColor(),
-      borderColor: "transparent",
-      borderWidth: 1,
-    });
-
-    // TODO: prist na to, ako vybrat nie len labels ale aj data
-    for (let i = 0; i < data.length; i++) {
-      window.chart.data.labels.push(i);
-    }
-
-    window.chart.update();
   }
 
   $("#databaza-container").hide();
@@ -212,62 +186,36 @@
     $("#select-file").on("change", event => {
       const id = event.target.value;
       data = loadedData.data.find(d => d._id === id);
-      initDataManagementGraf(data);
+      // initMainGraf(data);
       $('#file-status').removeClass("d-none");
       document.getElementById("file-status").innerHTML = `Status: ${data.status}`;
-    });
 
-    $("#vyhovuje").on("click", event => {
-      if (data) {
-        fetch(`/api/set-status/${data._id}`, {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            status: "Vyhovujúci",
-          }),
-        })
-          .then(async res => {
-            const response = await res.json();
-            document.getElementById("file-status").innerHTML = `Status: ${response.data.status}`;
-            alert("Status súboru bol nastavený na vyhovujúci.");
-          })
-          .catch(err => {
-            console.error(err);
-            alert("Nastal problem s komunikáciou s databázou.");
-          });
-      }
-    });
+      $('#vkladanie').removeClass("d-none");
+      $('#vkladanie').addClass("div-css");
+      $('#vkladanie').find(".selectpicker").empty();
 
-    $("#nevyhovuje").on("click", event => {
-      if (data) {
-        fetch(`/api/set-status/${data._id}`, {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            status: "Nevyhovujúci",
-          }),
-        })
-          .then(async res => {
-            const response = await res.json();
-            document.getElementById("file-status").innerHTML = `Status: ${response.data.status}`;
-            alert("Status súboru bol nastavený na nevyhovujúci.");
-          })
-          .catch(err => {
-            console.error(err);
-            alert("Nastal problem s komunikáciou s databázou.");
-          });
-      }
-    });
+      if (data.data && data.data[0]) {
+        // Pridanie stĺpcov do dropdownu
+        const columns = Object.keys(data.data[0]);
+        for (let i = 0; i < columns.length; i++) {
+          const option = "<option>" + columns[i] + "</option>";
+          $('#vkladanie').find(".selectpicker").append(option);
+        }
 
-    initDataManagementGraf(data);
+        let newVkladanie = $('#vkladanie').clone();
+        newVkladanie.find(".selectpicker").selectpicker();
+        newVkladanie
+                .find("button[role='button']")
+                .last()
+                .remove();
+        $("#vkladanie-container").empty();
+        $("#vkladanie-container").append(newVkladanie);
+
+        }
+      });
   }
 
+  initMainGraf();
   setup();
 
 }($));

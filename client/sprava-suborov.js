@@ -15,6 +15,7 @@ async function setup() {
     const id = event.target.value;
     data = loadedData.data.find(d => d._id === id);
     initDataManagementGraf(data);
+    $('#file-status').removeClass("d-none");
     document.getElementById("file-status").innerHTML = `Status: ${data.status}`;
   });
 
@@ -70,3 +71,5 @@ async function setup() {
 }
 
 setup();
+
+
