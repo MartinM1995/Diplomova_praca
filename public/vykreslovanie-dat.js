@@ -66,6 +66,15 @@
     }
   }
 
+  function getRandomColor() {
+    var letters = "0123456789ABCDEF";
+    var color = "#";
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
   function initMainGraf(loadedData) {
     window.chartModel = {};
     window.uploadedData = {};
@@ -174,6 +183,33 @@
     });
   }
 
+  function renderChart(chartModel) {
+    window.chart.options.legend.display = true;
+    window.chart.options.title.display = true;
+    window.chart.data.datasets = [];
+    window.chart.data.labels = [];
+
+    let maxLength = 0;
+    for (let col in chartModel) {
+      window.chart.data.datasets.push({
+        data: chartModel[col].data,
+        label: chartModel[col].label,
+        fill: false,
+        backgroundColor: "transparent",
+        borderColor: chartModel[col].borderColor,
+        borderWidth: 1,
+      });
+
+      if (maxLength < chartModel[col].data.length) maxLength = chartModel[col].data.length;
+    }
+
+    for (let i = 0; i < maxLength; i++) {
+      window.chart.data.labels.push(i);
+    }
+
+    window.chart.update();
+  }
+
   $("#databaza-container").hide();
   $("#databaza-loading").show();
   $("#databaza-no-data").hide();
@@ -211,11 +247,42 @@
         $("#vkladanie-container").empty();
         $("#vkladanie-container").append(newVkladanie);
 
+        window.fileName = data.name;
+        window.vkladanie = newVkladanie;
+
+         // Pridanie do grafu
+        window.dataObject = {};
+        for (let i = 0; i < loadedData.data.length; i++) {
+          let row = data.data[i]; // Uloženie jedného riadku do premennej row, riadok má tvar objektu
+          for (let key in row) {
+            if (!dataObject[key]){
+            dataObject[key] = [];
+            }
+            dataObject[key].push(parseFloat(row[key]));
+          }
+        }
+        window.uploadedData[fileName] = dataObject;
+
+        vkladanie.find('#add-to-chart').click(function(){
+          let stlpcestring = $("#" + newVkladanie.attr("id")).find(".btn.dropdown-toggle.btn-light").attr("title");
+          let stlpce = stlpcestring.split(", ");
+
+          for (let i = 0; i < stlpce.length; i++){
+            window.chartModel[fileName + "_" + stlpce[i]] = {
+              data: window.uploadedData[fileName][stlpce[i]],
+              label: fileName + "_" + stlpce[i],
+              borderColor: getRandomColor()
+            };
+          }
+          renderChart(chartModel);
+        });
+
         }
       });
+    initMainGraf();
+    renderChart(chartModel);
   }
 
-  initMainGraf();
   setup();
 
 }($));

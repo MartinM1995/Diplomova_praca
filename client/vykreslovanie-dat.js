@@ -1,6 +1,7 @@
 import $ from "jquery";
 import { loadData } from "./lib/tabulky";
 import { initMainGraf } from "./lib/graf";
+import { renderChart } from "./lib/graf";
 import { getRandomColor } from "./lib/utils";
 
 $("#databaza-container").hide();
@@ -40,9 +41,40 @@ async function setup() {
       $("#vkladanie-container").empty();
       $("#vkladanie-container").append(newVkladanie);
 
+      window.fileName = data.name;
+      window.vkladanie = newVkladanie;
+
+       // Pridanie do grafu
+      window.dataObject = {};
+      for (let i = 0; i < loadedData.data.length; i++) {
+        let row = data.data[i]; // Uloženie jedného riadku do premennej row, riadok má tvar objektu
+        for (let key in row) {
+          if (!dataObject[key]){
+          dataObject[key] = [];
+          }
+          dataObject[key].push(parseFloat(row[key]));
+        }
+      }
+      window.uploadedData[fileName] = dataObject;
+
+      vkladanie.find('#add-to-chart').click(function(){
+        let stlpcestring = $("#" + newVkladanie.attr("id")).find(".btn.dropdown-toggle.btn-light").attr("title");
+        let stlpce = stlpcestring.split(", ");
+
+        for (let i = 0; i < stlpce.length; i++){
+          window.chartModel[fileName + "_" + stlpce[i]] = {
+            data: window.uploadedData[fileName][stlpce[i]],
+            label: fileName + "_" + stlpce[i],
+            borderColor: getRandomColor()
+          }
+        }
+        renderChart(chartModel);
+      });
+
       }
     });
+  initMainGraf(data);
+  renderChart(chartModel);
 }
 
-initMainGraf(data);
 setup();
