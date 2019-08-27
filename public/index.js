@@ -24,7 +24,7 @@
         data: chartModel[col].data,
         label: chartModel[col].label,
         fill: false,
-        backgroundColor: "transparent",
+        backgroundColor: getRandomColor(),
         borderColor: chartModel[col].borderColor,
         borderWidth: 1,
       });

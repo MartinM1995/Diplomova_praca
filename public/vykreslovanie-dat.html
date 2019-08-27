@@ -95,27 +95,25 @@
             <h4>Vykreslenie do grafu</h4>
             <div id=vkladanie-container>
               <div id="vkladanie" class="d-none">
-                <div class="col">
                   <select class="selectpicker" multiple data-live-search="true" title="Vyberte stĺpce" data-actions-box="true">
                   </select>
-
                   <button type="button" id="add-to-chart" class="btn btn-outline-success">Pridať do grafu</button>
                   <button type="button" id="delete-from-chart"class="btn btn-outline-danger">Odstrániť z grafu</button>
-
-                </div>
               </div>
             </div>
             <hr>
 
             <h4>Uloženie grafu</h4>
-            <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
-              <div class="btn-group mr-2" role="group" aria-label="First group">
-                <input type="button" class="btn btn-outline-primary" value="Uložiť obrázok" id="save-btn">
+            <div class="d-none" id="save-chart">
+              <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <input type="button" class="btn btn-outline-primary" value="Uložiť ako obrázok" id="save-btn">
+                </div>
+                <div class="input-group">
+                  <input type="text" name="subor" class="form-control" placeholder="Zadajte názov" aria-label="Input group example" aria-describedby="btnGroupAddon">
+                </div>
+                <!-- <input id="target" value="" type="button" class="btn btn-primary dropdown-toggle"></input> -->
               </div>
-              <div class="input-group">
-                <input type="text" name="subor" class="form-control" placeholder="Zadajte názov obrázka" aria-label="Input group example" aria-describedby="btnGroupAddon">
-              </div>
-              <!-- <input id="target" value="" type="button" class="btn btn-primary dropdown-toggle"></input> -->
             </div>
 
             <hr>

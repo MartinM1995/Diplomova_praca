@@ -195,7 +195,7 @@
         data: chartModel[col].data,
         label: chartModel[col].label,
         fill: false,
-        backgroundColor: "transparent",
+        backgroundColor: getRandomColor(),
         borderColor: chartModel[col].borderColor,
         borderWidth: 1,
       });
@@ -222,11 +222,11 @@
     $("#select-file").on("change", event => {
       const id = event.target.value;
       data = loadedData.data.find(d => d._id === id);
-      // initMainGraf(data);
       $('#file-status').removeClass("d-none");
       document.getElementById("file-status").innerHTML = `Status: ${data.status}`;
 
       $('#vkladanie').removeClass("d-none");
+      $('#save-chart').removeClass("d-none");
       $('#vkladanie').addClass("div-css");
       $('#vkladanie').find(".selectpicker").empty();
 
@@ -247,13 +247,14 @@
         $("#vkladanie-container").empty();
         $("#vkladanie-container").append(newVkladanie);
 
-        window.fileName = data.name;
-        window.vkladanie = newVkladanie;
+        let fileName = data.name;
+        let vkladanie = newVkladanie;
 
+        window.actualData = loadedData.data.find(it => it.name === fileName);
          // Pridanie do grafu
-        window.dataObject = {};
-        for (let i = 0; i < loadedData.data.length; i++) {
-          let row = data.data[i]; // Uloženie jedného riadku do premennej row, riadok má tvar objektu
+        let dataObject = {};
+        for (let i = 0; i < Object.keys(actualData.data).length; i++) {
+          let row = actualData.data[i]; // Uloženie jedného riadku do premennej row, riadok má tvar objektu
           for (let key in row) {
             if (!dataObject[key]){
             dataObject[key] = [];
@@ -271,14 +272,25 @@
             window.chartModel[fileName + "_" + stlpce[i]] = {
               data: window.uploadedData[fileName][stlpce[i]],
               label: fileName + "_" + stlpce[i],
-              borderColor: getRandomColor()
+              borderColor: "transparent"
             };
+          }
+          renderChart(chartModel);
+        });
+
+        vkladanie.find('#delete-from-chart').click(function(){
+          let stlpcestring = $("#" + newVkladanie.attr("id")).find(".btn.dropdown-toggle.btn-light").attr("title");
+          let stlpce = stlpcestring.split(", ");
+
+          for (let i = 0; i < stlpce.length; i++){
+            delete window.chartModel[fileName + "_" + stlpce[i]];
           }
           renderChart(chartModel);
         });
 
         }
       });
+
     initMainGraf();
     renderChart(chartModel);
   }

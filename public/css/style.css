@@ -120,15 +120,12 @@ canvas {
   width: 90%;
 }
 
-
-
 .form-control-file {
+  margin: 0px 0px 10px 0px;
   width: 50%;
 }
 
-div.btn-toolbar.mb-3 {
-  margin: 0px 0px 0px 5px;
-}
+
 
 .label {
   font-size: 18px;
@@ -136,9 +133,6 @@ div.btn-toolbar.mb-3 {
   padding: 10px 5px 1px 5px;
 }
 
-input {
-  margin: 5px;
-}
 
 .div-css {
   width: 99%;
