@@ -23,8 +23,6 @@
       $("#databaza-loading").hide();
       $("#databaza-no-data").hide();
       $('#select-file').removeClass("d-none");
-      $('#vyhovuje').removeClass("d-none");
-      $('#nevyhovuje').removeClass("d-none");
       const select = $("#select-file");
       select.on("change", e => {
         fileId = e.target.value;
@@ -114,8 +112,8 @@
           padding: {
             left: 20,
             top: 20,
-            left: 0,
-            bottom: 0,
+            right: 20,
+            bottom: 20,
           },
         },
 
@@ -131,7 +129,7 @@
                 beginAtZero: true,
               },
               scaleLabel: {
-                display: true,
+                display: false,
                 labelString: "Koncentrácia (%)",
                 fontColor: "black",
               },
@@ -145,7 +143,7 @@
                 borderDash: [2],
               },
               scaleLabel: {
-                display: true,
+                display: false,
                 labelString: "Čas (s)",
                 fontColor: "black",
               },
@@ -157,12 +155,12 @@
           ],
         },
         pan: {
-          enabled: true,
+          enabled: false,
           mode: "xy",
         },
 
         zoom: {
-          enabled: true,
+          enabled: false,
           mode: "xy",
         },
       },
@@ -195,6 +193,10 @@
   }
 
   function renderCOCO2Chart(data) {
+    window.chart.options.scales.xAxes[0].scaleLabel.display = true;
+    window.chart.options.scales.yAxes[0].scaleLabel.display = true;
+    window.chart.options.pan.enabled = true;
+    window.chart.options.zoom.enabled = true;
     window.chart.options.legend.display = true;
     window.chart.options.title.display = true;
     window.chart.data.datasets = [];
@@ -231,6 +233,9 @@
       data = loadedData.data.find(d => d._id === id);
       initDataManagementGraf(data);
       $('#file-status').removeClass("d-none");
+      $('#chart-canvas').removeClass("d-none");
+      $('#vyhovuje').removeClass("d-none");
+      $('#nevyhovuje').removeClass("d-none");
       document.getElementById("file-status").innerHTML = `Status: ${data.status}`;
     });
 

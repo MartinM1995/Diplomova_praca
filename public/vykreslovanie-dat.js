@@ -23,8 +23,6 @@
       $("#databaza-loading").hide();
       $("#databaza-no-data").hide();
       $('#select-file').removeClass("d-none");
-      $('#vyhovuje').removeClass("d-none");
-      $('#nevyhovuje').removeClass("d-none");
       const select = $("#select-file");
       select.on("change", e => {
         fileId = e.target.value;
@@ -115,7 +113,7 @@
 
         legend: {
           position: "top",
-          display: true,
+          display: false,
           fontStyle: "bold",
         },
 
@@ -123,7 +121,7 @@
           padding: {
             left: 20,
             top: 20,
-            left: 0,
+            right: 0,
             bottom: 0,
           },
         },
@@ -140,7 +138,7 @@
                 beginAtZero: true,
               },
               scaleLabel: {
-                display: true,
+                display: false,
                 labelString: "Hodnoty",
                 fontColor: "black",
               },
@@ -154,7 +152,7 @@
                 borderDash: [2],
               },
               scaleLabel: {
-                display: true,
+                display: false,
                 labelString: "Čas (s)",
                 fontColor: "black",
               },
@@ -166,12 +164,12 @@
           ],
         },
         pan: {
-          enabled: true,
+          enabled: false,
           mode: "xy",
         },
 
         zoom: {
-          enabled: true,
+          enabled: false,
           mode: "xy",
         },
       },
@@ -179,6 +177,11 @@
   }
 
   function renderChart(chartModel) {
+    console.log("funkcia:", renderChart);
+    window.chart.options.scales.xAxes[0].scaleLabel.display = true;
+    window.chart.options.scales.yAxes[0].scaleLabel.display = true;
+    window.chart.options.pan.enabled = true;
+    window.chart.options.zoom.enabled = true;
     window.chart.options.legend.display = true;
     window.chart.options.title.display = true;
     window.chart.data.datasets = [];
@@ -191,7 +194,7 @@
         data: chartModel[col].data,
         label: chartModel[col].label,
         fill: false,
-        backgroundColor: getRandomColor(),
+        backgroundColor: chartModel[col].backgroundColor,
         borderColor: chartModel[col].borderColor,
         borderWidth: 1,
       });
@@ -223,6 +226,7 @@
 
       $('#vkladanie').removeClass("d-none");
       $('#save-chart').removeClass("d-none");
+      $('#work-with-data').removeClass("d-none");
       $('#vkladanie').find(".selectpicker").empty();
 
       if (data.data && data.data[0]) {
@@ -245,7 +249,7 @@
         let fileName = data.name;
         let vkladanie = newVkladanie;
 
-        window.actualData = loadedData.data.find(it => it.name === fileName);
+        let actualData = loadedData.data.find(it => it.name === fileName);
 
         let dataObject = {};
         for (let i = 0; i < Object.keys(actualData.data).length; i++) {
@@ -260,6 +264,8 @@
         window.uploadedData[fileName] = dataObject;
 
         vkladanie.find('#add-to-chart').click(function(){
+          $('#rendering-chart').removeClass("d-none");
+
           let stlpcestring = $("#" + newVkladanie.attr("id")).find(".btn.dropdown-toggle.btn-light").attr("title");
           let stlpce = stlpcestring.split(", ");
 
@@ -267,6 +273,7 @@
             window.chartModel[fileName + "_" + stlpce[i]] = {
               data: window.uploadedData[fileName][stlpce[i]],
               label: fileName + "_" + stlpce[i],
+              backgroundColor: getRandomColor(),
               borderColor: "transparent"
             };
           }
@@ -287,7 +294,7 @@
       });
 
     initMainGraf();
-    renderChart(chartModel);
+
   }
 
   setup();

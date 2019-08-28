@@ -41,7 +41,7 @@ export function initMainGraf(loadedData) {
 
       legend: {
         position: "top",
-        display: true,
+        display: false,
         fontStyle: "bold",
       },
 
@@ -49,7 +49,7 @@ export function initMainGraf(loadedData) {
         padding: {
           left: 20,
           top: 20,
-          left: 0,
+          right: 0,
           bottom: 0,
         },
       },
@@ -66,7 +66,7 @@ export function initMainGraf(loadedData) {
               beginAtZero: true,
             },
             scaleLabel: {
-              display: true,
+              display: false,
               labelString: "Hodnoty",
               fontColor: "black",
             },
@@ -80,7 +80,7 @@ export function initMainGraf(loadedData) {
               borderDash: [2],
             },
             scaleLabel: {
-              display: true,
+              display: false,
               labelString: "Čas (s)",
               fontColor: "black",
             },
@@ -92,12 +92,12 @@ export function initMainGraf(loadedData) {
         ],
       },
       pan: {
-        enabled: true,
+        enabled: false,
         mode: "xy",
       },
 
       zoom: {
-        enabled: true,
+        enabled: false,
         mode: "xy",
       },
     },
@@ -143,8 +143,8 @@ export function initDataManagementGraf(loadedData) {
         padding: {
           left: 20,
           top: 20,
-          left: 0,
-          bottom: 0,
+          right: 20,
+          bottom: 20,
         },
       },
 
@@ -160,7 +160,7 @@ export function initDataManagementGraf(loadedData) {
               beginAtZero: true,
             },
             scaleLabel: {
-              display: true,
+              display: false,
               labelString: "Koncentrácia (%)",
               fontColor: "black",
             },
@@ -174,7 +174,7 @@ export function initDataManagementGraf(loadedData) {
               borderDash: [2],
             },
             scaleLabel: {
-              display: true,
+              display: false,
               labelString: "Čas (s)",
               fontColor: "black",
             },
@@ -186,12 +186,12 @@ export function initDataManagementGraf(loadedData) {
         ],
       },
       pan: {
-        enabled: true,
+        enabled: false,
         mode: "xy",
       },
 
       zoom: {
-        enabled: true,
+        enabled: false,
         mode: "xy",
       },
     },
@@ -224,6 +224,10 @@ export function initDataManagementGraf(loadedData) {
 }
 
 export function renderCOCO2Chart(data) {
+  window.chart.options.scales.xAxes[0].scaleLabel.display = true;
+  window.chart.options.scales.yAxes[0].scaleLabel.display = true;
+  window.chart.options.pan.enabled = true;
+  window.chart.options.zoom.enabled = true;
   window.chart.options.legend.display = true;
   window.chart.options.title.display = true;
   window.chart.data.datasets = [];
@@ -247,6 +251,11 @@ export function renderCOCO2Chart(data) {
 }
 
 export function renderChart(chartModel) {
+  console.log("funkcia:", renderChart);
+  window.chart.options.scales.xAxes[0].scaleLabel.display = true;
+  window.chart.options.scales.yAxes[0].scaleLabel.display = true;
+  window.chart.options.pan.enabled = true;
+  window.chart.options.zoom.enabled = true;
   window.chart.options.legend.display = true;
   window.chart.options.title.display = true;
   window.chart.data.datasets = [];
@@ -259,7 +268,7 @@ export function renderChart(chartModel) {
       data: chartModel[col].data,
       label: chartModel[col].label,
       fill: false,
-      backgroundColor: getRandomColor(),
+      backgroundColor: chartModel[col].backgroundColor,
       borderColor: chartModel[col].borderColor,
       borderWidth: 1,
     });

@@ -32,7 +32,7 @@
 <body>
   <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
-      <img src="img/logo_fberg.gif" class="fberg-logo-navbar">
+      <img src="img/logo_fberg.gif" alt="" class="fberg-logo-navbar">
       APS
     </a>
   </nav>
@@ -87,7 +87,7 @@
 
           <div class="w-100">
               <div class="col">
-                <h1 class="h2">Výber súboru z databázy</h1> <br>
+                <h1 class="h4">Výber súboru z databázy</h1> <br>
                 <div id="databaza-loading">Načítanie databázy...</div>
                 <alert id="databaza-no-data" class="warning">V databáze zatiaľ nie sú žiadne dáta..</alert>
                 <select title="Vyberte súbor" class="d-none" id="select-file"></select>
@@ -100,14 +100,16 @@
           </div>
         </div>
 
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 ">
-         <!--  border-bottom  - ak chcem orámovať text zo spodu-->
-          <h1 class="h2">Vykreslené hodnoty CO + CO2</h1>
-        </div>
+        <div id="chart-canvas" class="d-none">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 ">
+           <!--  border-bottom  - ak chcem orámovať text zo spodu-->
+            <h1 class="h4">Vykreslené hodnoty CO + CO2</h1>
+          </div>
 
-        <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
-        <div class="my-4 w-100">
-          <canvas id="myChart" height="25em" width="50em" ></canvas>
+          <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
+          <div class="my-4 w-100">
+            <canvas id="myChart" height="25em" width="50em" ></canvas>
+          </div>
         </div>
       </main>
     </div>

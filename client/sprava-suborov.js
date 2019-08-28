@@ -16,6 +16,9 @@ async function setup() {
     data = loadedData.data.find(d => d._id === id);
     initDataManagementGraf(data);
     $('#file-status').removeClass("d-none");
+    $('#chart-canvas').removeClass("d-none");
+    $('#vyhovuje').removeClass("d-none");
+    $('#nevyhovuje').removeClass("d-none");
     document.getElementById("file-status").innerHTML = `Status: ${data.status}`;
   });
 

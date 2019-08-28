@@ -13,6 +13,11 @@
   }
 
   function renderChart(chartModel) {
+    console.log("funkcia:", renderChart);
+    window.chart.options.scales.xAxes[0].scaleLabel.display = true;
+    window.chart.options.scales.yAxes[0].scaleLabel.display = true;
+    window.chart.options.pan.enabled = true;
+    window.chart.options.zoom.enabled = true;
     window.chart.options.legend.display = true;
     window.chart.options.title.display = true;
     window.chart.data.datasets = [];
@@ -25,7 +30,7 @@
         data: chartModel[col].data,
         label: chartModel[col].label,
         fill: false,
-        backgroundColor: getRandomColor(),
+        backgroundColor: chartModel[col].backgroundColor,
         borderColor: chartModel[col].borderColor,
         borderWidth: 1,
       });

@@ -21,6 +21,7 @@ async function setup() {
 
     $('#vkladanie').removeClass("d-none");
     $('#save-chart').removeClass("d-none");
+    $('#work-with-data').removeClass("d-none");
     $('#vkladanie').find(".selectpicker").empty();
 
     if (data.data && data.data[0]) {
@@ -43,7 +44,7 @@ async function setup() {
       let fileName = data.name;
       let vkladanie = newVkladanie;
 
-      window.actualData = loadedData.data.find(it => it.name === fileName);
+      let actualData = loadedData.data.find(it => it.name === fileName);
 
       let dataObject = {};
       for (let i = 0; i < Object.keys(actualData.data).length; i++) {
@@ -58,6 +59,8 @@ async function setup() {
       window.uploadedData[fileName] = dataObject;
 
       vkladanie.find('#add-to-chart').click(function(){
+        $('#rendering-chart').removeClass("d-none");
+
         let stlpcestring = $("#" + newVkladanie.attr("id")).find(".btn.dropdown-toggle.btn-light").attr("title");
         let stlpce = stlpcestring.split(", ");
 
@@ -65,6 +68,7 @@ async function setup() {
           window.chartModel[fileName + "_" + stlpce[i]] = {
             data: window.uploadedData[fileName][stlpce[i]],
             label: fileName + "_" + stlpce[i],
+            backgroundColor: getRandomColor(),
             borderColor: "transparent"
           }
         }
@@ -85,7 +89,7 @@ async function setup() {
     });
 
   initMainGraf(data);
-  renderChart(chartModel);
+
 }
 
 setup();

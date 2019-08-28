@@ -11,8 +11,6 @@ export async function loadData() {
     $("#databaza-loading").hide();
     $("#databaza-no-data").hide();
     $('#select-file').removeClass("d-none");
-    $('#vyhovuje').removeClass("d-none");
-    $('#nevyhovuje').removeClass("d-none");
     const select = $("#select-file");
     select.on("change", e => {
       fileId = e.target.value;
