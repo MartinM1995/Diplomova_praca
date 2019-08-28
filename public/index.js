@@ -19,6 +19,7 @@
     window.chart.data.labels = [];
 
     let maxLength = 0;
+
     for (let col in chartModel) {
       window.chart.data.datasets.push({
         data: chartModel[col].data,

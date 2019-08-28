@@ -21,7 +21,6 @@ async function setup() {
 
     $('#vkladanie').removeClass("d-none");
     $('#save-chart').removeClass("d-none");
-    $('#vkladanie').addClass("div-css");
     $('#vkladanie').find(".selectpicker").empty();
 
     if (data.data && data.data[0]) {
@@ -45,7 +44,7 @@ async function setup() {
       let vkladanie = newVkladanie;
 
       window.actualData = loadedData.data.find(it => it.name === fileName);
-       // Pridanie do grafu
+
       let dataObject = {};
       for (let i = 0; i < Object.keys(actualData.data).length; i++) {
         let row = actualData.data[i]; // Uloženie jedného riadku do premennej row, riadok má tvar objektu

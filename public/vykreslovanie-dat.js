@@ -88,11 +88,6 @@
         });
     });
 
-    $('input[type="file"]').change(function(e) {
-      var fileName = e.target.files[0].name;
-      alert('Bol vybratý "' + fileName + '" súbor.');
-    });
-
     // Global option
     Chart.defaults.global.defaultFontFamily = "Georgia";
     Chart.defaults.global.defaultFontSize = 18;
@@ -190,6 +185,7 @@
     window.chart.data.labels = [];
 
     let maxLength = 0;
+
     for (let col in chartModel) {
       window.chart.data.datasets.push({
         data: chartModel[col].data,
@@ -227,7 +223,6 @@
 
       $('#vkladanie').removeClass("d-none");
       $('#save-chart').removeClass("d-none");
-      $('#vkladanie').addClass("div-css");
       $('#vkladanie').find(".selectpicker").empty();
 
       if (data.data && data.data[0]) {
@@ -251,7 +246,7 @@
         let vkladanie = newVkladanie;
 
         window.actualData = loadedData.data.find(it => it.name === fileName);
-         // Pridanie do grafu
+
         let dataObject = {};
         for (let i = 0; i < Object.keys(actualData.data).length; i++) {
           let row = actualData.data[i]; // Uloženie jedného riadku do premennej row, riadok má tvar objektu

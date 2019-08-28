@@ -169,9 +169,26 @@
     });
 
     if (loadedData) {
-      const data = [];
+     const data = [];
       for (let i = 0; i < Object.keys(loadedData.data).length; i++) {
+        if (loadedData.data[i]["k4_co"] < 0) {
+          loadedData.data[i]["k4_co"]  = 0;
+        }
+        if (loadedData.data[i]["k4_co2"] < 0) {
+          loadedData.data[i]["k4_co"]  = 0;
+        }
+        if (loadedData.data[i]["k4_co"] > 100) {
+          loadedData.data[i]["k4_co"]  = 100;
+        }
+        if (loadedData.data[i]["k4_co2"] > 100) {
+          loadedData.data[i]["k4_co"]  = 100;
+        }
+
         data[i] = Number(loadedData.data[i]["k4_co"]) + Number(loadedData.data[i]["k4_co2"]);
+
+        if (data[i] > 100) {
+          data[i] = 100;
+        }
       }
       renderCOCO2Chart(data);
     }

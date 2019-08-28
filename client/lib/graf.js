@@ -14,11 +14,6 @@ export function initMainGraf(loadedData) {
       });
   });
 
-  $('input[type="file"]').change(function(e) {
-    var fileName = e.target.files[0].name;
-    alert('Bol vybratý "' + fileName + '" súbor.');
-  });
-
   // Global option
   Chart.defaults.global.defaultFontFamily = "Georgia";
   Chart.defaults.global.defaultFontSize = 18;
@@ -203,9 +198,26 @@ export function initDataManagementGraf(loadedData) {
   });
 
   if (loadedData) {
-    const data = [];
+   const data = [];
     for (let i = 0; i < Object.keys(loadedData.data).length; i++) {
+      if (loadedData.data[i]["k4_co"] < 0) {
+        loadedData.data[i]["k4_co"]  = 0;
+      }
+      if (loadedData.data[i]["k4_co2"] < 0) {
+        loadedData.data[i]["k4_co"]  = 0;
+      }
+      if (loadedData.data[i]["k4_co"] > 100) {
+        loadedData.data[i]["k4_co"]  = 100;
+      }
+      if (loadedData.data[i]["k4_co2"] > 100) {
+        loadedData.data[i]["k4_co"]  = 100;
+      }
+
       data[i] = Number(loadedData.data[i]["k4_co"]) + Number(loadedData.data[i]["k4_co2"])
+
+      if (data[i] > 100) {
+        data[i] = 100
+      }
     }
     renderCOCO2Chart(data);
   }
@@ -241,6 +253,7 @@ export function renderChart(chartModel) {
   window.chart.data.labels = [];
 
   let maxLength = 0;
+
   for (let col in chartModel) {
     window.chart.data.datasets.push({
       data: chartModel[col].data,
