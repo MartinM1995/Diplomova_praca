@@ -31,9 +31,9 @@
 </head>
 <body>
   <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="https://fberg.tuke.sk/en/home/">
       <img src="img/logo_fberg.gif" class="fberg-logo-navbar">
-      APS
+      TUKE FBERG
     </a>
   </nav>
 
@@ -55,7 +55,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="/vykreslovanie-dat.html">
+              <a class="nav-link" href="/vykreslovanie-dat.html">
                 <i class="fa fa-database"></i>
                 Vykresľovanie dát
               </a>
@@ -79,7 +79,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/autor.html">
+              <a class="nav-link active" href="/autor.html">
                 <i class="fa fa-file-excel-o"></i>
                 Autor
               </a>
@@ -91,44 +91,19 @@
       <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
         <div class="row">
           <div class="col" >
-            <h4>Výber súboru z databázy</h4>
-            <div id="databaza-loading">Načítanie databázy...</div>
-            <alert id="databaza-no-data" class="warning">V databáze zatiaľ nie sú žiadne dáta..</alert>
-            <select title="Vyberte súbor" class="d-none" id="select-file"></select>
-            <button type="button" class="d-none btn btn-light" id="file-status"></button>
-            <hr>
+            <img src="./img/foto.jpg" height="180" width="150em" alt="Bc. Martin Mroč">
+            <br>
+            <br>
+            <p id="made-by">
+              <b>Autor:</b> <br> Bc. Martin Mroč <br> <hr>
+              <b>Študijný program:</b> <br> Informatizácia procesov získavania a spracovania surovín <br> <hr>
+              <b>Študijný odbor:</b> <br> Získavanie a spracovanie zemských zdrojov <br> <hr>
+              <b>Školiace pracovisko:</b> <br>  Ústav riadenie a informatizácie výrobných procesov  <br> <hr>
+              <b>Školiteľ:</b> <br> prof. Ing. Ján Terpák, CSc. <br> <hr>
+              <b>Konzultant:</b> <br> Ing. Michal Takáč <br> <hr>
+              <b>Rok:</b> <br>  2019
+            </p>
 
-            <div id="work-with-data" class="d-none">
-              <h4>Výber stĺpcov</h4>
-              <div id=vkladanie-container>
-                <div id="vkladanie" class="d-none">
-                    <select class="selectpicker" multiple data-live-search="true" title="Vyberte stĺpce" data-actions-box="true">
-                    </select>
-                    <button type="button" id="add-to-chart" class="btn btn-outline-success">Pridať do grafu</button>
-                    <button type="button" id="delete-from-chart"class="btn btn-outline-danger">Odstrániť z grafu</button>
-                </div>
-              </div>
-              <hr>
-            </div>
-
-            <div id="rendering-chart" class="d-none">
-              <h4>Uloženie grafu</h4>
-              <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
-                <div class="btn-group mr-2" role="group" aria-label="First group">
-                  <input type="button" class="btn btn-outline-primary" value="Uložiť ako obrázok" id="save-btn">
-                </div>
-                <div class="input-group">
-                  <input type="text" name="subor" class="form-control" placeholder="Zadajte názov" aria-label="Input group example" aria-describedby="btnGroupAddon">
-                </div>
-                <!-- <input id="target" value="" type="button" class="btn btn-primary dropdown-toggle"></input> -->
-              </div>
-
-              <hr>
-              <h4>Vykreslenie grafu</h4>
-              <div class="my-4 w-100">
-                <canvas id="myChart" height="25em" width="50em" ></canvas>
-              </div>
-            </div>
           </div>
         </div>
       </main>
@@ -144,7 +119,7 @@
 <!-- Bootstrap -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="js/bootstrap-select.js"></script>
-<script src='vykreslovanie-dat.js'></script>
+<script src='index.js'></script>
 
 </body>
 </html>

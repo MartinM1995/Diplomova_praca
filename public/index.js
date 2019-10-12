@@ -13,7 +13,6 @@
   }
 
   function renderChart(chartModel) {
-    console.log("funkcia:", renderChart);
     window.chart.options.scales.xAxes[0].scaleLabel.display = true;
     window.chart.options.scales.yAxes[0].scaleLabel.display = true;
     window.chart.options.pan.enabled = true;
