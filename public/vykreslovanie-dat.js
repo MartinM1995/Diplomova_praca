@@ -77,10 +77,10 @@
     window.chartModel = {};
     window.uploadedData = {};
 
-    $("#save-btn").click(function() {
+    $("#save-btn").click(function () {
       $("#myChart")
         .get(0)
-        .toBlob(function(blob) {
+        .toBlob(function (blob) {
           var subor = $('input[name="subor"]').val();
           saveAs(blob, subor + ".png");
         });

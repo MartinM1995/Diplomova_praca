@@ -34,16 +34,70 @@ async function setup() {
     });
 
     $("#klzavy-priemer").on("click", event => {
-      $('#chart-canvas-2').removeClass("d-none");
-      initKlzavyPriemerChart(data);
+
+      if (data) {
+        // const data = [];
+        let history = 0;
+
+        for (let i = 0; i < Object.keys(data.data).length; i++) {
+          if (data.data[i]["k4_co"] < 0) {
+            data.data[i]["k4_co"] = 0;
+          }
+          if (data.data[i]["k4_co2"] < 0) {
+            data.data[i]["k4_co"] = 0;
+          }
+          if (data.data[i]["k4_co"] > 100) {
+            data.data[i]["k4_co"] = 100;
+          }
+          if (data.data[i]["k4_co2"] > 100) {
+            data.data[i]["k4_co"] = 100;
+          }
+
+          if (i === 0) {
+            history = (Number(data.data[i]["k4_co"]) + Number(data.data[i]["k4_co2"]));
+            data[i] = history;
+
+          }
+          else {
+            var current_value = (Number(data.data[i]["k4_co"]) + Number(data.data[i]["k4_co2"]));
+            data[i] = current_value - history;
+            history = current_value;
+          }
+
+          if (data[i] > 100) {
+            data[i] = 100
+          }
+          
+          var klzavy_priemer = [];
+          klzavy_priemer = data[i] / Object.keys(data.data).length;
+          console.log(klzavy_priemer)
+          
+          var sum = klzavy_priemer.reduce((a, b) => a + b, 0)
+        }
+
+        
+        // function sum(obj) {
+        //   var sum = 0;
+        //   for (var el in obj) {
+        //     if (obj.hasOwnProperty(el)) {
+        //       sum += parseFloat(obj[el]);
+        //     }
+        //   }
+        //   return sum;
+        // }
+        
+        // var sample = klzavy_priemer;
+        // console.log(sample)
+        // var summed = sum(sample);
+        
+      }
+
+        document.getElementById("hodnota_priemeru").innerHTML = `${sum}`;
+
     });
-
-
   });
 
   initGradientChart(data);
-  initKlzavyPriemerChart(data);
 
 }
-
 setup();

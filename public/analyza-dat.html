@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="author" content="Martin Mroč">
@@ -9,7 +10,8 @@
   <title>Diplomová práca</title>
 
   <!-- CSS styles -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="css/Chart.css">
   <link rel="stylesheet" type="text/css" href="css/Chart.min.css">
@@ -29,11 +31,12 @@
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.3"></script>
 
 </head>
+
 <body>
   <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
       <img src="img/logo_fberg.gif" alt="" class="fberg-logo-navbar">
-      APS
+      TUKE FBERG
     </a>
   </nav>
 
@@ -92,59 +95,53 @@
         <div class="row">
 
           <div class="w-100">
-              <div class="col">
-                <h1 class="h4">Výber súboru z databázy</h1> <br>
-                <div id="databaza-loading">Načítanie databázy...</div>
-                <alert id="databaza-no-data" class="warning">V databáze zatiaľ nie sú žiadne dáta..</alert>
-                <select title="Vyberte súbor" class="d-none" id="select-file"></select>
-                <!-- <div id="file-status"></div> -->
-                <button type="button" class="btn btn-light" id="file-status"></button>
-                <button type="button" class="d-none btn btn-outline-success" id="gradient">Zobrazenie gradientu</button>
-                <button type="button" class="d-none btn btn-outline-danger" id="klzavy-priemer">Výpočet kĺzavého priemeru</button>
-                <hr>
-              </div>
+            <div class="col">
+              <h1 class="h4">Výber súboru z databázy</h1> <br>
+              <div id="databaza-loading">Načítanie databázy...</div>
+              <alert id="databaza-no-data" class="warning">V databáze zatiaľ nie sú žiadne dáta..</alert>
+              <select title="Vyberte súbor" class="d-none" id="select-file"></select>
+              <!-- <div id="file-status"></div> -->
+              <button type="button" class="btn btn-light" id="file-status"></button>
+              <button type="button" class="d-none btn btn-outline-success" id="gradient">Zobrazenie gradientu</button>
+              <button type="button" class="d-none btn btn-outline-danger" id="klzavy-priemer">Výpočet kĺzavého
+                priemeru</button>
+              <hr>
+              <p>Hodnota kĺzavého priemeru je: <span id="hodnota_priemeru"></span></p>
+            </div>
           </div>
         </div>
 
         <div id="chart-canvas" class="d-none">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 ">
-           <!--  border-bottom  - ak chcem orámovať text zo spodu-->
+            <!--  border-bottom  - ak chcem orámovať text zo spodu-->
             <h1 class="h4">Gradient</h1>
           </div>
 
           <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
           <div class="my-4 w-100">
-            <canvas id="myChart" height="25em" width="50em" ></canvas>
+            <canvas id="myChart" height="25em" width="50em"></canvas>
           </div>
           <hr>
         </div>
-
-        <div id="chart-canvas-2" class="d-none">
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 ">
-           <!--  border-bottom  - ak chcem orámovať text zo spodu-->
-            <h1 class="h4">Kĺzavý priemer</h1>
-          </div>
-
-          <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
-          <div class="my-4 w-100">
-            <canvas id="myChart-2" height="25em" width="50em" ></canvas>
-          </div>
-        </div>
-
       </main>
     </div>
   </div>
 
-<!-- jQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript" src="js/jquery.multi-select.js"></script>
-<script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-<!--  Popper -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="js/bootstrap-select.js"></script>
-<script src='analyza-dat.js'></script>
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="js/jquery.multi-select.js"></script>
+  <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+  <!--  Popper -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <!-- Bootstrap -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="js/bootstrap-select.js"></script>
+  <script src='analyza-dat.js'></script>
 
 </body>
+
 </html>
