@@ -234,6 +234,7 @@
   $("#databaza-no-data").hide();
 
   let data = null;
+  let sum = null;
 
   async function setup() {
     const loadedData = await loadData();
@@ -258,9 +259,10 @@
 
       $("#klzavy-priemer").on("click", event => {
 
-        if (data) {
+        if (data && Object.keys(data.data).length) {
           // const data = [];
           let history = 0;
+          var array = [];
 
           for (let i = 0; i < Object.keys(data.data).length; i++) {
             if (data.data[i]["k4_co"] < 0) {
@@ -290,32 +292,16 @@
             if (data[i] > 100) {
               data[i] = 100;
             }
-            
+
             var klzavy_priemer = [];
             klzavy_priemer = data[i] / Object.keys(data.data).length;
-            console.log(klzavy_priemer);
-            
-            var sum = klzavy_priemer.reduce((a, b) => a + b, 0);
+            array.push(klzavy_priemer);
+
+            sum = array.reduce((a, b) => a + b, 0);
+
+            document.getElementById("hodnota_priemeru").innerHTML = `${sum}`;
           }
-
-          
-          // function sum(obj) {
-          //   var sum = 0;
-          //   for (var el in obj) {
-          //     if (obj.hasOwnProperty(el)) {
-          //       sum += parseFloat(obj[el]);
-          //     }
-          //   }
-          //   return sum;
-          // }
-          
-          // var sample = klzavy_priemer;
-          // console.log(sample)
-          // var summed = sum(sample);
-          
         }
-
-          document.getElementById("hodnota_priemeru").innerHTML = `${sum}`;
 
       });
     });
