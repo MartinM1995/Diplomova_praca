@@ -73,18 +73,33 @@
     return color;
   }
 
-  function initDataManagementGraf(loadedData) {
-    window.chartModel = {};
-    window.uploadedData = {};
-
-    // Global option
+  function defaultSettings(){
     Chart.defaults.global.defaultFontFamily = "Georgia";
     Chart.defaults.global.defaultFontSize = 18;
     Chart.defaults.global.defaultFontColor = "black";
     Chart.defaults.global.defaultFontStyle = "normal";
     Chart.defaults.global.responsive = true;
+  }
 
-    var ctx = document.getElementById("myChart").getContext("2d");
+  function chartOptions(){
+    window.chart.options.scales.xAxes[0].scaleLabel.display = true;
+    window.chart.options.scales.yAxes[0].scaleLabel.display = true;
+    window.chart.options.pan.enabled = true;
+    window.chart.options.zoom.enabled = true;
+    window.chart.options.legend.display = true;
+    window.chart.options.title.display = true;
+    window.chart.data.datasets = [];
+    window.chart.data.labels = [];
+  }
+
+  function initCOCO2Chart(loadedData) {
+    window.chartModel = {};
+    window.uploadedData = {};
+
+    // Global option
+    defaultSettings();
+
+    var ctx = document.getElementById("myChartCOCO2").getContext("2d");
     window.chart = new Chart(ctx, {
       type: "line",
       data: {
@@ -193,14 +208,8 @@
   }
 
   function renderCOCO2Chart(data) {
-    window.chart.options.scales.xAxes[0].scaleLabel.display = true;
-    window.chart.options.scales.yAxes[0].scaleLabel.display = true;
-    window.chart.options.pan.enabled = true;
-    window.chart.options.zoom.enabled = true;
-    window.chart.options.legend.display = true;
-    window.chart.options.title.display = true;
-    window.chart.data.datasets = [];
-    window.chart.data.labels = [];
+    
+    chartOptions();
 
     window.chart.data.datasets.push({
       data,
@@ -231,7 +240,7 @@
     $("#select-file").on("change", event => {
       const id = event.target.value;
       data = loadedData.data.find(d => d._id === id);
-      initDataManagementGraf(data);
+      initCOCO2Chart(data);
       $('#file-status').removeClass("d-none");
       $('#chart-canvas').removeClass("d-none");
       $('#vyhovuje').removeClass("d-none");
@@ -285,9 +294,9 @@
             alert("Nastal problem s komunikáciou s databázou.");
           });
       }
-    });
+    }); 
 
-    initDataManagementGraf(data);
+    initCOCO2Chart(data);
   }
 
   setup();

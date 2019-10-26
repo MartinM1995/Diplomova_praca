@@ -73,6 +73,14 @@
     return color;
   }
 
+  function defaultSettings(){
+    Chart.defaults.global.defaultFontFamily = "Georgia";
+    Chart.defaults.global.defaultFontSize = 18;
+    Chart.defaults.global.defaultFontColor = "black";
+    Chart.defaults.global.defaultFontStyle = "normal";
+    Chart.defaults.global.responsive = true;
+  }
+
   function initMainGraf(loadedData) {
     window.chartModel = {};
     window.uploadedData = {};
@@ -87,11 +95,7 @@
     });
 
     // Global option
-    Chart.defaults.global.defaultFontFamily = "Georgia";
-    Chart.defaults.global.defaultFontSize = 18;
-    Chart.defaults.global.defaultFontColor = "black";
-    Chart.defaults.global.defaultFontStyle = "normal";
-    Chart.defaults.global.responsive = true;
+    defaultSettings();
 
     var ctx = document.getElementById("myChart").getContext("2d");
     window.chart = new Chart(ctx, {
@@ -176,20 +180,20 @@
     });
   }
 
-  function renderChart(chartModel) {
-    window.chart.options.scales.xAxes[0].scaleLabel.display = true;
-    window.chart.options.scales.yAxes[0].scaleLabel.display = true;
-    window.chart.options.pan.enabled = true;
-    window.chart.options.zoom.enabled = true;
-    window.chart.options.legend.display = true;
-    window.chart.options.title.display = true;
-    window.chart.data.datasets = [];
-    window.chart.data.labels = [];
+  function renderChart(chartModel, chart) {
+    chart.options.scales.xAxes[0].scaleLabel.display = true;
+    chart.options.scales.yAxes[0].scaleLabel.display = true;
+    chart.options.pan.enabled = true;
+    chart.options.zoom.enabled = true;
+    chart.options.legend.display = true;
+    chart.options.title.display = true;
+    chart.data.datasets = [];
+    chart.data.labels = [];
 
     let maxLength = 0;
 
     for (let col in chartModel) {
-      window.chart.data.datasets.push({
+      chart.data.datasets.push({
         data: chartModel[col].data,
         label: chartModel[col].label,
         fill: false,
@@ -202,10 +206,10 @@
     }
 
     for (let i = 0; i < maxLength; i++) {
-      window.chart.data.labels.push(i);
+      chart.data.labels.push(i);
     }
 
-    window.chart.update();
+    chart.update();
   }
 
   $("#databaza-container").hide();
@@ -239,9 +243,9 @@
         let newVkladanie = $('#vkladanie').clone();
         newVkladanie.find(".selectpicker").selectpicker();
         newVkladanie
-                .find("button[role='button']")
-                .last()
-                .remove();
+          .find("button[role='button']")
+          .last()
+          .remove();
         $("#vkladanie-container").empty();
         $("#vkladanie-container").append(newVkladanie);
 
@@ -254,21 +258,21 @@
         for (let i = 0; i < Object.keys(actualData.data).length; i++) {
           let row = actualData.data[i]; // Uloženie jedného riadku do premennej row, riadok má tvar objektu
           for (let key in row) {
-            if (!dataObject[key]){
-            dataObject[key] = [];
+            if (!dataObject[key]) {
+              dataObject[key] = [];
             }
             dataObject[key].push(parseFloat(row[key]));
           }
         }
         window.uploadedData[fileName] = dataObject;
 
-        vkladanie.find('#add-to-chart').click(function(){
+        vkladanie.find('#add-to-chart').click(function () {
           $('#rendering-chart').removeClass("d-none");
 
           let stlpcestring = $("#" + newVkladanie.attr("id")).find(".btn.dropdown-toggle.btn-light").attr("title");
           let stlpce = stlpcestring.split(", ");
 
-          for (let i = 0; i < stlpce.length; i++){
+          for (let i = 0; i < stlpce.length; i++) {
             window.chartModel[fileName + "_" + stlpce[i]] = {
               data: window.uploadedData[fileName][stlpce[i]],
               label: fileName + "_" + stlpce[i],
@@ -276,21 +280,21 @@
               borderColor: "transparent"
             };
           }
-          renderChart(chartModel);
+          renderChart(chartModel, window.chart);
         });
 
-        vkladanie.find('#delete-from-chart').click(function(){
+        vkladanie.find('#delete-from-chart').click(function () {
           let stlpcestring = $("#" + newVkladanie.attr("id")).find(".btn.dropdown-toggle.btn-light").attr("title");
           let stlpce = stlpcestring.split(", ");
 
-          for (let i = 0; i < stlpce.length; i++){
+          for (let i = 0; i < stlpce.length; i++) {
             delete window.chartModel[fileName + "_" + stlpce[i]];
           }
-          renderChart(chartModel);
+          renderChart(chartModel, window.chart);
         });
 
-        }
-      });
+      }
+    });
 
     initMainGraf();
 

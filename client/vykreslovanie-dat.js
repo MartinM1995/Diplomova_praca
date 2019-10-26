@@ -35,9 +35,9 @@ async function setup() {
       let newVkladanie = $('#vkladanie').clone();
       newVkladanie.find(".selectpicker").selectpicker();
       newVkladanie
-              .find("button[role='button']")
-              .last()
-              .remove();
+        .find("button[role='button']")
+        .last()
+        .remove();
       $("#vkladanie-container").empty();
       $("#vkladanie-container").append(newVkladanie);
 
@@ -50,21 +50,21 @@ async function setup() {
       for (let i = 0; i < Object.keys(actualData.data).length; i++) {
         let row = actualData.data[i]; // Uloženie jedného riadku do premennej row, riadok má tvar objektu
         for (let key in row) {
-          if (!dataObject[key]){
-          dataObject[key] = [];
+          if (!dataObject[key]) {
+            dataObject[key] = [];
           }
           dataObject[key].push(parseFloat(row[key]));
         }
       }
       window.uploadedData[fileName] = dataObject;
 
-      vkladanie.find('#add-to-chart').click(function(){
+      vkladanie.find('#add-to-chart').click(function () {
         $('#rendering-chart').removeClass("d-none");
 
         let stlpcestring = $("#" + newVkladanie.attr("id")).find(".btn.dropdown-toggle.btn-light").attr("title");
         let stlpce = stlpcestring.split(", ");
 
-        for (let i = 0; i < stlpce.length; i++){
+        for (let i = 0; i < stlpce.length; i++) {
           window.chartModel[fileName + "_" + stlpce[i]] = {
             data: window.uploadedData[fileName][stlpce[i]],
             label: fileName + "_" + stlpce[i],
@@ -72,21 +72,21 @@ async function setup() {
             borderColor: "transparent"
           }
         }
-        renderChart(chartModel);
+        renderChart(chartModel, window.chart);
       });
 
-      vkladanie.find('#delete-from-chart').click(function(){
+      vkladanie.find('#delete-from-chart').click(function () {
         let stlpcestring = $("#" + newVkladanie.attr("id")).find(".btn.dropdown-toggle.btn-light").attr("title");
         let stlpce = stlpcestring.split(", ");
 
-        for (let i = 0; i < stlpce.length; i++){
+        for (let i = 0; i < stlpce.length; i++) {
           delete window.chartModel[fileName + "_" + stlpce[i]];
         }
-        renderChart(chartModel);
+        renderChart(chartModel, window.chart);
       });
 
-      }
-    });
+    }
+  });
 
   initMainGraf(data);
 

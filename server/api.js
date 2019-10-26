@@ -11,6 +11,16 @@ var exceltojson = xlstojson;
 
 // GET
 
+router.get("/okdata", function(req, res) {
+  Data.find({status: 'Vyhovujúci'}, function(err, result) {
+    if (err) {
+      res.json({ error_code: 1, err_desc: "Empty dataset" });
+    } else {
+      res.json({ error_code: 0, err_desc: null, data: result });
+    }
+  });
+});
+
 router.get("/data", function(req, res) {
   Data.find({}, function(err, result) {
     if (err) {

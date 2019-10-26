@@ -1,6 +1,7 @@
 import $ from "jquery";
 import { loadData } from "./lib/tabulky";
-import { initDataManagementGraf } from "./lib/graf";
+import { renderCOCO2Chart } from "./lib/graf";
+import { initCOCO2Chart } from "./lib/graf";
 
 $("#databaza-container").hide();
 $("#databaza-loading").show();
@@ -14,7 +15,7 @@ async function setup() {
   $("#select-file").on("change", event => {
     const id = event.target.value;
     data = loadedData.data.find(d => d._id === id);
-    initDataManagementGraf(data);
+    initCOCO2Chart(data);
     $('#file-status').removeClass("d-none");
     $('#chart-canvas').removeClass("d-none");
     $('#vyhovuje').removeClass("d-none");
@@ -68,9 +69,9 @@ async function setup() {
           alert("Nastal problem s komunikáciou s databázou.");
         });
     }
-  });
+  }); 
 
-  initDataManagementGraf(data);
+  initCOCO2Chart(data);
 }
 
 setup();
