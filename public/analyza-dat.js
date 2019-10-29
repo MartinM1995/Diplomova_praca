@@ -30,17 +30,6 @@
     Chart.defaults.global.responsive = true;
   }
 
-  function chartOptions(){
-    window.chart.options.scales.xAxes[0].scaleLabel.display = true;
-    window.chart.options.scales.yAxes[0].scaleLabel.display = true;
-    window.chart.options.pan.enabled = true;
-    window.chart.options.zoom.enabled = true;
-    window.chart.options.legend.display = true;
-    window.chart.options.title.display = true;
-    window.chart.data.datasets = [];
-    window.chart.data.labels = [];
-  }
-
   function createNewChart(element, text, yAxesLabel, xAxesLabel){
     defaultSettings();
     return new Chart(element, {
@@ -125,131 +114,6 @@
     });
   }
 
-  function initKlzavyPriemerChart(loadedData) {
-    window.chartModel = {};
-    window.uploadedData = {};
-
-    // Global option
-    defaultSettings();
-
-    var ctx = document.getElementById("myChartPriemer").getContext("2d");
-    window.chart = new Chart(ctx, {
-      type: "line",
-      data: {
-        labels: [],
-        datasets: [],
-      },
-      options: {
-        responsive: true,
-        title: {
-          display: false,
-          text: "Analýza technologických dát o procese skujňovania",
-          fontSize: 25,
-          fontColor: "blue",
-          fontStyle: "bold",
-          padding: 5,
-        },
-
-        legend: {
-          position: "top",
-          display: true,
-          fontStyle: "bold",
-        },
-
-        layout: {
-          padding: {
-            left: 20,
-            top: 20,
-            right: 20,
-            bottom: 20,
-          },
-        },
-
-        scales: {
-          yAxes: [
-            {
-              gridLines: {
-                display: true,
-                color: "black",
-                borderDash: [2],
-              },
-              ticks: {
-                beginAtZero: true,
-              },
-              scaleLabel: {
-                display: false,
-                labelString: "Koncentrácia (%/s)",
-                fontColor: "black",
-              },
-            },
-          ],
-          xAxes: [
-            {
-              gridLines: {
-                display: true,
-                color: "black",
-                borderDash: [2],
-              },
-              scaleLabel: {
-                display: false,
-                labelString: "Čas (s)",
-                fontColor: "black",
-              },
-              ticks: {
-                beginAtZero: true,
-                min: 0,
-              },
-            },
-          ],
-        },
-        pan: {
-          enabled: false,
-          mode: "xy",
-        },
-
-        zoom: {
-          enabled: false,
-          mode: "xy",
-        },
-      },
-    });
-
-    if (loadedData) {
-      const data = [];
-      let history = 0;
-
-      for (let i = 0; i < Object.keys(loadedData.data).length; i++) {
-        if (loadedData.data[i]["k4_co"] < 0) {
-          loadedData.data[i]["k4_co"] = 0;
-        }
-        if (loadedData.data[i]["k4_co2"] < 0) {
-          loadedData.data[i]["k4_co"] = 0;
-        }
-        if (loadedData.data[i]["k4_co"] > 100) {
-          loadedData.data[i]["k4_co"] = 100;
-        }
-        if (loadedData.data[i]["k4_co2"] > 100) {
-          loadedData.data[i]["k4_co"] = 100;
-        }
-
-        if (i === 0) {
-          history = (Number(loadedData.data[i]["k4_co"]) + Number(loadedData.data[i]["k4_co2"]));
-          data[i] = history;
-        }
-        else {
-          var current_value = (Number(loadedData.data[i]["k4_co"]) + Number(loadedData.data[i]["k4_co2"]));
-          data[i] = current_value - history;
-          history = current_value;
-        }
-
-        if (data[i] > 100) {
-          data[i] = 100;
-        }
-      }
-      renderKlzavyPriemerChart();
-    }
-  }
-
   function renderChart(chartModel, chart) {
     chart.options.scales.xAxes[0].scaleLabel.display = true;
     chart.options.scales.yAxes[0].scaleLabel.display = true;
@@ -280,32 +144,6 @@
     }
 
     chart.update();
-  }
-
-  function renderKlzavyPriemerChart(data) {
-
-    chartOptions();
-
-    let maxLength = 0;
-
-    for (let col in chartModel) {
-      window.chart.data.datasets.push({
-        data: chartModel[col].data,
-        label: chartModel[col].label,
-        fill: false,
-        backgroundColor: chartModel[col].backgroundColor,
-        borderColor: chartModel[col].borderColor,
-        borderWidth: 1,
-      });
-
-      if (maxLength < chartModel[col].data.length) maxLength = chartModel[col].data.length;
-    }
-
-    for (let i = 0; i < maxLength; i++) {
-      window.chart.data.labels.push(i);
-    }
-
-    window.chart.update();
   }
 
   $("#databaza-container").hide();
@@ -431,14 +269,14 @@
       for (let i = 0; i < selected.length; i++) {
         // Počítanie hodnôt CO + CO2
         let gradient = [];
-        
+
         for (let j = 0; j < Object.keys(window.loadedData[selected[i]]['k4_co']).length; j++) {
 
           const valueCOcurrent = window.loadedData[selected[i]]['k4_co'][j];
           const valueCO2current = window.loadedData[selected[i]]['k4_co2'][j];
 
-          const valueCOprevious = window.loadedData[selected[i]]['k4_co'][j-1];
-          const valueCO2previous = window.loadedData[selected[i]]['k4_co2'][j-1];
+          const valueCOprevious = window.loadedData[selected[i]]['k4_co'][j - 1];
+          const valueCO2previous = window.loadedData[selected[i]]['k4_co2'][j - 1];
 
           let sumCOCO2current = (Number(valueCOcurrent) + Number(valueCO2current));
           let sumCO2previous = (Number(valueCOprevious) + Number(valueCO2previous));
@@ -460,7 +298,7 @@
           }
 
           let resultValue = (Number(sumCOCO2current) - Number(sumCO2previous));
-        
+
           gradient.push(resultValue);
         }
 
@@ -477,7 +315,7 @@
       const chart = createNewChart(myChartGradient, 'Analýza technologických dát o procese skujňovania',
         'Koncentrácia (%/s)', 'Čas (s)');
       renderChart(chartModel, chart);
-   
+
       console.log('render done');
 
     });
@@ -485,56 +323,71 @@
     $("#klzavy-priemer").on("click", event => {
       console.log('klzavy priemer');
       $('#chart-canvas-3').removeClass("d-none");
-      initKlzavyPriemerChart(data);
 
-      // if (data && Object.keys(data.data).length) {
-      //   // const data = [];
-      //   let history = 0;
-      //   let klzavy_priemer = [];
-      //   let array = [];
+      let selected = getSelected();
+      // var klzavyPriemer = [];
+      const chartModel = [];
 
-      //   for (let i = 0; i < Object.keys(data.data).length; i++) {
-      //     if (data.data[i]["k4_co"] < 0) {
-      //       data.data[i]["k4_co"] = 0;
-      //     }
-      //     if (data.data[i]["k4_co2"] < 0) {
-      //       data.data[i]["k4_co"] = 0;
-      //     }
-      //     if (data.data[i]["k4_co"] > 100) {
-      //       data.data[i]["k4_co"] = 100;
-      //     }
-      //     if (data.data[i]["k4_co2"] > 100) {
-      //       data.data[i]["k4_co"] = 100;
-      //     }
+      // Prechádzanie vľetkých vybratých súborov
+      for (let i = 0; i < selected.length; i++) {
+        let gradient = [];
 
-      //     if (i === 0) {
-      //       history = (Number(data.data[i]["k4_co"]) + Number(data.data[i]["k4_co2"]));
-      //       data[i] = history;
+        for (let j = 0; j < Object.keys(window.loadedData[selected[i]]['k4_co']).length; j++) {
 
-      //     }
-      //     else {
-      //       var current_value = (Number(data.data[i]["k4_co"]) + Number(data.data[i]["k4_co2"]));
-      //       data[i] = current_value - history;
-      //       history = current_value;
-      //     }
+          const valueCOcurrent = window.loadedData[selected[i]]['k4_co'][j];
+          const valueCO2current = window.loadedData[selected[i]]['k4_co2'][j];
 
-      //     if (data[i] > 100) {
-      //       data[i] = 100
-      //     }
+          const valueCOprevious = window.loadedData[selected[i]]['k4_co'][j - 1];
+          const valueCO2previous = window.loadedData[selected[i]]['k4_co2'][j - 1];
 
-      //     klzavy_priemer = data[i] / Object.keys(data.data).length;
-      //     array.push(klzavy_priemer);
+          let sumCOCO2current = (Number(valueCOcurrent) + Number(valueCO2current));
+          let sumCO2previous = (Number(valueCOprevious) + Number(valueCO2previous));
 
-      //     sum = array.reduce((a, b) => a + b, 0);
+          if (valueCOcurrent < 0) {
+            valueCOcurrent = 0;
+          }
+          if (valueCO2current < 0) {
+            valueCO2current = 0;
+          }
+          if (valueCOcurrent > 100) {
+            valueCOcurrent = 100;
+          }
+          if (valueCO2current > 100) {
+            valueCO2current = 100;
+          }
+          if (sumCOCO2current > 100) {
+            sumCOCO2current = 100;
+          }
 
-      //     document.getElementById("hodnota_priemeru").innerHTML = `${sum}`;
-      //   }
-      // }
+          let resultValue = (Number(sumCOCO2current) - Number(sumCO2previous));
+          gradient.push(resultValue);
+          console.log(resultValue);
+
+          // klzavyPriemer = gradient / n;
+          // array.push(klzavy_priemer);
+
+          // sum = array.reduce((a, b) => a + b, 0);
+
+
+        }
+
+        // Pridávanie hodnôt do modelu
+        chartModel.push({
+          data: gradient,
+          label: selected[i],
+          backgroundColor: getRandomColor(),
+        });
+      }
+
+      var myChartPriemer = document.getElementById("myChartPriemer").getContext("2d");
+
+      const chart = createNewChart(myChartPriemer, 'Analýza technologických dát o procese skujňovania',
+        'Koncentrácia (%/s)', 'Čas (s)');
+      renderChart(chartModel, chart);
+
+      console.log('render done');
 
     });
-
-    // initGradientChart(data);
-    // initKlzavyPriemerChart(data);
 
   }
 
