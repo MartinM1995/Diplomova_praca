@@ -24,6 +24,7 @@ async function setup() {
   $('#loading').hide();
   $('.action-button').removeClass("d-none");
   $('#vkladanie').removeClass("d-none");
+  $('#input-krok').addClass("d-none");
 
   $('#vkladanie').find(".selectpicker").empty();
 
@@ -182,6 +183,17 @@ async function setup() {
   $("#klzavy-priemer").on("click", event => {
     console.log('klzavy priemer');
     $('#chart-canvas-3').removeClass("d-none");
+
+    var txt;
+    var krok = prompt("Zadajte krok pre kĺzavý priemer:", "0");
+    if (krok == 0 || krok == "") {
+      txt = "Nezdali ste krok.";
+    } else {
+      txt = "Zadali ste krok: " + krok;
+    }
+    document.getElementById("input-krok").innerHTML = txt;
+
+    $('#input-krok').removeClass("d-none");
 
     let selected = getSelected();
     // var klzavyPriemer = [];
