@@ -185,9 +185,10 @@ async function setup() {
     $('#chart-canvas-3').removeClass("d-none");
 
     var txt;
-    var krok = prompt("Zadajte krok pre kĺzavý priemer:", "0");
+    var krok = Number(prompt("Zadajte krok pre kĺzavý priemer:", "0"));
     if (krok == 0 || krok == "") {
       txt = "Nezdali ste krok.";
+      return;
     } else {
       txt = "Zadali ste krok: " + krok;
     }
@@ -199,21 +200,21 @@ async function setup() {
     // var klzavyPriemer = [];
     const chartModel = [];
 
-    // Prechádzanie vľetkých vybratých súborov
+    // Prechádzanie všetkých vybratých súborov
     for (let i = 0; i < selected.length; i++) {
       // Počítanie hodnôt CO + CO2
 
       var klzavyPriemer = [];
       let gradient = [];
-      let n = 10;
+      let pomocnyArray = [];
 
       for (let j = 0; j < Object.keys(window.loadedData[selected[i]]['k4_co']).length; j++) {
 
         const valueCOcurrent = window.loadedData[selected[i]]['k4_co'][j];
         const valueCO2current = window.loadedData[selected[i]]['k4_co2'][j];
 
-        const valueCOprevious = window.loadedData[selected[i]]['k4_co'][j - 1];
-        const valueCO2previous = window.loadedData[selected[i]]['k4_co2'][j - 1];
+        const valueCOprevious = window.loadedData[selected[i]]['k4_co'][j - 1] || 0;
+        const valueCO2previous = window.loadedData[selected[i]]['k4_co2'][j - 1] || 0;
 
         let sumCOCO2current = (Number(valueCOcurrent) + Number(valueCO2current));
         let sumCO2previous = (Number(valueCOprevious) + Number(valueCO2previous));
@@ -236,21 +237,27 @@ async function setup() {
 
         let array = [];
 
+        // ciastkovy gradient
         let resultValue = (Number(sumCOCO2current) - Number(sumCO2previous));
         gradient.push(resultValue);
-        console.log(resultValue)
+        // console.log(resultValue)
 
-        // klzavyPriemer = gradient / n;
-        // array.push(klzavy_priemer);
+        if (pomocnyArray.length === krok) {
+          let sum = pomocnyArray.reduce((a, b) => a + b, 0);
+          console.log("sum: ", sum)
 
-        // sum = array.reduce((a, b) => a + b, 0);
+          let ciastkovyKlzavyPriemer = sum / krok
+          klzavyPriemer.push(ciastkovyKlzavyPriemer)
 
-
+          pomocnyArray = []
+        } else {
+          pomocnyArray.push(resultValue)
+        }
       }
 
       // Pridávanie hodnôt do modelu
       chartModel.push({
-        data: gradient,
+        data: klzavyPriemer,
         label: selected[i],
         backgroundColor: getRandomColor(),
       });
