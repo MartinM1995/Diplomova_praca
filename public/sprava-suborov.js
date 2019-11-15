@@ -96,10 +96,13 @@
     window.chartModel = {};
     window.uploadedData = {};
 
+    if(window.chart){
+      window.chart.destroy();
+    }
     // Global option
     defaultSettings();
 
-    var ctx = document.getElementById("myChartCOCO2").getContext("2d");
+    const ctx = document.getElementById("myChartCOCO2").getContext("2d");
     window.chart = new Chart(ctx, {
       type: "line",
       data: {
@@ -267,7 +270,7 @@
           })
           .catch(err => {
             console.error(err);
-            alert("Nastal problem s komunikáciou s databázou.");
+            alert("Nastal problém v komunikácií s databázou.");
           });
       }
     });
@@ -291,7 +294,7 @@
           })
           .catch(err => {
             console.error(err);
-            alert("Nastal problem s komunikáciou s databázou.");
+            alert("Nastal problém v komunikácií s databázou.");
           });
       }
     }); 

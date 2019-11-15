@@ -202,7 +202,10 @@
         borderWidth: 1,
       });
 
-      if (maxLength < chartModel[col].data.length) maxLength = chartModel[col].data.length;
+      if (maxLength < chartModel[col].data.length) {
+        maxLength = chartModel[col].data.length;
+        console.log('Max length:', maxLength);
+      }
     }
 
     for (let i = 0; i < maxLength; i++) {

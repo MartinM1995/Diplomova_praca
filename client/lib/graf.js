@@ -120,8 +120,16 @@ export function initMainGraf(loadedData) {
 }
 
 export function createNewChart(element, text, yAxesLabel, xAxesLabel){
+  
+  const defaultElementChart = element.cloneNode();
+  const chartContainer = element.parentElement;
+  chartContainer.removeChild(element);
+  chartContainer.appendChild(defaultElementChart);
+  
   defaultSettings();
-  return new Chart(element, {
+
+  let targetElement = defaultElementChart.getContext("2d");
+  return new Chart(targetElement, {
     type: "line",
     data: {
       labels: [],
@@ -207,10 +215,13 @@ export function initCOCO2Chart(loadedData) {
   window.chartModel = {};
   window.uploadedData = {};
 
+  if(window.chart){
+    window.chart.destroy()
+  }
   // Global option
   defaultSettings();
 
-  var ctx = document.getElementById("myChartCOCO2").getContext("2d");
+  const ctx = document.getElementById("myChartCOCO2").getContext("2d");
   window.chart = new Chart(ctx, {
     type: "line",
     data: {
@@ -318,279 +329,8 @@ export function initCOCO2Chart(loadedData) {
   }
 }
 
-export function initGradientChart(loadedData) {
-  window.chartModel = {};
-  window.uploadedData = {};
-
-  // Global option
-  defaultSettings();
-
-  var ctx = document.getElementById("myChartGradient").getContext("2d");
-  window.chart = new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: [],
-      datasets: [],
-    },
-    options: {
-      responsive: true,
-      title: {
-        display: false,
-        text: "Analýza technologických dát o procese skujňovania",
-        fontSize: 25,
-        fontColor: "blue",
-        fontStyle: "bold",
-        padding: 5,
-      },
-
-      legend: {
-        position: "top",
-        display: true,
-        fontStyle: "bold",
-      },
-
-      layout: {
-        padding: {
-          left: 20,
-          top: 20,
-          right: 20,
-          bottom: 20,
-        },
-      },
-
-      scales: {
-        yAxes: [
-          {
-            gridLines: {
-              display: true,
-              color: "black",
-              borderDash: [2],
-            },
-            ticks: {
-              beginAtZero: true,
-            },
-            scaleLabel: {
-              display: false,
-              labelString: "Koncentrácia (%/s)",
-              fontColor: "black",
-            },
-          },
-        ],
-        xAxes: [
-          {
-            gridLines: {
-              display: true,
-              color: "black",
-              borderDash: [2],
-            },
-            scaleLabel: {
-              display: false,
-              labelString: "Čas (s)",
-              fontColor: "black",
-            },
-            ticks: {
-              beginAtZero: true,
-              min: 0,
-            },
-          },
-        ],
-      },
-      pan: {
-        enabled: false,
-        mode: "xy",
-      },
-
-      zoom: {
-        enabled: false,
-        mode: "xy",
-      },
-    },
-  });
-
-  if (loadedData) {
-    const data = [];
-    let history = 0;
-
-    for (let i = 0; i < Object.keys(loadedData.data).length; i++) {
-      if (loadedData.data[i]["k4_co"] < 0) {
-        loadedData.data[i]["k4_co"] = 0;
-      }
-      if (loadedData.data[i]["k4_co2"] < 0) {
-        loadedData.data[i]["k4_co"] = 0;
-      }
-      if (loadedData.data[i]["k4_co"] > 100) {
-        loadedData.data[i]["k4_co"] = 100;
-      }
-      if (loadedData.data[i]["k4_co2"] > 100) {
-        loadedData.data[i]["k4_co"] = 100;
-      }
-
-      if (i === 0) {
-        history = (Number(loadedData.data[i]["k4_co"]) + Number(loadedData.data[i]["k4_co2"]));
-        data[i] = history;
-      }
-      else {
-        var current_value = (Number(loadedData.data[i]["k4_co"]) + Number(loadedData.data[i]["k4_co2"]));
-        data[i] = current_value - history;
-        history = current_value;
-      }
-
-      if (data[i] > 100) {
-        data[i] = 100
-      }
-    }
-    renderGradientChart(data);
-  }
-}
-
-export function initKlzavyPriemerChart(loadedData) {
-  window.chartModel = {};
-  window.uploadedData = {};
-
-  // Global option
-  defaultSettings();
-
-  var ctx = document.getElementById("myChartPriemer").getContext("2d");
-  window.chart = new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: [],
-      datasets: [],
-    },
-    options: {
-      responsive: true,
-      title: {
-        display: false,
-        text: "Analýza technologických dát o procese skujňovania",
-        fontSize: 25,
-        fontColor: "blue",
-        fontStyle: "bold",
-        padding: 5,
-      },
-
-      legend: {
-        position: "top",
-        display: true,
-        fontStyle: "bold",
-      },
-
-      layout: {
-        padding: {
-          left: 20,
-          top: 20,
-          right: 20,
-          bottom: 20,
-        },
-      },
-
-      scales: {
-        yAxes: [
-          {
-            gridLines: {
-              display: true,
-              color: "black",
-              borderDash: [2],
-            },
-            ticks: {
-              beginAtZero: true,
-            },
-            scaleLabel: {
-              display: false,
-              labelString: "Koncentrácia (%/s)",
-              fontColor: "black",
-            },
-          },
-        ],
-        xAxes: [
-          {
-            gridLines: {
-              display: true,
-              color: "black",
-              borderDash: [2],
-            },
-            scaleLabel: {
-              display: false,
-              labelString: "Čas (s)",
-              fontColor: "black",
-            },
-            ticks: {
-              beginAtZero: true,
-              min: 0,
-            },
-          },
-        ],
-      },
-      pan: {
-        enabled: false,
-        mode: "xy",
-      },
-
-      zoom: {
-        enabled: false,
-        mode: "xy",
-      },
-    },
-  });
-
-  if (loadedData) {
-    const data = [];
-    let history = 0;
-
-    for (let i = 0; i < Object.keys(loadedData.data).length; i++) {
-      if (loadedData.data[i]["k4_co"] < 0) {
-        loadedData.data[i]["k4_co"] = 0;
-      }
-      if (loadedData.data[i]["k4_co2"] < 0) {
-        loadedData.data[i]["k4_co"] = 0;
-      }
-      if (loadedData.data[i]["k4_co"] > 100) {
-        loadedData.data[i]["k4_co"] = 100;
-      }
-      if (loadedData.data[i]["k4_co2"] > 100) {
-        loadedData.data[i]["k4_co"] = 100;
-      }
-
-      if (i === 0) {
-        history = (Number(loadedData.data[i]["k4_co"]) + Number(loadedData.data[i]["k4_co2"]));
-        data[i] = history;
-      }
-      else {
-        var current_value = (Number(loadedData.data[i]["k4_co"]) + Number(loadedData.data[i]["k4_co2"]));
-        data[i] = current_value - history;
-        history = current_value;
-      }
-
-      if (data[i] > 100) {
-        data[i] = 100
-      }
-    }
-    renderKlzavyPriemerChart(data);
-  }
-}
-
 export function renderCOCO2Chart(data) {
   
-  chartOptions();
-
-  window.chart.data.datasets.push({
-    data,
-    label: "k4_co + k4_co2",
-    fill: false,
-    backgroundColor: getRandomColor(),
-    borderColor: "transparent",
-    borderWidth: 1,
-  });
-
-  // TODO: prist na to, ako vybrat nie len labels ale aj data
-  for (let i = 0; i < data.length; i++) {
-    window.chart.data.labels.push(i);
-  }
-
-  window.chart.update();
-}
-
-export function renderGradientChart(data) {
-
   chartOptions();
 
   window.chart.data.datasets.push({
@@ -632,7 +372,10 @@ export function renderChart(chartModel, chart) {
       borderWidth: 1,
     });
 
-    if (maxLength < chartModel[col].data.length) maxLength = chartModel[col].data.length;
+    if (maxLength < chartModel[col].data.length) {
+      maxLength = chartModel[col].data.length;
+      console.log('Max length:', maxLength)
+    }
   }
 
   for (let i = 0; i < maxLength; i++) {
@@ -641,30 +384,3 @@ export function renderChart(chartModel, chart) {
 
   chart.update();
 }
-
-export function renderKlzavyPriemerChart(data) {
-
-  chartOptions();
-
-  let maxLength = 0;
-
-  for (let col in chartModel) {
-    window.chart.data.datasets.push({
-      data: chartModel[col].data,
-      label: chartModel[col].label,
-      fill: false,
-      backgroundColor: chartModel[col].backgroundColor,
-      borderColor: chartModel[col].borderColor,
-      borderWidth: 1,
-    });
-
-    if (maxLength < chartModel[col].data.length) maxLength = chartModel[col].data.length;
-  }
-
-  for (let i = 0; i < maxLength; i++) {
-    window.chart.data.labels.push(i);
-  }
-
-  window.chart.update();
-}
-

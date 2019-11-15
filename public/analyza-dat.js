@@ -31,8 +31,16 @@
   }
 
   function createNewChart(element, text, yAxesLabel, xAxesLabel){
+    
+    const defaultElementChart = element.cloneNode();
+    const chartContainer = element.parentElement;
+    chartContainer.removeChild(element);
+    chartContainer.appendChild(defaultElementChart);
+    
     defaultSettings();
-    return new Chart(element, {
+
+    let targetElement = defaultElementChart.getContext("2d");
+    return new Chart(targetElement, {
       type: "line",
       data: {
         labels: [],
@@ -136,7 +144,10 @@
         borderWidth: 1,
       });
 
-      if (maxLength < chartModel[col].data.length) maxLength = chartModel[col].data.length;
+      if (maxLength < chartModel[col].data.length) {
+        maxLength = chartModel[col].data.length;
+        console.log('Max length:', maxLength);
+      }
     }
 
     for (let i = 0; i < maxLength; i++) {
@@ -206,15 +217,16 @@
 
     }
     $("#co_co2").on("click", event => {
+      console.log("CO + CO2");
       $('#chart-canvas').removeClass('d-none');
 
       let selected = getSelected();
       const chartModel = [];
 
-      // Prechádzanie vľetkých vybratých súborov
+      // Prechádzanie všetkých vybratých súborov
       for (let i = 0; i < selected.length; i++) {
         // Počítanie hodnôt CO + CO2
-        let COPlusCO2 = [];
+        var COPlusCO2 = [];
 
         for (let j = 0; j < Object.keys(window.loadedData[selected[i]]['k4_co']).length; j++) {
 
@@ -250,13 +262,12 @@
         });
       }
 
-      var myChartCOCO2 = document.getElementById("myChartCOCO2").getContext("2d");
+      let myChartCOCO2 = document.getElementById("myChartCOCO2");
 
       const chart = createNewChart(myChartCOCO2, 'Analýza technologických dát o procese skujňovania',
         'Koncentrácia (%)', 'Čas (s)');
       renderChart(chartModel, chart);
 
-      console.log('render done');
     });
 
     $("#gradient").on("click", event => {
@@ -266,12 +277,12 @@
       let selected = getSelected();
       const chartModel = [];
 
-      // Prechádzanie vľetkých vybratých súborov
+      // Prechádzanie všetkých vybratých súborov
       for (let i = 0; i < selected.length; i++) {
         // Počítanie hodnôt CO + CO2
         let gradient = [];
 
-        for (let j = 0; j < Object.keys(window.loadedData[selected[i]]['k4_co']).length; j++) {
+        for (let j = 1; j < Object.keys(window.loadedData[selected[i]]['k4_co']).length; j++) {
 
           const valueCOcurrent = window.loadedData[selected[i]]['k4_co'][j];
           const valueCO2current = window.loadedData[selected[i]]['k4_co2'][j];
@@ -299,7 +310,6 @@
           }
 
           let resultValue = (Number(sumCOCO2current) - Number(sumCO2previous));
-
           gradient.push(resultValue);
         }
 
@@ -311,50 +321,52 @@
         });
       }
 
-      var myChartGradient = document.getElementById("myChartGradient").getContext("2d");
+      var myChartGradient = document.getElementById("myChartGradient");
 
       const chart = createNewChart(myChartGradient, 'Analýza technologických dát o procese skujňovania',
         'Koncentrácia (%/s)', 'Čas (s)');
       renderChart(chartModel, chart);
 
-      console.log('render done');
-
     });
 
     $("#klzavy-priemer").on("click", event => {
       console.log('klzavy priemer');
-      $('#chart-canvas-3').removeClass("d-none");
 
       var txt;
       var krok = Number(prompt("Zadajte krok pre kĺzavý priemer:", "0"));
+
       if (krok == 0 || krok == "") {
+        alert("Nezadali ste krok.");
         txt = "Nezdali ste krok.";
         return;
       } else {
         txt = "Zadali ste krok: " + krok;
       }
+
       document.getElementById("input-krok").innerHTML = txt;
 
+      $('#chart-canvas-3').removeClass("d-none");
       $('#input-krok').removeClass("d-none");
 
       let selected = getSelected();
-      // var klzavyPriemer = [];
       const chartModel = [];
+      const lastValue = [];
 
       // Prechádzanie všetkých vybratých súborov
       for (let i = 0; i < selected.length; i++) {
-        // Počítanie hodnôt CO + CO2
 
+        // Počítanie hodnôt CO + CO2
         var klzavyPriemer = [];
         let pomocnyArray = [];
+        
 
-        for (let j = 0; j < Object.keys(window.loadedData[selected[i]]['k4_co']).length; j++) {
+        for (let j = 1; j < Object.keys(window.loadedData[selected[i]]['k4_co']).length; j++) {
 
           const valueCOcurrent = window.loadedData[selected[i]]['k4_co'][j];
           const valueCO2current = window.loadedData[selected[i]]['k4_co2'][j];
 
-          const valueCOprevious = window.loadedData[selected[i]]['k4_co'][j - 1] || 0;
-          const valueCO2previous = window.loadedData[selected[i]]['k4_co2'][j - 1] || 0;
+          const valueCOprevious = window.loadedData[selected[i]]['k4_co'][j - 1];
+          const valueCO2previous = window.loadedData[selected[i]]['k4_co2'][j - 1];
 
           let sumCOCO2current = (Number(valueCOcurrent) + Number(valueCO2current));
           let sumCO2previous = (Number(valueCOprevious) + Number(valueCO2previous));
@@ -375,20 +387,20 @@
             sumCOCO2current = 100;
           }
 
-          // ciastkovy gradient
+          let kroky = (Object.keys(window.loadedData[selected[i]]['k4_co']).length) / krok;
+          console.log('pocet krokov:', kroky);
+
+          // Čiastkový gradient
           let resultValue = (Number(sumCOCO2current) - Number(sumCO2previous));
-          // console.log(resultValue)
 
-          if (pomocnyArray.length === krok) {
+          pomocnyArray.push(resultValue);
+
+          if (pomocnyArray.length === krok || j === Object.keys(window.loadedData[selected[i]]['k4_co']).length - 1) {
             let sum = pomocnyArray.reduce((a, b) => a + b, 0);
-            console.log("sum: ", sum);
-
             let ciastkovyKlzavyPriemer = sum / krok;
             klzavyPriemer.push(ciastkovyKlzavyPriemer);
 
             pomocnyArray = [];
-          } else {
-            pomocnyArray.push(resultValue);
           }
         }
 
@@ -398,15 +410,26 @@
           label: selected[i],
           backgroundColor: getRandomColor(),
         });
+
+        console.log('klzavyPriemer', klzavyPriemer);
+
+        let calculationLastValue = klzavyPriemer[klzavyPriemer.length -1];
+        lastValue.push(calculationLastValue);
+
+        console.log('posledna hodnota:', lastValue);
+
+        let text = "Posledné hodnoty zo súborov sú: " + "[" + " " + lastValue + " " + "]"; 
+
+        $('#poslednaHodnota').empty();
+        $('#poslednaHodnota').append(text);
+
       }
 
-      var myChartPriemer = document.getElementById("myChartPriemer").getContext("2d");
+      var myChartPriemer = document.getElementById("myChartPriemer");
 
       const chart = createNewChart(myChartPriemer, 'Analýza technologických dát o procese skujňovania',
         'Koncentrácia (%/s)', 'Čas (s)');
       renderChart(chartModel, chart);
-
-      console.log('render done');
 
     });
 

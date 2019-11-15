@@ -109,15 +109,11 @@
                     gradientu</button>
                   <button type="button" class="d-none btn action-button btn-outline-warning" id="klzavy-priemer">Zobrazenie
                     kĺzavého priemeru</button>
-                  <button type="button" class="d-none btn action-button btn-outline-primary" id="input-krok"></button>
-                  
+                  <button type="button" class="d-none btn btn-light" id="input-krok"></button>
+                  <!-- <button type="button" class="d-none btn action-button btn-outline-dark" id="vypocty">Výpočty</button> -->
                 </div>
               </div>
               <hr>
-            </div>
-            <div >
-
-                
             </div>
           </div>
         </div>
@@ -141,7 +137,9 @@
           </div>
           <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
           <div class="my-4 w-100">
-            <canvas id="myChartGradient" height="25em" width="50em"></canvas>
+            <div id="myChartGradientCanvas">
+              <canvas id="myChartGradient" height="25em" width="50em"></canvas>
+            </div>
           </div>
           <hr>
         </div>
@@ -156,6 +154,10 @@
             <canvas id="myChartPriemer" height="25em" width="50em"></canvas>
           </div>
           <hr>
+          <h1 class="h4">Štatistické výpočty</h1>
+          <p id="poslednaHodnota"></p>
+          <hr>
+
         </div>
       </main>
     </div>

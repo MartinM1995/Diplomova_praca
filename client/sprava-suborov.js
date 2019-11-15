@@ -1,6 +1,5 @@
 import $ from "jquery";
 import { loadData } from "./lib/tabulky";
-import { renderCOCO2Chart } from "./lib/graf";
 import { initCOCO2Chart } from "./lib/graf";
 
 $("#databaza-container").hide();
@@ -42,7 +41,7 @@ async function setup() {
         })
         .catch(err => {
           console.error(err);
-          alert("Nastal problem s komunikáciou s databázou.");
+          alert("Nastal problém v komunikácií s databázou.");
         });
     }
   });
@@ -66,7 +65,7 @@ async function setup() {
         })
         .catch(err => {
           console.error(err);
-          alert("Nastal problem s komunikáciou s databázou.");
+          alert("Nastal problém v komunikácií s databázou.");
         });
     }
   }); 
