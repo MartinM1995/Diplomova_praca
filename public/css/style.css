@@ -7,6 +7,29 @@ p {
 text-align: justify;
 }
 
+#statistika {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#statistika td, #statistika th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#statistika tr:nth-child(even){background-color: #f2f2f2;}
+
+#statistika tr:hover {background-color: #ddd;}
+
+#statistika th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: justify;
+  background-color: #4CAF50;
+  color: white;
+}
+
 .feather {
   width: 16px;
   height: 16px;

@@ -32,7 +32,6 @@ async function setup() {
     // Pridanie súborov do dropdownu
     const files = loadedData.data;
     for (let i = 0; i < files.length; i++) {
-      // console.log("ADDING: ", i);
       const option = "<option>" + files[i].name + "</option>";
       $('#vkladanie').find(".selectpicker").append(option);
     }
@@ -199,6 +198,7 @@ async function setup() {
     let selected = getSelected();
     const chartModel = [];
     const lastValue = [];
+    let pomArray = [];
 
     // Prechádzanie všetkých vybratých súborov
     for (let i = 0; i < selected.length; i++) {
@@ -207,7 +207,7 @@ async function setup() {
       var klzavyPriemer = [];
       let pomocnyArray = [];
       let gradient = [];
-      
+
 
       for (let j = 1; j < Object.keys(window.loadedData[selected[i]]['k4_co']).length; j++) {
 
@@ -236,8 +236,8 @@ async function setup() {
           sumCOCO2current = 100
         }
 
-        let kroky = (Object.keys(window.loadedData[selected[i]]['k4_co']).length) / krok;
-        console.log('pocet krokov:', kroky)
+        // let kroky = (Object.keys(window.loadedData[selected[i]]['k4_co']).length) / krok;
+        // console.log('pocet krokov:', kroky)
 
         // Čiastkový gradient
         let resultValue = (Number(sumCOCO2current) - Number(sumCO2previous));
@@ -245,12 +245,17 @@ async function setup() {
 
         pomocnyArray.push(resultValue)
 
-        if (pomocnyArray.length === krok || j === Object.keys(window.loadedData[selected[i]]['k4_co']).length - 1) {
+        if (pomocnyArray.length < krok) {
           let sum = pomocnyArray.reduce((a, b) => a + b, 0);
+          let ciastkovyKlzavyPriemer = sum / pomocnyArray.length;
+          klzavyPriemer.push(ciastkovyKlzavyPriemer);
+        } else {
+          var novyArray = pomocnyArray.slice(j - krok, j);
+          let sum = novyArray.reduce((a, b) => a + b, 0);
           let ciastkovyKlzavyPriemer = sum / krok;
           klzavyPriemer.push(ciastkovyKlzavyPriemer);
 
-          pomocnyArray = [];
+          novyArray = [];
         }
       }
 
@@ -261,18 +266,33 @@ async function setup() {
         backgroundColor: getRandomColor(),
       });
 
-      console.log('klzavyPriemer', klzavyPriemer)
-
-      let calculationLastValue = klzavyPriemer[klzavyPriemer.length -1];
+      // Štatistika
+      let calculationLastValue = klzavyPriemer[klzavyPriemer.length - 1];
       lastValue.push(calculationLastValue);
+      console.log("lastvalue", lastValue)
 
-      console.log('posledna hodnota:', lastValue);
+      let maximum = Math.max(...lastValue);
+      let minimum = Math.min(...lastValue);
+      let priemer = lastValue.reduce((a, b) => a + b, 0) / lastValue.length;
 
-      let text = "Posledné hodnoty zo súborov sú: " + "[" + " " + lastValue + " " + "]"; 
+      let pomVyp = lastValue[i] - priemer;
+      let pomVypNa2 = Math.pow(pomVyp, 2);
+      pomArray.push(pomVypNa2);
+
+      let sucetPomArray = pomArray.reduce((a, b) => a + b, 0);
+      let rozptyl = (1 / lastValue.length) * sucetPomArray;
 
       $('#poslednaHodnota').empty();
-      $('#poslednaHodnota').append(text);
+      $('#aritmetickyPriemer').empty();
+      $('#maximum').empty();
+      $('#minimum').empty();
+      $('#rozptyl').empty();
 
+      $('#poslednaHodnota').append(" " + lastValue + ", " + " ");
+      $('#aritmetickyPriemer').append(priemer);
+      $('#maximum').append(maximum);
+      $('#minimum').append(minimum);
+      $('#rozptyl').append(rozptyl);
     }
 
     var myChartPriemer = document.getElementById("myChartPriemer");

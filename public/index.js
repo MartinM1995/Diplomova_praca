@@ -30,8 +30,11 @@
         label: chartModel[col].label,
         fill: false,
         backgroundColor: chartModel[col].backgroundColor,
-        borderColor: chartModel[col].borderColor,
-        borderWidth: 1,
+        borderColor: chartModel[col].backgroundColor,
+        pointBackgroundColor: "transparent",
+        pointBorderColor: "transparent", 
+        // pointBorderWidth: 1,
+        borderWidth: 3,
       });
 
       if (maxLength < chartModel[col].data.length) {
