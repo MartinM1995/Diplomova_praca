@@ -212,6 +212,9 @@ export function createNewChart(element, text, yAxesLabel, xAxesLabel){
 }
 
 export function initCOCO2Chart(loadedData) {
+
+  var lang = localStorage.getItem('lang');
+
   window.chartModel = {};
   window.uploadedData = {};
 

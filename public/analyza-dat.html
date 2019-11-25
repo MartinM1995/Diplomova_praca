@@ -46,48 +46,59 @@
         <div class="sidebar-sticky">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="fa fa-table"></i>
-                Načítanie súborov
+              <a class="lang nav-link" href="/" key="loading-files">
+                <i class="fa fa-file"></i>
+                <div class="menuValue"></div>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/sprava-suborov.html">
-                <i class="fa fa-file-excel-o"></i>
-                Správa súborov
+              <a class="lang nav-link" href="/sprava-suborov.html" key="file-management">
+                <i class="fa fa-folder"></i>
+                <div class="menuValue"></div>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/vykreslovanie-dat.html">
-                <i class="fa fa-database"></i>
-                Vykresľovanie dát
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="/analyza-dat.html">
-                <i class="fa fa-database"></i>
-                Analýza dát
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/databaza.html">
+              <a class="lang nav-link" href="/vykreslovanie-dat.html" key="data-rendering">
                 <i class="fa fa-area-chart"></i>
-                Databáza
+                <div class="menuValue"></div>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/o-aplikacii.html">
-                <i class="fa fa-file-excel-o"></i>
-                O aplikácií
+              <a class="lang nav-link active" href="/analyza-dat.html" key="data-analysis">
+                <i class="fa fa-database"></i>
+                <div class="menuValue"></div>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/autor.html">
-                <i class="fa fa-file-excel-o"></i>
-                Autor
+              <a class="lang nav-link" href="/databaza.html" key="database">
+                <i class="fa fa-archive"></i>
+                <div class="menuValue"></div>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="lang nav-link" href="/o-aplikacii.html" key="about">
+                <i class="fa fa-info-circle"></i>
+                <div class="menuValue"></div>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="lang nav-link" href="/autor.html" key="author">
+                <i class="fa fa-user"></i>
+                <div class="menuValue"></div>
               </a>
             </li>
           </ul>
+
+          <div class="dropdown translate-buttons">
+            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Jazyk/Language:
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <button class="translate dropdown-item" type="button" id="sk">Slovak</button>
+              <button class="translate dropdown-item" type="button" id="en">English</button>
+            </div>
+          </div>
         </div>
       </nav>
 
@@ -95,22 +106,25 @@
         <div class="row">
           <div class="w-100">
             <div class="col">
-              <h1 class="h4">Výber súboru z databázy</h1> <br>
-              <div id="loading">Načítanie databázy...</div>
-              <alert id="databaza-no-data" class="warning">V databáze zatiaľ nie sú žiadne dáta..</alert>
+              <h1 class="lang h4" key="header-data-management">Výber súboru z databázy</h1> <br>
+              <div class="lang" id="loading" key="loading-data">Načítanie databázy...</div>
+              <alert id="databaza-no-data" class="lang warning" key="database-warning">V databáze zatiaľ nie sú žiadne
+                dáta..</alert>
               <div id="vkladanie-container">
                 <div id="vkladanie" class="d-none">
-                  <select class="selectpicker" multiple data-live-search="true" title="Vyberte súbor"
-                    data-actions-box="true">
+                  <select class="lang selectpicker" multiple data-live-search="true" title="Vyberte súbor"
+                    data-actions-box="true" key="select-file">
                   </select>
-                  <button type="button" class="d-none btn action-button btn-outline-success" id="co_co2">Zobrazenie
+                  <button type="button" class="lang d-none btn action-button btn-outline-success" id="co_co2"
+                    key="show-coco2">Zobrazenie
                     CO+CO2</button>
-                  <button type="button" class="d-none btn action-button btn-outline-danger" id="gradient">Zobrazenie
+                  <button type="button" class="lang d-none btn action-button btn-outline-danger" id="gradient"
+                    key="show-gradient">Zobrazenie
                     gradientu</button>
-                  <button type="button" class="d-none btn action-button btn-outline-warning" id="klzavy-priemer">Zobrazenie
+                  <button type="button" class="lang d-none btn action-button btn-outline-warning" id="klzavy-priemer"
+                    key="show-average">Zobrazenie
                     kĺzavého priemeru</button>
-                  <button type="button" class="d-none btn btn-light" id="input-krok"></button>
-                  <!-- <button type="button" class="d-none btn action-button btn-outline-dark" id="vypocty">Výpočty</button> -->
+                  <button type="button" class="lang d-none btn btn-light" id="input-krok" key="step"></button>
                 </div>
               </div>
               <hr>
@@ -121,7 +135,7 @@
         <div id="chart-canvas" class="d-none">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 ">
             <!--  border-bottom  - ak chcem orámovať text zo spodu-->
-            <h1 class="h4">CO + CO2</h1>
+            <h1 class="lang h4" key="co-co2">CO + CO2</h1>
           </div>
           <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
           <div class="my-4 w-100">
@@ -133,7 +147,7 @@
         <div id="chart-canvas-2" class="d-none">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 ">
             <!--  border-bottom  - ak chcem orámovať text zo spodu-->
-            <h1 class="h4">Gradient</h1>
+            <h1 class="lang h4" key="gradient">Gradient</h1>
           </div>
           <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
           <div class="my-4 w-100">
@@ -147,23 +161,23 @@
         <div id="chart-canvas-3" class="d-none">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 ">
             <!--  border-bottom  - ak chcem orámovať text zo spodu-->
-            <h1 class="h4">Kĺzavý priemer</h1>
+            <h1 class="lang h4" key="sliding-diameter">Kĺzavý priemer</h1>
           </div>
           <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
           <div class="my-4 w-100">
             <canvas id="myChartPriemer" height="25em" width="50em"></canvas>
           </div>
           <hr>
-          <h1 class="h4">Štatistické výpočty</h1>
+          <h1 class="lang h4" key="statistics">Štatistické výpočty</h1>
           <!-- <p>Posledné hodnoty zo súborov sú: <b> <span id="poslednaHodnota"> </span> </b></p> -->
-         
+
           <table id="statistika">
             <thead>
               <tr>
-                <th>Aritmetický priemer</th>
-                <th>Rozptyl</th>
-                <th>Maximálna hodnota</th>
-                <th>Minimálna hodnota</th>
+                <th class="lang" key="aritmetic-average">Aritmetický priemer</th>
+                <th class="lang" key="spread">Rozptyl</th>
+                <th class="lang" key="max-value">Maximálna hodnota</th>
+                <th class="lang" key="min-value">Minimálna hodnota</th>
               </tr>
             </thead>
             <tbody>
@@ -196,6 +210,7 @@
     crossorigin="anonymous"></script>
   <script src="js/bootstrap-select.js"></script>
   <script src='analyza-dat.js'></script>
+  <script src='language.js'></script>
 
 </body>
 

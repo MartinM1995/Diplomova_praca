@@ -165,6 +165,7 @@
   $("#databaza-no-data").hide();
 
   let data = null;
+  var lang = localStorage.getItem('lang');
 
   window.getSelected = () => {
     const filenamesstring = $('#vkladanie').find(".btn.dropdown-toggle.btn-light").attr("title");
@@ -179,9 +180,8 @@
 
     $('#loading').hide();
     $('.action-button').removeClass("d-none");
-    $('#vkladanie').removeClass("d-none");
     $('#input-krok').addClass("d-none");
-
+    $('#vkladanie').removeClass("d-none");
     $('#vkladanie').find(".selectpicker").empty();
 
     if (loadedData && loadedData.data && loadedData.data.length > 0) {
@@ -216,7 +216,9 @@
         result[file.name] = dataObject;
         return result;
       }, {});
-
+    } else {
+      $('#vkladanie').addClass("d-none");
+      $("#databaza-no-data").show();
     }
     $("#co_co2").on("click", event => {
       console.log("CO + CO2");
@@ -335,14 +337,28 @@
       console.log('klzavy priemer');
 
       var txt;
-      var krok = Number(prompt("Zadajte krok pre kĺzavý priemer:", "0"));
+      if (lang === 'sk') {
+        var krok = Number(prompt("Zadajte krok pre kĺzavý priemer:", "0"));
+      } else {
+        var krok = Number(prompt("Enter the step for sliding diameter:", "0"));
+      }
 
       if (krok == 0 || krok == "") {
-        alert("Nezadali ste krok.");
-        txt = "Nezdali ste krok.";
-        return;
+        if (lang = 'sk') {
+          alert("Nezadali ste krok.");
+          txt = "Nezdali ste krok.";
+          return;
+        } else {
+          alert("You haven't entered a step.");
+          txt = "You haven't entered a step.";
+          return;
+        }
       } else {
-        txt = "Zadali ste krok: " + krok;
+        if (lang === 'sk') {
+          txt = "Zadali ste krok: " + krok;
+        } else {
+          txt = "Entered step is: " + krok;
+        }
       }
 
       document.getElementById("input-krok").innerHTML = txt;
@@ -352,7 +368,7 @@
 
       let selected = getSelected();
       const chartModel = [];
-      const lastValue = [];
+      const lastValues = [];
       let pomArray = [];
 
       // Prechádzanie všetkých vybratých súborov
@@ -420,20 +436,42 @@
         });
 
         // Štatistika
+        const findMax = objectArray => {
+          let max = objectArray[0];
+          for (let i = 0; i < objectArray.length; i++) {
+            if (objectArray[i].value > max.value) {
+              max = objectArray[i];
+            }
+          }
+          return max;
+        };
+
+        const findMin = objectArray => {
+          let min = objectArray[0];
+          for (let i = 0; i < objectArray.length; i++) {
+            if (objectArray[i].value < min.value) {
+              min = objectArray[i];
+            }
+          }
+          return min;
+        };
+
         let calculationLastValue = klzavyPriemer[klzavyPriemer.length - 1];
-        lastValue.push(calculationLastValue);
-        console.log("lastvalue", lastValue);
+        lastValues.push({ value: calculationLastValue, fileName: selected[i] });
 
-        let maximum = Math.max(...lastValue);
-        let minimum = Math.min(...lastValue);
-        let priemer = lastValue.reduce((a, b) => a + b, 0) / lastValue.length;
+        console.log("lastvalue", lastValues);
 
-        let pomVyp = lastValue[i] - priemer;
+        let maximum = findMax(lastValues);
+        let minimum = findMin(lastValues);
+
+        let priemer = lastValues.map(a => a.value).reduce((a, b) => a + b, 0) / lastValues.length;
+
+        let pomVyp = lastValues[i].value - priemer;
         let pomVypNa2 = Math.pow(pomVyp, 2);
         pomArray.push(pomVypNa2);
 
         let sucetPomArray = pomArray.reduce((a, b) => a + b, 0);
-        let rozptyl = (1 / lastValue.length) * sucetPomArray;
+        let rozptyl = (1 / lastValues.length) * sucetPomArray;
 
         $('#poslednaHodnota').empty();
         $('#aritmetickyPriemer').empty();
@@ -441,10 +479,10 @@
         $('#minimum').empty();
         $('#rozptyl').empty();
 
-        $('#poslednaHodnota').append(" " + lastValue + ", " + " ");
+        $('#poslednaHodnota').append(" " + lastValues + ", " + " ");
         $('#aritmetickyPriemer').append(priemer);
-        $('#maximum').append(maximum);
-        $('#minimum').append(minimum);
+        $('#maximum').append(maximum.value + " (" + maximum.fileName + ")");
+        $('#minimum').append(minimum.value + " (" + minimum.fileName + ")");
         $('#rozptyl').append(rozptyl);
       }
 

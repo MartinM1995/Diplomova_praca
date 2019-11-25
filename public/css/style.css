@@ -7,6 +7,14 @@ p {
 text-align: justify;
 }
 
+.menuValue {
+  display: inline-block;
+}
+
+span {
+  margin: 5px;
+}
+
 #statistika {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
@@ -157,6 +165,10 @@ canvas {
   font-size: 18px;
   font-weight: bold;
   padding: 10px 5px 1px 5px;
+}
+
+.translate-buttons {
+  padding: .5rem 1rem;
 }
 
 .btn-file {

@@ -93,6 +93,9 @@
   }
 
   function initCOCO2Chart(loadedData) {
+
+    var lang = localStorage.getItem('lang');
+
     window.chartModel = {};
     window.uploadedData = {};
 

@@ -47,4 +47,12 @@ export default [{
     sourcemaps: true,
     globals: ["$"]
   }
+},{
+  input: './client/language.js',
+  output: {
+    dir: './public/',
+    format: 'iife',
+    sourcemaps: true,
+    globals: ["$"]
+  }
 }];

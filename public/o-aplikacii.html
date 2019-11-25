@@ -1,34 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="utf-8">
-	<meta name="author" content="Martin Mroč">
+  <meta charset="utf-8">
+  <meta name="author" content="Martin Mroč">
 
-	<!--Responsive meta tag-->
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Diplomová práca</title>
+  <!--Responsive meta tag-->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Diplomová práca</title>
 
-	<!-- CSS styles -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="css/Chart.css">
-	<link rel="stylesheet" type="text/css" href="css/Chart.min.css">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<link rel="stylesheet" type="text/css" href="css/example-styles.css">
-	<link rel="stylesheet" type="text/css" href="css/bootstrap-select.css">
+  <!-- CSS styles -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="css/Chart.css">
+  <link rel="stylesheet" type="text/css" href="css/Chart.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/example-styles.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-select.css">
 
-	<!-- JS -->
-	<script type="text/javascript" src="js/Chart.bundle.js"></script>
-	<script type="text/javascript" src="js/Chart.bundle.min.js"></script>
-	<script type="text/javascript" src="js/Chart.js"></script>
-	<script type="text/javascript" src="js/Chart.min.js"></script>
-	<script type="text/javascript" src="js/canvas-toBlob.js"></script>
-	<script type="text/javascript" src="js/FileSaver.min.js"></script>
+  <!-- JS -->
+  <script type="text/javascript" src="js/Chart.bundle.js"></script>
+  <script type="text/javascript" src="js/Chart.bundle.min.js"></script>
+  <script type="text/javascript" src="js/Chart.js"></script>
+  <script type="text/javascript" src="js/Chart.min.js"></script>
+  <script type="text/javascript" src="js/canvas-toBlob.js"></script>
+  <script type="text/javascript" src="js/FileSaver.min.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.3"></script>
 
 </head>
+
 <body>
   <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
@@ -43,116 +46,134 @@
         <div class="sidebar-sticky">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="fa fa-table"></i>
-                Načítanie súborov
+              <a class="lang nav-link" href="/" key="loading-files">
+                <i class="fa fa-file"></i>
+                <div class="menuValue"></div>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/sprava-suborov.html">
-                <i class="fa fa-file-excel-o"></i>
-                Správa súborov
+              <a class="lang nav-link" href="/sprava-suborov.html" key="file-management">
+                <i class="fa fa-folder"></i>
+                <div class="menuValue"></div>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/vykreslovanie-dat.html">
-                <i class="fa fa-database"></i>
-                Vykresľovanie dát
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/analyza-dat.html">
-                <i class="fa fa-database"></i>
-                Analýza dát
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/databaza.html">
+              <a class="lang nav-link" href="/vykreslovanie-dat.html" key="data-rendering">
                 <i class="fa fa-area-chart"></i>
-                Databáza
+                <div class="menuValue"></div>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="/o-aplikacii.html">
-                <i class="fa fa-file-excel-o"></i>
-                O aplikácií
+              <a class="lang nav-link" href="/analyza-dat.html" key="data-analysis">
+                <i class="fa fa-database"></i>
+                <div class="menuValue"></div>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/autor.html">
-                <i class="fa fa-file-excel-o"></i>
-                Autor
+              <a class="lang nav-link" href="/databaza.html" key="database">
+                <i class="fa fa-archive"></i>
+                <div class="menuValue"></div>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="lang nav-link active" href="/o-aplikacii.html" key="about">
+                <i class="fa fa-info-circle"></i>
+                <div class="menuValue"></div>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="lang nav-link" href="/autor.html" key="author">
+                <i class="fa fa-user"></i>
+                <div class="menuValue"></div>
               </a>
             </li>
           </ul>
+
+          <div class="dropdown translate-buttons">
+            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Jazyk/Language:
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <button class="translate dropdown-item" type="button" id="sk">Slovak</button>
+              <button class="translate dropdown-item" type="button" id="en">English</button>
+            </div>
+          </div>
         </div>
       </nav>
 
       <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
         <div class="row">
           <div class="col">
-            <h2>Webová aplikácia pre analýzu technologických dát o procese skujňovania</h2>
+            <h2 class="lang" key="header-aplication">Webová aplikácia pre analýzu technologických dát o procese skujňovania</h2>
             <div>
-              <p>
-                Táto aplikácia slúži pre analýzu technologických dát o procese skujňovania. 
+              <p class="lang" key="aplication-description">
+                Táto aplikácia slúži pre analýzu technologických dát o procese skujňovania.
                 Pomocou aplikácie môže užívateľ zobrazovať dáta vo forme grafov z vybraných súborov.
               </p>
               <hr>
 
-              <h4>Načítanie súborov</h4>
-              <p>
-                V tejto časti menu môže užívateľ načítať všetky súbory s ktorými bude chcieť neskôr 
+              <h4 class="lang" key="header-loading-file">Načítanie súborov</h4>
+              <p class="lang" key="loading-file-description">
+                V tejto časti menu môže užívateľ načítať všetky súbory s ktorými bude chcieť neskôr
                 pracovať. Pomocou tlačidla <b>Nahrať</b> sa všetky súbory uložia do databázy.
               </p>
               <hr>
 
-              <h4>Správa súborov</h4>
-              <p>
-                Správa súborov slúži užívateľovi na zobrazenie dát CO + CO2 z daného súbora a tiež na 
-                označenie súbora, či je <b>Vyhovujúci</b> alebo <b>Nevyhovujúci</b> pre ďalšie 
+              <h4 class="lang" key="header-datas-management">Správa súborov</h4>
+              <p class="lang" key="datas-management-description">
+                Správa súborov slúži užívateľovi na zobrazenie dát CO + CO2 z daného súbora a tiež na
+                označenie súbora, či je <b>Vyhovujúci</b> alebo <b>Nevyhovujúci</b> pre ďalšie
                 spracovanie.
               </p>
               <hr>
 
-              <h4>Vykresľovanie dát</h4>
-              <p>
-                Vykresľovane dát slúži pre zobrazenie akýchkoľvek dát (stĺpcov) zo súbora. Užívateľ 
-                môže zobrazovať v jednom grafe aj dáta z rôznych súborov. Najprv je potrebné vybrať 
-                súbor z ktorého chce užívateľ zobraziť dáta a potom vybrať konkrétne stĺpce. Pomocou 
-                tlačidla <b>Pridať do grafu</b> aplikácia zobrazí všetky vybrané stĺpce do grafu. 
+              <h4 class="lang" key="header-data-rendering">Vykresľovanie dát</h4>
+              <p class="lang" key="data-rendering-deccription">
+                Vykresľovane dát slúži pre zobrazenie akýchkoľvek dát (stĺpcov) zo súbora. Užívateľ
+                môže zobrazovať v jednom grafe aj dáta z rôznych súborov. Najprv je potrebné vybrať
+                súbor z ktorého chce užívateľ zobraziť dáta a potom vybrať konkrétne stĺpce. Pomocou
+                tlačidla <b>Pridať do grafu</b> aplikácia zobrazí všetky vybrané stĺpce do grafu.
                 Na odstránenie pridaných stĺpcov slúži tlačidlo <b>Odstrániť z grafu</b>.
               </p>
 
               <hr>
 
-              <h4>Analýza dát</h4>
-              <p>
-                Analýza dát slúži užívateľovi pre zobrazenie <b>gradientu</b> a výpočet kĺzavého priemeru
-                z gradientu. 
+              <h4 class="lang" key="hedaer-data-analysis">Analýza dát</h4>
+              <p class="lang" key="data-analysis-decription">
+                Analýza dát slúži užívateľovi pre zobrazenie <b>gradientu</b>, kĺzavého priemeru
+                z gradientu a pre štatistické výpočty.
               </p>
               <hr>
 
-              <h4>Databáza</h4>
-              <p>
+              <h4 class="lang" key="header-database">Databáza</h4>
+              <p class="lang" key="database-description">
                 Databáza slúži pre zobrazenie hodnôt z daného súbora.
               </p>
             </div>
-          </div> 
+          </div>
         </div>
       </main>
     </div>
   </div>
 
-<!-- jQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript" src="js/jquery.multi-select.js"></script>
-<script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-<!--  Popper -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="js/bootstrap-select.js"></script>
-<script src='o-aplikacii.js'></script>
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="js/jquery.multi-select.js"></script>
+  <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+  <!--  Popper -->
+  <div class="menuValue"></div>lang
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <!-- Bootstrap -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="js/bootstrap-select.js"></script>
+  <script src='o-aplikacii.js'></script>
+  <script src='language.js'></script>
 
 </body>
+
 </html>
