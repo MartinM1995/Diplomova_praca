@@ -124,7 +124,7 @@
   const whitelistLang = ["sk", "en"];
 
   function initLang() {
-    var defaultLang = window.navigator.language.slice(0, 2);
+    var defaultLang = localStorage.getItem('lang') || window.navigator.language.slice(0, 2);
     if (whitelistLang.includes(defaultLang)) {
       localStorage.setItem("lang", defaultLang);
       return defaultLang
