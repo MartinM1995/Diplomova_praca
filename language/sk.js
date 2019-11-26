@@ -7,6 +7,7 @@ export default {
   "about": "O aplikácií",
   "author": "Autor",
   "load": "Nahrať",
+  "fileName": (fileName) => 'Bol vybratý "' + fileName + '" súbor.',
   "header-loading-files": "Vyberte súbor vo formáte .xls alebo .xlsx",
   "load-text": "Nahrať súbor",
   "header-data-management": "Výber súboru z databázy",

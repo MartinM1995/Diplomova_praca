@@ -4,6 +4,8 @@ import slovak from "../language/sk.js";
 
 const whitelistLang = ["sk", "en"];
 
+export let CURRENT_LANG = null;
+
 function initLang() {
   var defaultLang = localStorage.getItem('lang') || window.navigator.language.slice(0, 2);
   if (whitelistLang.includes(defaultLang)) {
@@ -18,6 +20,7 @@ $(document).ready(function () {
 
   // var lang = "sk";
   var lang = initLang();
+  CURRENT_LANG = initLang() === "sk" ? slovak : english;
 
   console.log("jazyk:", lang)
 

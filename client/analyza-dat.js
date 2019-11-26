@@ -187,7 +187,7 @@ async function setup() {
     } else {
       var krok = Number(prompt("Enter the step for sliding diameter:", "0"));
     }
-
+    console.log(krok)
     if (krok == 0 || krok == "") {
       if (lang = 'sk') {
         alert("Nezadali ste krok.")

@@ -7,6 +7,7 @@ export default {
   "about": "About",
   "author": "Author",
   "load": "Load",
+  "fileName": (fileName) => 'The file "' + fileName + '" was selected.',
   "header-loading-files": "Select a xls. or xlsx. file",
   "load-text": "Upload file",
   "header-data-management": "Select a file from database",
