@@ -121,11 +121,23 @@
 
   };
 
+  const whitelistLang = ["sk", "en"];
+
+  function initLang() {
+    var defaultLang = window.navigator.language.slice(0, 2);
+    if (whitelistLang.includes(defaultLang)) {
+      localStorage.setItem("lang", defaultLang);
+      return defaultLang
+    }
+
+    return localStorage.getItem('lang') || "sk"
+  }
+
   $(document).ready(function () {
 
     // var lang = "sk";
-    var lang = localStorage.getItem('lang') || 'sk';
-   
+    var lang = initLang();
+
     console.log("jazyk:", lang);
 
     const arrLang = {
@@ -221,7 +233,7 @@
       var lang = $(this).attr('id');
 
       window.localStorage.setItem('lang', $(this).attr('id'));
-    
+
       const arrLang = {
         en: english,
         sk: slovak
