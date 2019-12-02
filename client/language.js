@@ -56,6 +56,12 @@ $(document).ready(function () {
     if ($(this).prop("tagName") === "SELECT") {
       const newValue = arrLang[lang][$(this).attr('key')];
       $(this).attr("title", newValue);
+
+      if ($(this)[0].id === "select-file") {
+        // Beware! If select library changes its classes, this won't work...
+        $(".btn.dropdown-toggle.btn-light.bs-placeholder > .filter-option > .filter-option-inner > .filter-option-inner-inner").text(newValue)
+      }
+
       return;
     }
 
@@ -145,6 +151,12 @@ $(function () {
       if ($(this).prop("tagName") === "SELECT") {
         const newValue = arrLang[lang][$(this).attr('key')];
         $(this).attr("title", newValue);
+
+        if ($(this)[0].id === "select-file") {
+          // Beware! If select library changes its classes, this won't work...
+          $(".btn.dropdown-toggle.btn-light.bs-placeholder > .filter-option > .filter-option-inner > .filter-option-inner-inner").text(newValue)
+        }
+
         return;
       }
 
