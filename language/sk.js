@@ -30,6 +30,7 @@ export default {
   "show-average": "Zobrazenie kĺzavého priemeru",
   "co-co2": "CO + CO2",
   "gradient": "Gradient",
+  "sliding-diameter": "Kĺzavý priemer",
   "statistics": "Štatistické výpočty",
   "aritmetic-average": "Aritmetický priemer",
   "spread": "Rozptyl",

@@ -1,6 +1,4 @@
 import $ from "jquery";
-import { renderChart } from "./graf";
-import { getRandomColor } from "./utils"
 import config from "../config";
 
 export function registerUploadFile() {

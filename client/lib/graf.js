@@ -15,7 +15,7 @@ function chartOptions(){
   window.chart.options.pan.enabled = true;
   window.chart.options.zoom.enabled = true;
   window.chart.options.legend.display = true;
-  window.chart.options.title.display = true;
+  // window.chart.options.title.display = false;
   window.chart.data.datasets = [];
   window.chart.data.labels = [];
 }
@@ -47,7 +47,7 @@ export function initMainGraf(loadedData) {
       responsive: true,
       title: {
         display: false,
-        text: "Analýza technologických dát o procese skujňovania",
+        text: "",
         fontSize: 25,
         fontColor: "blue",
         fontStyle: "bold",

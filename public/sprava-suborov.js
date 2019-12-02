@@ -87,7 +87,7 @@
     window.chart.options.pan.enabled = true;
     window.chart.options.zoom.enabled = true;
     window.chart.options.legend.display = true;
-    window.chart.options.title.display = true;
+    // window.chart.options.title.display = false;
     window.chart.data.datasets = [];
     window.chart.data.labels = [];
   }
@@ -256,6 +256,8 @@
 
     $("#vyhovuje").on("click", event => {
       if (data) {
+        let lang = localStorage.getItem('lang');
+
         fetch(`/api/set-status/${data._id}`, {
           method: "POST",
           headers: {
@@ -269,17 +271,28 @@
           .then(async res => {
             const response = await res.json();
             document.getElementById("file-status").innerHTML = `Status: ${response.data.status}`;
-            alert("Status súboru bol nastavený na vyhovujúci.");
+            if (lang === "sk") {
+              alert("Status súboru bol nastavený na 'Vyhovujúci'.");
+            } else {
+              alert("File status set to 'Correct'.");
+            }
           })
           .catch(err => {
             console.error(err);
-            alert("Nastal problém v komunikácií s databázou.");
+            if (lang === "sk") {
+              alert("Nastal problém v komunikácií s databázou.");
+            } else {
+              alert("Problem in communication with database.");
+            }
           });
+          
       }
     });
 
     $("#nevyhovuje").on("click", event => {
       if (data) {
+        let lang = localStorage.getItem('lang');
+
         fetch(`/api/set-status/${data._id}`, {
           method: "POST",
           headers: {
@@ -293,8 +306,11 @@
           .then(async res => {
             const response = await res.json();
             document.getElementById("file-status").innerHTML = `Status: ${response.data.status}`;
-            alert("Status súboru bol nastavený na nevyhovujúci.");
-          })
+            if (lang === "sk") {
+              alert("Status súboru bol nastavený na 'Nevyhovujúci'.");
+            } else {
+              alert("File status set to 'Incorrect'.");
+            }        })
           .catch(err => {
             console.error(err);
             alert("Nastal problém v komunikácií s databázou.");

@@ -1,4 +1,4 @@
-(function ($) {
+var language = (function (exports, $) {
   'use strict';
 
   $ = $ && $.hasOwnProperty('default') ? $['default'] : $;
@@ -12,14 +12,15 @@
     "about": "About",
     "author": "Author",
     "load": "Load",
+    "fileName": (fileName) => 'The file "' + fileName + '" was selected.',
     "header-loading-files": "Select a xls. or xlsx. file",
     "load-text": "Upload file",
     "header-data-management": "Select a file from database",
     "loading-data": "Loading data from database...",
     "database-warning": "There is no data in database...",
     "select-file": "Select file",
-    "success": "Success",
-    "not-success": "Not success",
+    "success": "Correct",
+    "not-success": "Incorrect",
     "header-coco2": "Rendered values CO + CO2",
     "select-columns-file": "Select columns",
     "select-columns": "Select columns",
@@ -71,6 +72,7 @@
     "about": "O aplikácií",
     "author": "Autor",
     "load": "Nahrať",
+    "fileName": (fileName) => 'Bol vybratý "' + fileName + '" súbor.',
     "header-loading-files": "Vyberte súbor vo formáte .xls alebo .xlsx",
     "load-text": "Nahrať súbor",
     "header-data-management": "Výber súboru z databázy",
@@ -93,6 +95,7 @@
     "show-average": "Zobrazenie kĺzavého priemeru",
     "co-co2": "CO + CO2",
     "gradient": "Gradient",
+    "sliding-diameter": "Kĺzavý priemer",
     "statistics": "Štatistické výpočty",
     "aritmetic-average": "Aritmetický priemer",
     "spread": "Rozptyl",
@@ -123,20 +126,22 @@
 
   const whitelistLang = ["sk", "en"];
 
+  exports.CURRENT_LANG = null;
+
   function initLang() {
     var defaultLang = localStorage.getItem('lang') || window.navigator.language.slice(0, 2);
     if (whitelistLang.includes(defaultLang)) {
       localStorage.setItem("lang", defaultLang);
-      return defaultLang
+      return defaultLang;
     }
 
-    return localStorage.getItem('lang') || "sk"
+    return localStorage.getItem('lang') || "sk";
   }
 
   $(document).ready(function () {
 
-    // var lang = "sk";
     var lang = initLang();
+    exports.CURRENT_LANG = initLang() === "sk" ? slovak : english;
 
     console.log("jazyk:", lang);
 
@@ -145,7 +150,6 @@
       sk: slovak
     };
 
-    // Prednastavený jazyk je Sk
     $(".lang").each(function (index, element) {
 
       const newValue = arrLang[lang][$(this).attr('key')];
@@ -234,6 +238,7 @@
 
       window.localStorage.setItem('lang', $(this).attr('id'));
 
+      console.log();
       const arrLang = {
         en: english,
         sk: slovak
@@ -317,8 +322,15 @@
         $(this).find(".menuValue").each(function (langIndex, langItem) {
           $(this).text(newValue);
         });
+
+        $(this).find("#data-id").each(function (langIndex, langItem) {
+          $(this).text(newValue);
+        });
+
       });
     });
   });
 
-}($));
+  return exports;
+
+}({}, $));

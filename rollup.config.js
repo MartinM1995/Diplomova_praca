@@ -50,9 +50,10 @@ export default [{
 },{
   input: './client/language.js',
   output: {
+    name: "language",
     dir: './public/',
     format: 'iife',
     sourcemaps: true,
-    globals: ["$"]
+    globals: ["$"] 
   }
 }];

@@ -108,7 +108,7 @@
         responsive: true,
         title: {
           display: false,
-          text: "Analýza technologických dát o procese skujňovania",
+          text: "",
           fontSize: 25,
           fontColor: "blue",
           fontStyle: "bold",

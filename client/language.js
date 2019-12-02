@@ -9,16 +9,15 @@ export let CURRENT_LANG = null;
 function initLang() {
   var defaultLang = localStorage.getItem('lang') || window.navigator.language.slice(0, 2);
   if (whitelistLang.includes(defaultLang)) {
-    localStorage.setItem("lang", defaultLang)
-    return defaultLang
+    localStorage.setItem("lang", defaultLang);
+    return defaultLang;
   }
 
-  return localStorage.getItem('lang') || "sk"
+  return localStorage.getItem('lang') || "sk";
 }
 
 $(document).ready(function () {
 
-  // var lang = "sk";
   var lang = initLang();
   CURRENT_LANG = initLang() === "sk" ? slovak : english;
 
@@ -29,7 +28,6 @@ $(document).ready(function () {
     sk: slovak
   };
 
-  // Prednastavený jazyk je Sk
   $(".lang").each(function (index, element) {
 
     const newValue = arrLang[lang][$(this).attr('key')];
@@ -118,6 +116,7 @@ $(function () {
 
     window.localStorage.setItem('lang', $(this).attr('id'));
 
+    console.log()
     const arrLang = {
       en: english,
       sk: slovak
@@ -201,6 +200,11 @@ $(function () {
       $(this).find(".menuValue").each(function (langIndex, langItem) {
         $(this).text(newValue);
       });
+
+      $(this).find("#data-id").each(function (langIndex, langItem) {
+        $(this).text(newValue);
+      });
+
     });
   });
 });

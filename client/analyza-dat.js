@@ -113,8 +113,7 @@ async function setup() {
 
     let myChartCOCO2 = document.getElementById("myChartCOCO2");
 
-    const chart = createNewChart(myChartCOCO2, 'Analýza technologických dát o procese skujňovania',
-      'Koncentrácia (%)', 'Čas (s)');
+    const chart = createNewChart(myChartCOCO2, '', 'Koncentrácia (%)', 'Čas (s)');
     renderChart(chartModel, chart);
 
   });
@@ -172,14 +171,14 @@ async function setup() {
 
     var myChartGradient = document.getElementById("myChartGradient");
 
-    const chart = createNewChart(myChartGradient, 'Analýza technologických dát o procese skujňovania',
-      'Koncentrácia (%/s)', 'Čas (s)');
+    const chart = createNewChart(myChartGradient, '', 'Koncentrácia (%/s)', 'Čas (s)');
     renderChart(chartModel, chart);
 
   });
 
   $("#klzavy-priemer").on("click", event => {
     console.log('klzavy priemer');
+    var lang = localStorage.getItem('lang');
 
     var txt;
     if (lang === 'sk') {
@@ -187,26 +186,28 @@ async function setup() {
     } else {
       var krok = Number(prompt("Enter the step for sliding diameter:", "0"));
     }
-    console.log(krok)
-    if (krok == 0 || krok == "") {
-      if (lang = 'sk') {
+    if (krok === 0 || krok === "") {
+      var lang = localStorage.getItem('lang');
+      if (lang === 'sk') {
         alert("Nezadali ste krok.")
         txt = "Nezdali ste krok.";
+        document.getElementById("input-krok").innerHTML = txt;
         return;
       } else {
         alert("You haven't entered a step.")
         txt = "You haven't entered a step.";
+        document.getElementById("input-krok").innerHTML = txt;
         return;
       }
     } else {
       if (lang === 'sk') {
         txt = "Zadali ste krok: " + krok;
+        document.getElementById("input-krok").innerHTML = txt;
       } else {
         txt = "Entered step is: " + krok;
+        document.getElementById("input-krok").innerHTML = txt;
       }
     }
-
-    document.getElementById("input-krok").innerHTML = txt;
 
     $('#chart-canvas-3').removeClass("d-none");
     $('#input-krok').removeClass("d-none");
@@ -335,7 +336,7 @@ async function setup() {
 
     var myChartPriemer = document.getElementById("myChartPriemer");
 
-    const chart = createNewChart(myChartPriemer, 'Analýza technologických dát o procese skujňovania',
+    const chart = createNewChart(myChartPriemer, '',
       'Koncentrácia (%/s)', 'Čas (s)');
     renderChart(chartModel, chart);
 

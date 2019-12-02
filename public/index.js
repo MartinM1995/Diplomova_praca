@@ -70,8 +70,8 @@
     "loading-data": "Loading data from database...",
     "database-warning": "There is no data in database...",
     "select-file": "Select file",
-    "success": "Success",
-    "not-success": "Not success",
+    "success": "Correct",
+    "not-success": "Incorrect",
     "header-coco2": "Rendered values CO + CO2",
     "select-columns-file": "Select columns",
     "select-columns": "Select columns",
@@ -146,6 +146,7 @@
     "show-average": "Zobrazenie kĺzavého priemeru",
     "co-co2": "CO + CO2",
     "gradient": "Gradient",
+    "sliding-diameter": "Kĺzavý priemer",
     "statistics": "Štatistické výpočty",
     "aritmetic-average": "Aritmetický priemer",
     "spread": "Rozptyl",
@@ -182,15 +183,14 @@
     var defaultLang = localStorage.getItem('lang') || window.navigator.language.slice(0, 2);
     if (whitelistLang.includes(defaultLang)) {
       localStorage.setItem("lang", defaultLang);
-      return defaultLang
+      return defaultLang;
     }
 
-    return localStorage.getItem('lang') || "sk"
+    return localStorage.getItem('lang') || "sk";
   }
 
   $(document).ready(function () {
 
-    // var lang = "sk";
     var lang = initLang();
     CURRENT_LANG = initLang() === "sk" ? slovak : english;
 
@@ -201,7 +201,6 @@
       sk: slovak
     };
 
-    // Prednastavený jazyk je Sk
     $(".lang").each(function (index, element) {
 
       const newValue = arrLang[lang][$(this).attr('key')];
@@ -290,6 +289,7 @@
 
       window.localStorage.setItem('lang', $(this).attr('id'));
 
+      console.log();
       const arrLang = {
         en: english,
         sk: slovak
@@ -373,6 +373,11 @@
         $(this).find(".menuValue").each(function (langIndex, langItem) {
           $(this).text(newValue);
         });
+
+        $(this).find("#data-id").each(function (langIndex, langItem) {
+          $(this).text(newValue);
+        });
+
       });
     });
   });
