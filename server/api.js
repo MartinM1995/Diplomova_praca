@@ -56,7 +56,7 @@ router.post("/upload", function(req, res) {
       res.json({ error_code: 1, err_desc: "No files passed" });
       return;
     }
-    req.files.forEach(file => {
+    req.files.forEach((file, index) => {
       /** Multer gives us file info in req.file object */
       if (!file) {
         res.json({ error_code: 1, err_desc: "No file passed" });
@@ -92,7 +92,9 @@ router.post("/upload", function(req, res) {
                 console.error(err);
                 return;
               }
-              // res.json({ error_code: 0, err_desc: null, data: result });
+              if (index === req.files.length - 1) {
+                res.json({ error_code: 0, err_desc: null, data: result });
+              }
             });
           }
         );

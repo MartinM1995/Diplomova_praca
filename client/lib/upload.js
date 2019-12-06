@@ -33,19 +33,19 @@ export function registerUploadFile() {
             .split("\\")
             .pop();
           $("#target").attr("value", "Súbor: " + fileName);
-          console.log(response.data)
+
           if (response.data && response.data[0]) {
 
             if (lang === 'sk') {
-              alert("Súbor " + " " + fileName  + " " + " bol úspešne nahraný! ", response);
+              alert("Súbory boli úspešne nahrané!", response);
             } else {
-              alert("The file " + " " + fileName + " " + " uploaded successfully! ", response);
+              alert("The files were uploaded successfully!", response);
             }
           } else {
             if (lang === 'sk') {
-              alert("Súbor sa nenahral!");
+              alert("Súbory sa nenahrali!");
             } else {
-              alert("The file not uploaded!");
+              alert("The files were not uploaded!");
             }
           }
         }
