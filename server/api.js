@@ -12,7 +12,7 @@ var exceltojson = xlstojson;
 // GET
 
 router.get("/okdata", function(req, res) {
-  Data.find({status: 'Vyhovujúci'}, function(err, result) {
+  Data.find({ status: "Vyhovujúci" }, function(err, result) {
     if (err) {
       res.json({ error_code: 1, err_desc: "Empty dataset" });
     } else {
@@ -45,58 +45,66 @@ router.get("/data/:id", function(req, res) {
 // POST
 
 router.post("/upload", function(req, res) {
+  console.log(req.body, req.files)
   upload(req, res, function(err) {
     if (err) {
       res.json({ error_code: 1, err_desc: err });
       return;
     }
-    /** Multer gives us file info in req.file object */
-    if (!req.file) {
-      res.json({ error_code: 1, err_desc: "No file passed" });
+
+    if (req.files.length === 0) {
+      res.json({ error_code: 1, err_desc: "No files passed" });
       return;
     }
-    // Tu je potrebné zistiť, či je súbor xls alebo xlsx a podľa toho použiť správnu funkciu
-    if (req.file.originalname.split(".")[req.file.originalname.split(".").length - 1] === "xlsx") {
-      exceltojson = xlsxtojson;
-    } else {
-      exceltojson = xlstojson;
-    }
-    console.log(req.file.path);
-    try {
-      exceltojson(
-        {
-          input: req.file.path,
-          output: null,
-          lowerCaseHeaders: true,
-        },
-        function(err, result) {
-          if (err) {
-            return res.json({ error_code: 1, err_desc: err, data: null });
-          }
-          const doc = new Data({
-            _id: new mongoose.Types.ObjectId(),
-            name: req.file.originalname,
-            filePath: req.file.path,
-            data: result,
-            status: "Netestovaný",
-          });
-          doc.save(result, function(err, success) {
+    req.files.forEach(file => {
+      /** Multer gives us file info in req.file object */
+      if (!file) {
+        res.json({ error_code: 1, err_desc: "No file passed" });
+        return;
+      }
+      // Tu je potrebné zistiť, či je súbor xls alebo xlsx a podľa toho použiť správnu funkciu
+      if (file.originalname.split(".")[file.originalname.split(".").length - 1] === "xlsx") {
+        exceltojson = xlsxtojson;
+      } else {
+        exceltojson = xlstojson;
+      }
+      console.log(file.path);
+      try {
+        exceltojson(
+          {
+            input: file.path,
+            output: null,
+            lowerCaseHeaders: true,
+          },
+          function(err, result) {
             if (err) {
-              console.error(err);
-              return;
+              return res.json({ error_code: 1, err_desc: err, data: null });
             }
-            res.json({ error_code: 0, err_desc: null, data: result });
-          });
-        }
-      );
-    } catch (e) {
-      res.json({ error_code: 1, err_desc: "Corupted excel file" });
-    }
+            const doc = new Data({
+              _id: new mongoose.Types.ObjectId(),
+              name: file.originalname,
+              filePath: file.path,
+              data: result,
+              status: "Netestovaný",
+            });
+            doc.save(result, function(err, success) {
+              if (err) {
+                console.error(err);
+                return;
+              }
+              // res.json({ error_code: 0, err_desc: null, data: result });
+            });
+          }
+        );
+      } catch (e) {
+        res.json({ error_code: 1, err_desc: "Corupted excel file" });
+      }
+    });
   });
 });
 
 router.post("/set-status/:id", function(req, res) {
-  console.log(req.body)
+  console.log(req.body);
   Data.updateOne({ _id: req.params.id }, { status: req.body.status }, function(err, result) {
     if (err) {
       res.json({ error_code: 1, err_desc: "Empty dataset" });
@@ -110,6 +118,6 @@ router.post("/set-status/:id", function(req, res) {
       });
     }
   });
-})
+});
 
 export default router;

@@ -54,6 +54,7 @@ export default [{
     dir: './public/',
     format: 'iife',
     sourcemaps: true,
-    globals: ["$"] 
+    globals: ["$"],
+    external: ["$"]
   }
 }];

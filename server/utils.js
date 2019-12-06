@@ -19,9 +19,10 @@ export const upload = multer({
   storage: storage,
   fileFilter: function(req, file, callback) {
     //file filter
+    console.log(req, file)
     if (["xls", "xlsx"].indexOf(file.originalname.split(".")[file.originalname.split(".").length - 1]) === -1) {
       return callback(new Error("Wrong extension type"));
     }
     callback(null, true);
   },
-}).single("file");
+}).array("files", 10);
