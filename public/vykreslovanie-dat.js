@@ -73,7 +73,7 @@
     return color;
   }
 
-  function defaultSettings(){
+  function defaultSettings() {
     Chart.defaults.global.defaultFontFamily = "Georgia";
     Chart.defaults.global.defaultFontSize = 18;
     Chart.defaults.global.defaultFontColor = "black";
@@ -82,6 +82,9 @@
   }
 
   function initMainGraf(loadedData) {
+
+    var lang = localStorage.getItem('lang');
+
     window.chartModel = {};
     window.uploadedData = {};
 
@@ -93,6 +96,17 @@
           saveAs(blob, subor + ".png");
         });
     });
+
+    var yAxesText = null;
+    var xAxesText = null;
+
+    if (lang === 'sk') {
+      yAxesText = "Hodnoty";
+      xAxesText = "Čas (s)";
+    } else {
+      yAxesText = "Values";
+      xAxesText = "Time (s)";
+    }
 
     // Global option
     defaultSettings();
@@ -143,7 +157,7 @@
               },
               scaleLabel: {
                 display: false,
-                labelString: "Hodnoty",
+                labelString: yAxesText,
                 fontColor: "black",
               },
             },
@@ -157,7 +171,7 @@
               },
               scaleLabel: {
                 display: false,
-                labelString: "Čas (s)",
+                labelString: xAxesText,
                 fontColor: "black",
               },
               ticks: {
@@ -200,7 +214,7 @@
         backgroundColor: chartModel[col].backgroundColor,
         borderColor: chartModel[col].backgroundColor,
         pointBackgroundColor: "transparent",
-        pointBorderColor: "transparent", 
+        pointBorderColor: "transparent",
         // pointBorderWidth: 1,
         borderWidth: 3,
       });
@@ -218,6 +232,23 @@
     chart.update();
   }
 
+  const STATUS_TYPES = {
+    "Netestovaný": {
+      "en": "Not tested",
+      "sk": "Netestovaný"
+    },
+    "Vyhovujúci": {
+      "en": "Correct",
+      "sk": "Vyhovujúci"
+    },
+    "Nevyhovujúci": {
+      "en": "Incorrect",
+      "sk": "Nevyhovujúci"
+    }
+  };
+
+  // STATUS_TYPES[file.status][lang]
+
   $("#databaza-container").hide();
   $("#databaza-loading").show();
   $("#databaza-no-data").hide();
@@ -228,10 +259,11 @@
     const loadedData = await loadData();
 
     $("#select-file").on("change", event => {
+      var lang = localStorage.getItem('lang');
       const id = event.target.value;
       data = loadedData.data.find(d => d._id === id);
       $('#file-status').removeClass("d-none");
-      document.getElementById("file-status").innerHTML = `Status: ${data.status}`;
+      document.getElementById("file-status").innerHTML = `Status: ${STATUS_TYPES[data.status][lang]}`;
 
       $('#vkladanie').removeClass("d-none");
       $('#save-chart').removeClass("d-none");

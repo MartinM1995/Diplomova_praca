@@ -245,7 +245,6 @@ var language = (function (exports, $) {
       window.localStorage.setItem('lang', $(this).attr('id'));
       exports.CURRENT_LANG = lang === "sk" ? slovak : english;
 
-      console.log(exports.CURRENT_LANG);
       const arrLang = {
         en: english,
         sk: slovak

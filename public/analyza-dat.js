@@ -22,7 +22,7 @@
     return color;
   }
 
-  function defaultSettings(){
+  function defaultSettings() {
     Chart.defaults.global.defaultFontFamily = "Georgia";
     Chart.defaults.global.defaultFontSize = 18;
     Chart.defaults.global.defaultFontColor = "black";
@@ -30,13 +30,13 @@
     Chart.defaults.global.responsive = true;
   }
 
-  function createNewChart(element, text, yAxesLabel, xAxesLabel){
-    
+  function createNewChart(element, text, yAxesLabel, xAxesLabel) {
+
     const defaultElementChart = element.cloneNode();
     const chartContainer = element.parentElement;
     chartContainer.removeChild(element);
     chartContainer.appendChild(defaultElementChart);
-    
+
     defaultSettings();
 
     let targetElement = defaultElementChart.getContext("2d");
@@ -142,7 +142,7 @@
         backgroundColor: chartModel[col].backgroundColor,
         borderColor: chartModel[col].backgroundColor,
         pointBackgroundColor: "transparent",
-        pointBorderColor: "transparent", 
+        pointBorderColor: "transparent",
         // pointBorderWidth: 1,
         borderWidth: 3,
       });
@@ -223,6 +223,7 @@
     $("#co_co2").on("click", event => {
       console.log("CO + CO2");
       $('#chart-canvas').removeClass('d-none');
+      var lang = localStorage.getItem('lang');
 
       let selected = getSelected();
       const chartModel = [];
@@ -268,7 +269,18 @@
 
       let myChartCOCO2 = document.getElementById("myChartCOCO2");
 
-      const chart = createNewChart(myChartCOCO2, '', 'Koncentrácia (%)', 'Čas (s)');
+      var yAxesText = null;
+      var xAxesText = null;
+
+      if (lang === 'sk') {
+        yAxesText = "Koncentrácia (%)";
+        xAxesText = "Čas (s)";
+      } else {
+        yAxesText = "Concentration (%)";
+        xAxesText = "Time (s)";
+      }
+
+      const chart = createNewChart(myChartCOCO2, '', yAxesText, xAxesText);
       renderChart(chartModel, chart);
 
     });
@@ -276,6 +288,7 @@
     $("#gradient").on("click", event => {
       console.log('gradient');
       $('#chart-canvas-2').removeClass("d-none");
+      var lang = localStorage.getItem('lang');
 
       let selected = getSelected();
       const chartModel = [];
@@ -326,7 +339,18 @@
 
       var myChartGradient = document.getElementById("myChartGradient");
 
-      const chart = createNewChart(myChartGradient, '', 'Koncentrácia (%/s)', 'Čas (s)');
+      var yAxesText = null;
+      var xAxesText = null;
+
+      if (lang === 'sk') {
+        yAxesText = "Koncentrácia (%)";
+        xAxesText = "Čas (s)";
+      } else {
+        yAxesText = "Concentration (%)";
+        xAxesText = "Time (s)";
+      }
+
+      const chart = createNewChart(myChartGradient, '', yAxesText, xAxesText);
       renderChart(chartModel, chart);
 
     });
@@ -336,13 +360,16 @@
       var lang = localStorage.getItem('lang');
 
       var txt;
+
       if (lang === 'sk') {
         var krok = Number(prompt("Zadajte krok pre kĺzavý priemer:", "0"));
       } else {
         var krok = Number(prompt("Enter the step for sliding diameter:", "0"));
       }
+
       if (krok === 0 || krok === "") {
         var lang = localStorage.getItem('lang');
+
         if (lang === 'sk') {
           alert("Nezadali ste krok.");
           txt = "Nezdali ste krok.";
@@ -460,8 +487,6 @@
         let calculationLastValue = klzavyPriemer[klzavyPriemer.length - 1];
         lastValues.push({ value: calculationLastValue, fileName: selected[i] });
 
-        console.log("lastvalue", lastValues);
-
         let maximum = findMax(lastValues);
         let minimum = findMin(lastValues);
 
@@ -489,12 +514,21 @@
 
       var myChartPriemer = document.getElementById("myChartPriemer");
 
-      const chart = createNewChart(myChartPriemer, '',
-        'Koncentrácia (%/s)', 'Čas (s)');
+      var yAxesText = null;
+      var xAxesText = null;
+
+      if (lang === 'sk') {
+        yAxesText = "Koncentrácia (%/s)";
+        xAxesText = "Čas (s)";
+      } else {
+        yAxesText = "Concentration (%/s)";
+        xAxesText = "Time (s)";
+      }
+
+      const chart = createNewChart(myChartPriemer, '', yAxesText, xAxesText);
       renderChart(chartModel, chart);
 
     });
-
   }
 
   setup();

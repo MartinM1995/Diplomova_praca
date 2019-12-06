@@ -68,6 +68,7 @@ async function setup() {
   $("#co_co2").on("click", event => {
     console.log("CO + CO2");
     $('#chart-canvas').removeClass('d-none');
+    var lang = localStorage.getItem('lang');
 
     let selected = getSelected();
     const chartModel = [];
@@ -113,7 +114,18 @@ async function setup() {
 
     let myChartCOCO2 = document.getElementById("myChartCOCO2");
 
-    const chart = createNewChart(myChartCOCO2, '', 'Koncentrácia (%)', 'Čas (s)');
+    var yAxesText = null;
+    var xAxesText = null;
+
+    if (lang === 'sk') {
+      yAxesText = "Koncentrácia (%)";
+      xAxesText = "Čas (s)";
+    } else {
+      yAxesText = "Concentration (%)";
+      xAxesText = "Time (s)";
+    }
+
+    const chart = createNewChart(myChartCOCO2, '', yAxesText, xAxesText);
     renderChart(chartModel, chart);
 
   });
@@ -121,6 +133,7 @@ async function setup() {
   $("#gradient").on("click", event => {
     console.log('gradient');
     $('#chart-canvas-2').removeClass("d-none");
+    var lang = localStorage.getItem('lang');
 
     let selected = getSelected();
     const chartModel = [];
@@ -171,7 +184,18 @@ async function setup() {
 
     var myChartGradient = document.getElementById("myChartGradient");
 
-    const chart = createNewChart(myChartGradient, '', 'Koncentrácia (%/s)', 'Čas (s)');
+    var yAxesText = null;
+    var xAxesText = null;
+
+    if (lang === 'sk') {
+      yAxesText = "Koncentrácia (%)";
+      xAxesText = "Čas (s)";
+    } else {
+      yAxesText = "Concentration (%)";
+      xAxesText = "Time (s)";
+    }
+
+    const chart = createNewChart(myChartGradient, '', yAxesText, xAxesText);
     renderChart(chartModel, chart);
 
   });
@@ -181,13 +205,16 @@ async function setup() {
     var lang = localStorage.getItem('lang');
 
     var txt;
+
     if (lang === 'sk') {
       var krok = Number(prompt("Zadajte krok pre kĺzavý priemer:", "0"));
     } else {
       var krok = Number(prompt("Enter the step for sliding diameter:", "0"));
     }
+
     if (krok === 0 || krok === "") {
       var lang = localStorage.getItem('lang');
+
       if (lang === 'sk') {
         alert("Nezadali ste krok.")
         txt = "Nezdali ste krok.";
@@ -307,8 +334,6 @@ async function setup() {
       let calculationLastValue = klzavyPriemer[klzavyPriemer.length - 1];
       lastValues.push({ value: calculationLastValue, fileName: selected[i] });
 
-      console.log("lastvalue", lastValues)
-
       let maximum = findMax(lastValues);
       let minimum = findMin(lastValues);
 
@@ -336,12 +361,21 @@ async function setup() {
 
     var myChartPriemer = document.getElementById("myChartPriemer");
 
-    const chart = createNewChart(myChartPriemer, '',
-      'Koncentrácia (%/s)', 'Čas (s)');
+    var yAxesText = null;
+    var xAxesText = null;
+
+    if (lang === 'sk') {
+      yAxesText = "Koncentrácia (%/s)";
+      xAxesText = "Čas (s)";
+    } else {
+      yAxesText = "Concentration (%/s)";
+      xAxesText = "Time (s)";
+    }
+
+    const chart = createNewChart(myChartPriemer, '', yAxesText, xAxesText);
     renderChart(chartModel, chart);
 
   });
-
 }
 
 setup();

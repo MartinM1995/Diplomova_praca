@@ -1,15 +1,15 @@
 export const STATUS_TYPES = {
-  "NOT_TESTED": {
+  "Netestovaný": {
     "en": "Not tested",
-    "sk": "Netestovany"
+    "sk": "Netestovaný"
   },
-  "CORRECT": {
+  "Vyhovujúci": {
     "en": "Correct",
-    "sk": "Vyhovujuci"
+    "sk": "Vyhovujúci"
   },
-  "INCORRECT": {
+  "Nevyhovujúci": {
     "en": "Incorrect",
-    "sk": "Nevyhovujuci"
+    "sk": "Nevyhovujúci"
   }
 }
 

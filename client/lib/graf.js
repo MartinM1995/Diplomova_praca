@@ -1,7 +1,7 @@
 import $ from "jquery";
 import { getRandomColor } from "./utils";
 
-function defaultSettings(){
+function defaultSettings() {
   Chart.defaults.global.defaultFontFamily = "Georgia";
   Chart.defaults.global.defaultFontSize = 18;
   Chart.defaults.global.defaultFontColor = "black";
@@ -9,7 +9,7 @@ function defaultSettings(){
   Chart.defaults.global.responsive = true;
 }
 
-function chartOptions(){
+function chartOptions() {
   window.chart.options.scales.xAxes[0].scaleLabel.display = true;
   window.chart.options.scales.yAxes[0].scaleLabel.display = true;
   window.chart.options.pan.enabled = true;
@@ -21,6 +21,9 @@ function chartOptions(){
 }
 
 export function initMainGraf(loadedData) {
+
+  var lang = localStorage.getItem('lang');
+
   window.chartModel = {};
   window.uploadedData = {};
 
@@ -32,6 +35,17 @@ export function initMainGraf(loadedData) {
         saveAs(blob, subor + ".png");
       });
   });
+
+  var yAxesText = null;
+  var xAxesText = null;
+
+  if (lang === 'sk') {
+    yAxesText = "Hodnoty"
+    xAxesText = "Čas (s)"
+  } else {
+    yAxesText = "Values"
+    xAxesText = "Time (s)"
+  }
 
   // Global option
   defaultSettings();
@@ -82,7 +96,7 @@ export function initMainGraf(loadedData) {
             },
             scaleLabel: {
               display: false,
-              labelString: "Hodnoty",
+              labelString: yAxesText,
               fontColor: "black",
             },
           },
@@ -96,7 +110,7 @@ export function initMainGraf(loadedData) {
             },
             scaleLabel: {
               display: false,
-              labelString: "Čas (s)",
+              labelString: xAxesText,
               fontColor: "black",
             },
             ticks: {
@@ -119,13 +133,13 @@ export function initMainGraf(loadedData) {
   });
 }
 
-export function createNewChart(element, text, yAxesLabel, xAxesLabel){
-  
+export function createNewChart(element, text, yAxesLabel, xAxesLabel) {
+
   const defaultElementChart = element.cloneNode();
   const chartContainer = element.parentElement;
   chartContainer.removeChild(element);
   chartContainer.appendChild(defaultElementChart);
-  
+
   defaultSettings();
 
   let targetElement = defaultElementChart.getContext("2d");
@@ -214,11 +228,25 @@ export function createNewChart(element, text, yAxesLabel, xAxesLabel){
 export function initCOCO2Chart(loadedData) {
 
   var lang = localStorage.getItem('lang');
+  var yAxesText = null;
+  var xAxesText = null;
+
+  if (lang === 'sk') {
+    yAxesText = "Koncentrácia (%)"
+  } else {
+    yAxesText = "Concentration (%)"
+  }
+
+  if (lang === 'sk') {
+    xAxesText = "Čas (s)"
+  } else {
+    xAxesText = "Time (s)"
+  }
 
   window.chartModel = {};
   window.uploadedData = {};
 
-  if(window.chart){
+  if (window.chart) {
     window.chart.destroy()
   }
   // Global option
@@ -270,7 +298,7 @@ export function initCOCO2Chart(loadedData) {
             },
             scaleLabel: {
               display: false,
-              labelString: "Koncentrácia (%)",
+              labelString: yAxesText,
               fontColor: "black",
             },
           },
@@ -284,7 +312,7 @@ export function initCOCO2Chart(loadedData) {
             },
             scaleLabel: {
               display: false,
-              labelString: "Čas (s)",
+              labelString: xAxesText,
               fontColor: "black",
             },
             ticks: {
@@ -333,7 +361,7 @@ export function initCOCO2Chart(loadedData) {
 }
 
 export function renderCOCO2Chart(data) {
-  
+
   chartOptions();
 
   window.chart.data.datasets.push({
@@ -373,7 +401,7 @@ export function renderChart(chartModel, chart) {
       backgroundColor: chartModel[col].backgroundColor,
       borderColor: chartModel[col].backgroundColor,
       pointBackgroundColor: "transparent",
-      pointBorderColor: "transparent", 
+      pointBorderColor: "transparent",
       // pointBorderWidth: 1,
       borderWidth: 3,
     });

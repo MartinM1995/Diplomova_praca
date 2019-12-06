@@ -73,7 +73,7 @@
     return color;
   }
 
-  function defaultSettings(){
+  function defaultSettings() {
     Chart.defaults.global.defaultFontFamily = "Georgia";
     Chart.defaults.global.defaultFontSize = 18;
     Chart.defaults.global.defaultFontColor = "black";
@@ -81,7 +81,7 @@
     Chart.defaults.global.responsive = true;
   }
 
-  function chartOptions(){
+  function chartOptions() {
     window.chart.options.scales.xAxes[0].scaleLabel.display = true;
     window.chart.options.scales.yAxes[0].scaleLabel.display = true;
     window.chart.options.pan.enabled = true;
@@ -95,11 +95,25 @@
   function initCOCO2Chart(loadedData) {
 
     var lang = localStorage.getItem('lang');
+    var yAxesText = null;
+    var xAxesText = null;
+
+    if (lang === 'sk') {
+      yAxesText = "Koncentrácia (%)";
+    } else {
+      yAxesText = "Concentration (%)";
+    }
+
+    if (lang === 'sk') {
+      xAxesText = "Čas (s)";
+    } else {
+      xAxesText = "Time (s)";
+    }
 
     window.chartModel = {};
     window.uploadedData = {};
 
-    if(window.chart){
+    if (window.chart) {
       window.chart.destroy();
     }
     // Global option
@@ -151,7 +165,7 @@
               },
               scaleLabel: {
                 display: false,
-                labelString: "Koncentrácia (%)",
+                labelString: yAxesText,
                 fontColor: "black",
               },
             },
@@ -165,7 +179,7 @@
               },
               scaleLabel: {
                 display: false,
-                labelString: "Čas (s)",
+                labelString: xAxesText,
                 fontColor: "black",
               },
               ticks: {
@@ -214,7 +228,7 @@
   }
 
   function renderCOCO2Chart(data) {
-    
+
     chartOptions();
 
     window.chart.data.datasets.push({
@@ -234,6 +248,23 @@
     window.chart.update();
   }
 
+  const STATUS_TYPES = {
+    "Netestovaný": {
+      "en": "Not tested",
+      "sk": "Netestovaný"
+    },
+    "Vyhovujúci": {
+      "en": "Correct",
+      "sk": "Vyhovujúci"
+    },
+    "Nevyhovujúci": {
+      "en": "Incorrect",
+      "sk": "Nevyhovujúci"
+    }
+  };
+
+  // STATUS_TYPES[file.status][lang]
+
   $("#databaza-container").hide();
   $("#databaza-loading").show();
   $("#databaza-no-data").hide();
@@ -244,6 +275,7 @@
     const loadedData = await loadData();
 
     $("#select-file").on("change", event => {
+      let lang = localStorage.getItem('lang');
       const id = event.target.value;
       data = loadedData.data.find(d => d._id === id);
       initCOCO2Chart(data);
@@ -251,7 +283,10 @@
       $('#chart-canvas').removeClass("d-none");
       $('#vyhovuje').removeClass("d-none");
       $('#nevyhovuje').removeClass("d-none");
-      document.getElementById("file-status").innerHTML = `Status: ${data.status}`;
+
+      document.getElementById("file-status").innerHTML = `Status: ${STATUS_TYPES[data.status][lang]}`;
+
+      // STATUS_TYPES[file.status][lang]
     });
 
     $("#vyhovuje").on("click", event => {
@@ -270,7 +305,7 @@
         })
           .then(async res => {
             const response = await res.json();
-            document.getElementById("file-status").innerHTML = `Status: ${response.data.status}`;
+            document.getElementById("file-status").innerHTML = `Status: ${STATUS_TYPES[response.data.status][lang]}`;
             if (lang === "sk") {
               alert("Status súboru bol nastavený na 'Vyhovujúci'.");
             } else {
@@ -305,7 +340,7 @@
         })
           .then(async res => {
             const response = await res.json();
-            document.getElementById("file-status").innerHTML = `Status: ${response.data.status}`;
+            document.getElementById("file-status").innerHTML = `Status: ${STATUS_TYPES[response.data.status][lang]}`;
             if (lang === "sk") {
               alert("Status súboru bol nastavený na 'Nevyhovujúci'.");
             } else {

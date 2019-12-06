@@ -3,6 +3,7 @@ import { loadData } from "./lib/tabulky";
 import { initMainGraf } from "./lib/graf";
 import { renderChart } from "./lib/graf";
 import { getRandomColor } from "./lib/utils";
+import { STATUS_TYPES } from "./lib/types";
 
 $("#databaza-container").hide();
 $("#databaza-loading").show();
@@ -14,10 +15,11 @@ async function setup() {
   const loadedData = await loadData();
 
   $("#select-file").on("change", event => {
+    var lang = localStorage.getItem('lang');
     const id = event.target.value;
     data = loadedData.data.find(d => d._id === id);
     $('#file-status').removeClass("d-none");
-    document.getElementById("file-status").innerHTML = `Status: ${data.status}`;
+    document.getElementById("file-status").innerHTML = `Status: ${STATUS_TYPES[data.status][lang]}`;
 
     $('#vkladanie').removeClass("d-none");
     $('#save-chart').removeClass("d-none");

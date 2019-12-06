@@ -1,6 +1,7 @@
 import $ from "jquery";
 import { loadData } from "./lib/tabulky";
 import { initCOCO2Chart } from "./lib/graf";
+import { STATUS_TYPES } from "./lib/types";
 
 $("#databaza-container").hide();
 $("#databaza-loading").show();
@@ -12,6 +13,7 @@ async function setup() {
   const loadedData = await loadData();
 
   $("#select-file").on("change", event => {
+    let lang = localStorage.getItem('lang');
     const id = event.target.value;
     data = loadedData.data.find(d => d._id === id);
     initCOCO2Chart(data);
@@ -19,7 +21,10 @@ async function setup() {
     $('#chart-canvas').removeClass("d-none");
     $('#vyhovuje').removeClass("d-none");
     $('#nevyhovuje').removeClass("d-none");
-    document.getElementById("file-status").innerHTML = `Status: ${data.status}`;
+
+    document.getElementById("file-status").innerHTML = `Status: ${STATUS_TYPES[data.status][lang]}`;
+
+    // STATUS_TYPES[file.status][lang]
   });
 
   $("#vyhovuje").on("click", event => {
@@ -37,8 +42,8 @@ async function setup() {
         }),
       })
         .then(async res => {
-          const response = await res.json()
-          document.getElementById("file-status").innerHTML = `Status: ${response.data.status}`;
+          const response = await res.json();
+          document.getElementById("file-status").innerHTML = `Status: ${STATUS_TYPES[response.data.status][lang]}`;
           if (lang === "sk") {
             alert("Status súboru bol nastavený na 'Vyhovujúci'.");
           } else {
@@ -73,7 +78,7 @@ async function setup() {
       })
         .then(async res => {
           const response = await res.json()
-          document.getElementById("file-status").innerHTML = `Status: ${response.data.status}`;
+          document.getElementById("file-status").innerHTML = `Status: ${STATUS_TYPES[response.data.status][lang]}`;
           if (lang === "sk") {
             alert("Status súboru bol nastavený na 'Nevyhovujúci'.");
           } else {
