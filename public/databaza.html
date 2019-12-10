@@ -2,181 +2,174 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="author" content="Martin Mroč" />
+    <meta charset="utf-8" />
+    <meta name="author" content="Martin Mroč" />
 
-  <!--Responsive meta tag-->
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <title>Diplomová práca</title>
+    <!--Responsive meta tag-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Diplomová práca</title>
 
-  <!-- CSS styles -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-  <link rel="stylesheet" type="text/css" href="css/Chart.css" />
-  <link rel="stylesheet" type="text/css" href="css/Chart.min.css" />
-  <link rel="stylesheet" type="text/css" href="css/style.css" />
-  <link rel="stylesheet" type="text/css" href="css/example-styles.css" />
-  <link rel="stylesheet" type="text/css" href="css/bootstrap-select.css" />
+    <!-- CSS styles -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/Chart.css" />
+    <link rel="stylesheet" type="text/css" href="css/Chart.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/example-styles.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-select.css" />
 
-  <!-- JS -->
-  <script type="text/javascript" src="js/Chart.bundle.js"></script>
-  <script type="text/javascript" src="js/Chart.bundle.min.js"></script>
-  <script type="text/javascript" src="js/Chart.js"></script>
-  <script type="text/javascript" src="js/Chart.min.js"></script>
-  <script type="text/javascript" src="js/canvas-toBlob.js"></script>
-  <script type="text/javascript" src="js/FileSaver.min.js"></script>
+    <!-- JS -->
+    <script type="text/javascript" src="js/Chart.bundle.js"></script>
+    <script type="text/javascript" src="js/Chart.bundle.min.js"></script>
+    <script type="text/javascript" src="js/Chart.js"></script>
+    <script type="text/javascript" src="js/Chart.min.js"></script>
+    <script type="text/javascript" src="js/canvas-toBlob.js"></script>
+    <script type="text/javascript" src="js/FileSaver.min.js"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.3"></script>
 </head>
 
 <body>
-  <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
-      <img src="img/logo_fberg.gif" class="fberg-logo-navbar" />
-      TUKE FBERG
-    </a>
-  </nav>
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
+            <img src="img/logo_fberg.gif" class="fberg-logo-navbar" /> TUKE FBERG
+        </a>
+    </nav>
 
-  <div class="container-fluid">
-    <div class="row">
-      <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-        <div class="sidebar-sticky">
-          <ul class="nav flex-column">
-            <li class="nav-item">
-              <a class="lang nav-link" href="/" key="loading-files">
-                <i class="fa fa-file"></i>
-                <div class="menuValue"></div>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="lang nav-link" href="/sprava-suborov.html" key="file-management">
-                <i class="fa fa-folder"></i>
-                <div class="menuValue"></div>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="lang nav-link" href="/vykreslovanie-dat.html" key="data-rendering">
-                <i class="fa fa-area-chart"></i>
-                <div class="menuValue"></div>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="lang nav-link" href="/analyza-dat.html" key="data-analysis">
-                <i class="fa fa-database"></i>
-                <div class="menuValue"></div>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="lang nav-link active" href="/databaza.html" key="database">
-                <i class="fa fa-archive"></i>
-                <div class="menuValue"></div>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="lang nav-link" href="/o-aplikacii.html" key="about">
-                <i class="fa fa-info-circle"></i>
-                <div class="menuValue"></div>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="lang nav-link" href="/autor.html" key="author">
-                <i class="fa fa-user"></i>
-                <div class="menuValue"></div>
-              </a>
-            </li>
-          </ul>
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="lang nav-link" href="/" key="loading-files">
+                                <i class="fa fa-file"></i>
+                                <div class="menuValue"></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="lang nav-link" href="/sprava-suborov.html" key="file-management">
+                                <i class="fa fa-folder"></i>
+                                <div class="menuValue"></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="lang nav-link" href="/vykreslovanie-dat.html" key="data-rendering">
+                                <i class="fa fa-area-chart"></i>
+                                <div class="menuValue"></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="lang nav-link" href="/analyza-dat.html" key="data-analysis">
+                                <i class="fa fa-database"></i>
+                                <div class="menuValue"></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="lang nav-link active" href="/databaza.html" key="database">
+                                <i class="fa fa-archive"></i>
+                                <div class="menuValue"></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="lang nav-link" href="/o-aplikacii.html" key="about">
+                                <i class="fa fa-info-circle"></i>
+                                <div class="menuValue"></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="lang nav-link" href="/autor.html" key="author">
+                                <i class="fa fa-user"></i>
+                                <div class="menuValue"></div>
+                            </a>
+                        </li>
+                    </ul>
 
-          <div class="dropdown translate-buttons">
-            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
+                    <div class="dropdown translate-buttons">
+                        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Jazyk/Language:
             </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <button class="translate dropdown-item" type="button" id="sk">Slovak</button>
-              <button class="translate dropdown-item" type="button" id="en">English</button>
-            </div>
-          </div>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <button class="translate dropdown-item" type="button" id="sk">Slovak</button>
+                            <button class="translate dropdown-item" type="button" id="en">English</button>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <div class="row">
+                    <div class="col">
+                        <h1 class="lang h4" key="database-name">Databáza</h1>
+
+                        <div class="lang" id="databaza-loading" key="loading-data">Načítanie databázy...</div>
+                        <alert id="databaza-no-data" class="lang warning" key="database-warning">V databáze zatiaľ nie su žiadne dáta
+                        </alert>
+                        <div id="databaza-container">
+                            <select title="Vyberte súbor" class="lang d-none" id="select-file" key="select-file"> </select>
+                            <button type="button" class="d-none btn btn-light" id="file-status"></button>
+
+                            <div id="tabulka-container" class="table-responsive">
+                                <table class="table table-striped table-sm" id="tabulka">
+                                    <thead>
+                                        <tr>
+                                            <th>k4_co</th>
+                                            <th>k4_co2</th>
+                                            <th>k4_h2</th>
+                                            <th>k4_o2</th>
+                                            <th>k41_p_o2_out</th>
+                                            <th>k41_prietok_o2</th>
+                                            <th>k41_vyska_trysky</th>
+                                            <th>k42_p_o2_out</th>
+                                            <th>k42_prietok_o2</th>
+                                            <th>k42_vyska_trysky</th>
+                                            <th>oc2_comm1_k4_fukanie</th>
+                                            <th>oc2_k4_dynamicky_model_rychlost_oduhlicenia</th>
+                                            <th>oc2_k4_p_podtlak_pretlak_dymnik</th>
+                                            <th>oc2_k4_zkp_analyza_co2_q4341b</th>
+                                            <th>oc2_k4_zkp_analyza_co_q4341a</th>
+                                            <th>oc2_k4_zkp_analyza_h2_q4341d</th>
+                                            <th>oc2_k4_zkp_analyza_o2_q4341c</th>
+                                            <th>oc2_k4_zkp_prietok_spalin_aktualny</th>
+                                            <th>oc2_k4_zkp_prietok_spalin_normovany</th>
+                                            <th>oc2_k4_zkp_tep_odpad_plyn_vent_t4339_1</th>
+                                            <th>oc2_k4_zkp_tep_odpad_plyn_vent_t4339_2</th>
+                                            <th>oc2_k4_zkp_tlak_odpad_plyn_vent_p4338</th>
+                                            <th>oc2_plck4_meranie_prietoku_spal_promecon</th>
+                                            <th>oc2_plck4_podtlak_granivor_vystup</th>
+                                            <th>oc2_plck4_vai_hladina_vody_v_kvap_odlucovaci_l4388</th>
+                                            <th>oc2_plck4_vai_teplota_1_na_vst_do_granivoru</th>
+                                            <th>oc2_plck4_vai_teplota_1_odpad_plyn_za_gran</th>
+                                            <th>oc2_plck4_vai_teplota_2_na_vst_do_granivoru</th>
+                                            <th>oc2_plck4_vai_teplota_2_odpad_plyn_za_gran</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Tu sa načítajú dáta -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
         </div>
-      </nav>
-
-      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-        <div class="row">
-          <div class="col">
-            <h1 class="lang h4" key="database-name">Databáza</h1>
-
-            <div class="lang" id="databaza-loading" key="loading-data">Načítanie databázy...</div>
-            <alert id="databaza-no-data" class="lang warning" key="database-warning">V databáze zatiaľ nie su žiadne
-              dáta</alert>
-            <div id="databaza-container">
-              <select title="Vyberte súbor" class="lang d-none" id="select-file" key="select-file"> </select>
-              <button type="button" class="d-none btn btn-light" id="file-status"></button>
-
-              <div id="tabulka-container" class="table-responsive">
-                <table class="table table-striped table-sm" id="tabulka">
-                  <thead>
-                    <tr>
-                      <th>k4_co</th>
-                      <th>k4_co2</th>
-                      <th>k4_h2</th>
-                      <th>k4_o2</th>
-                      <th>k41_p_o2_out</th>
-                      <th>k41_prietok_o2</th>
-                      <th>k41_vyska_trysky</th>
-                      <th>k42_p_o2_out</th>
-                      <th>k42_prietok_o2</th>
-                      <th>k42_vyska_trysky</th>
-                      <th>oc2_comm1_k4_fukanie</th>
-                      <th>oc2_k4_dynamicky_model_rychlost_oduhlicenia</th>
-                      <th>oc2_k4_p_podtlak_pretlak_dymnik</th>
-                      <th>oc2_k4_zkp_analyza_co2_q4341b</th>
-                      <th>oc2_k4_zkp_analyza_co_q4341a</th>
-                      <th>oc2_k4_zkp_analyza_h2_q4341d</th>
-                      <th>oc2_k4_zkp_analyza_o2_q4341c</th>
-                      <th>oc2_k4_zkp_prietok_spalin_aktualny</th>
-                      <th>oc2_k4_zkp_prietok_spalin_normovany</th>
-                      <th>oc2_k4_zkp_tep_odpad_plyn_vent_t4339_1</th>
-                      <th>oc2_k4_zkp_tep_odpad_plyn_vent_t4339_2</th>
-                      <th>oc2_k4_zkp_tlak_odpad_plyn_vent_p4338</th>
-                      <th>oc2_plck4_meranie_prietoku_spal_promecon</th>
-                      <th>oc2_plck4_podtlak_granivor_vystup</th>
-                      <th>oc2_plck4_vai_hladina_vody_v_kvap_odlucovaci_l4388</th>
-                      <th>oc2_plck4_vai_teplota_1_na_vst_do_granivoru</th>
-                      <th>oc2_plck4_vai_teplota_1_odpad_plyn_za_gran</th>
-                      <th>oc2_plck4_vai_teplota_2_na_vst_do_granivoru</th>
-                      <th>oc2_plck4_vai_teplota_2_odpad_plyn_za_gran</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <!-- Tu sa načítajú dáta -->
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-      </main>
     </div>
-  </div>
 
-  <!-- jQuery -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script type="text/javascript" src="js/jquery.multi-select.js"></script>
-  <script>
-    window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>');
-  </script>
-  <!--  Popper -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-  <!-- Bootstrap -->
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
-  <script src="js/bootstrap-select.js"></script>
-  <script src="databaza.js"></script>
-  <script src="language.js"></script>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.multi-select.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>');
+    </script>
+    <!--  Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <!-- Bootstrap -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="js/bootstrap-select.js"></script>
+    <script src="databaza.js"></script>
+    <script src="language.js"></script>
 </body>
 
 </html>
