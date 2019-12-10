@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="sk">
+
+<head>
+ <meta charset="utf-8">
+ <meta name="author" content="Martin Mroč">
+
+ <!--Responsive meta tag-->
+ <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ <title>Diplomová práca</title>
+
+ <!-- CSS styles -->
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+ <link rel="stylesheet" type="text/css" href="css/Chart.css">
+ <link rel="stylesheet" type="text/css" href="css/Chart.min.css">
+ <link rel="stylesheet" type="text/css" href="css/style.css">
+ <link rel="stylesheet" type="text/css" href="css/example-styles.css">
+ <link rel="stylesheet" type="text/css" href="css/bootstrap-select.css">
+
+ <!-- JS -->
+ <script type="text/javascript" src="js/Chart.bundle.js"></script>
+ <script type="text/javascript" src="js/Chart.bundle.min.js"></script>
+ <script type="text/javascript" src="js/Chart.js"></script>
+ <script type="text/javascript" src="js/Chart.min.js"></script>
+ <script type="text/javascript" src="js/canvas-toBlob.js"></script>
+ <script type="text/javascript" src="js/FileSaver.min.js"></script>
+
+ <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+ <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.3"></script>
+
+</head>
+
+<body>
+ <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+
+  <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="https://fberg.tuke.sk/en/home/">
+   <img src="img/logo_fberg.gif" class="fberg-logo-navbar"> TUKE FBERG
+  </a>
+ </nav>
+
+
+ <div class="container-fluid">
+  <div class="row">
+   <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+    <div class="sidebar-sticky">
+     <ul class="nav flex-column">
+      <li class="nav-item">
+       <a class="lang nav-link active" href="/" key="loading-files">
+        <i class="fa fa-file"></i>
+        <div class="menuValue"></div>
+       </a>
+      </li>
+      <li class="nav-item">
+       <a class="lang nav-link" href="/sprava-suborov.html" key="file-management">
+        <i class="fa fa-folder"></i>
+        <div class="menuValue"></div>
+       </a>
+      </li>
+      <li class="nav-item">
+       <a class="lang nav-link" href="/vykreslovanie-dat.html" key="data-rendering">
+        <i class="fa fa-area-chart"></i>
+        <div class="menuValue"></div>
+       </a>
+      </li>
+      <li class="nav-item">
+       <a class="lang nav-link" href="/analyza-dat.html" key="data-analysis">
+        <i class="fa fa-database"></i>
+        <div class="menuValue"></div>
+       </a>
+      </li>
+      <li class="nav-item">
+       <a class="lang nav-link" href="/databaza.html" key="database">
+        <i class="fa fa-archive"></i>
+        <div class="menuValue"></div>
+       </a>
+      </li>
+      <li class="nav-item">
+       <a class="lang nav-link" href="/o-aplikacii.html" key="about">
+        <i class="fa fa-info-circle"></i>
+        <div class="menuValue"></div>
+       </a>
+      </li>
+      <li class="nav-item">
+       <a class="lang nav-link" href="/autor.html" key="author">
+        <i class="fa fa-user"></i>
+        <div class="menuValue"></div>
+       </a>
+      </li>
+     </ul>
+
+     <div class="dropdown translate-buttons">
+      <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+       aria-haspopup="true" aria-expanded="false">
+       Jazyk/Language:
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+       <button class="translate dropdown-item" type="button" id="sk">Slovak</button>
+       <button class="translate dropdown-item" type="button" id="en">English</button>
+      </div>
+     </div>
+
+    </div>
+   </nav>
+
+   <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <div class="row">
+     <div class="col">
+      <form id="uploadForm" enctype="multipart/form-data" action="upload" method="post">
+       <div class="form-group">
+        <!-- <label class="label">Vyberte súbor vo formáte .xls alebo .xlsx</label> -->
+        <h1 class="lang h4" key="header-loading-files">Vyberte súbor vo formáte .xls alebo .xlsx
+        </h1>
+        <hr>
+
+        <input type="file" name="file" class="form-control-file" id="file" multiple>
+        <div class="lang" id="files-loading" key="loading-files">Načítanie súborov...</div>
+
+
+        <input type="button" class="lang btn btn-outline-primary" value="Nahrať" id="but_upload" key="load"
+         name="submit"><span class="lang" key="load-text">Nahratie
+         súbora</span><br>
+        <hr>
+
+       </div>
+      </form>
+     </div>
+    </div>
+   </main>
+  </div>
+ </div>
+ <!-- jQuery -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ <script type="text/javascript" src="js/jquery.multi-select.js"></script>
+ <script>
+  window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')
+ </script>
+ <!--  Popper -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+ </script>
+ <!-- Bootstrap -->
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+ </script>
+ <script src="js/bootstrap-select.js"></script>
+ <script src='index.js'></script>
+ <script src='language.js'></script>
+
+</body>
+
+</html>

@@ -395,10 +395,9 @@
     });
   });
 
-  $('input[type="file"]').change(function(e) {
+  $('input[type="file"]').change(function (e) {
       var lang = localStorage.getItem("lang");
       var fileName = e.target.files[0].name;
-
       if (lang === "sk") {
           alert("Súbory boli vybraté.");
       } else {
