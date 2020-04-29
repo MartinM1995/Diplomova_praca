@@ -1,7 +1,7 @@
 (function ($) {
   'use strict';
 
-  $ = $ && $.hasOwnProperty('default') ? $['default'] : $;
+  $ = $ && Object.prototype.hasOwnProperty.call($, 'default') ? $['default'] : $;
 
   async function getOkData() {
     return fetch("/api/okdata")

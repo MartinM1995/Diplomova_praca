@@ -17,26 +17,26 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@babel/node": "^7.5.5",
+    "@babel/node": "^7.8.7",
     "body-parser": "^1.15.1",
     "cors": "^2.8.5",
     "express": "^4.13.4",
     "jquery": "^3.4.1",
-    "mongoose": "^5.6.9",
-    "multer": "^1.1.0",
-    "nodemon": "^1.19.1",
+    "mongoose": "^5.9.6",
+    "multer": "^1.4.2",
+    "nodemon": "^1.19.4",
     "xls-to-json-lc": "^0.3.4",
     "xlsx-to-json-lc": "^0.5.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.5.5",
-    "@babel/core": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
     "npm-run-all": "^4.1.5",
-    "rollup": "^1.19.4",
-    "rollup-plugin-commonjs": "^10.0.2",
+    "rollup": "^1.32.1",
+    "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-node-resolve": "^5.2.0",
-    "serve": "^11.1.0"
+    "serve": "^11.3.0"
   }
 }

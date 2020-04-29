@@ -1,7 +1,7 @@
 var language = (function (exports, $) {
   'use strict';
 
-  $ = $ && $.hasOwnProperty('default') ? $['default'] : $;
+  $ = $ && Object.prototype.hasOwnProperty.call($, 'default') ? $['default'] : $;
 
   var english = {
     "loading-files": "Loading files",
