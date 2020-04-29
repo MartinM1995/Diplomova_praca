@@ -24,7 +24,7 @@ export default [{
     globals: ["$"]
 	}
 },{
-	input: './client/databaza.js',
+	input: './client/vypis-dat.js',
 	output: {
 		dir: './public/',
     format: 'iife',
