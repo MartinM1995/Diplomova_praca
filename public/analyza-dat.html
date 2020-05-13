@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="author" content="Martin Mroč">
+
+  <!--Responsive meta tag-->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Diplomová práca</title>
+
+  <!-- CSS styles -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="css/Chart.css">
+  <link rel="stylesheet" type="text/css" href="css/Chart.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/example-styles.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-select.css">
+
+  <!-- JS -->
+  <script type="text/javascript" src="js/Chart.bundle.js"></script>
+  <script type="text/javascript" src="js/Chart.bundle.min.js"></script>
+  <script type="text/javascript" src="js/Chart.js"></script>
+  <script type="text/javascript" src="js/Chart.min.js"></script>
+  <script type="text/javascript" src="js/canvas-toBlob.js"></script>
+  <script type="text/javascript" src="js/FileSaver.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.3"></script>
+
+</head>
+
+<body>
+  <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="https://fberg.tuke.sk/wps/portal">
+      <img src="img/logo_fberg.gif" alt="" class="fberg-logo-navbar">
+      TUKE FBERG
+    </a>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+        <div class="sidebar-sticky">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="lang nav-link" href="/" key="loading-files">
+                <i class="fa fa-file"></i>
+                <div class="menuValue"></div>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="lang nav-link" href="/sprava-suborov.html" key="file-management">
+                <i class="fa fa-folder"></i>
+                <div class="menuValue"></div>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="lang nav-link" href="/vykreslovanie-dat.html" key="data-rendering">
+                <i class="fa fa-area-chart"></i>
+                <div class="menuValue"></div>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="lang nav-link active" href="/analyza-dat.html" key="data-analysis">
+                <i class="fa fa-database"></i>
+                <div class="menuValue"></div>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="lang nav-link" href="/vypis-dat.html" key="database">
+                <i class="fa fa-archive"></i>
+                <div class="menuValue"></div>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="lang nav-link" href="/o-aplikacii.html" key="about">
+                <i class="fa fa-info-circle"></i>
+                <div class="menuValue"></div>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="lang nav-link" href="/autor.html" key="author">
+                <i class="fa fa-user"></i>
+                <div class="menuValue"></div>
+              </a>
+            </li>
+          </ul>
+
+          <div class="dropdown translate-buttons">
+            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Jazyk/Language:
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <button class="translate dropdown-item" type="button" id="sk">Slovak</button>
+              <button class="translate dropdown-item" type="button" id="en">English</button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <div class="row">
+          <div class="w-100">
+            <div class="col">
+              <h1 class="lang h4" key="header-data-management">Výber súboru z databázy</h1> <br>
+              <div class="lang" id="loading" key="loading-data">Načítanie databázy...</div>
+              <alert id="databaza-no-data" class="lang warning" key="database-warning">V databáze zatiaľ nie sú žiadne
+                dáta..</alert>
+              <div id="vkladanie-container">
+                <div id="vkladanie" class="d-none">
+                  <select class="lang selectpicker" multiple data-live-search="true" title="Vyberte súbor"
+                    data-actions-box="true" key="select-file">
+                  </select>
+                  <button type="button" class="lang d-none btn action-button btn-outline-success" id="co_co2"
+                    key="show-coco2">Zobrazenie
+                    CO+CO2</button>
+                  <button type="button" class="lang d-none btn action-button btn-outline-danger" id="gradient"
+                    key="show-gradient">Zobrazenie
+                    gradientu</button>
+                  <button type="button" class="lang d-none btn action-button btn-outline-warning" id="klzavy-priemer"
+                    key="show-average">Zobrazenie
+                    kĺzavého priemeru</button>
+                  <button type="button" class="lang d-none btn btn-light" id="input-krok" key="step"></button>
+                </div>
+              </div>
+              <hr>
+            </div>
+          </div>
+        </div>
+
+        <div id="chart-canvas" class="d-none">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 ">
+            <h1 class="lang h4" key="co-co2">CO + CO2</h1>
+          </div>
+          <div class="my-4 w-100">
+            <canvas id="myChartCOCO2" height="25em" width="50em"></canvas>
+          </div>
+          <hr>
+        </div>
+
+        <div id="chart-canvas-2" class="d-none">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 ">
+            <h1 class="lang h4" key="gradient">Gradient</h1>
+          </div>
+          <div class="my-4 w-100">
+            <div id="myChartGradientCanvas">
+              <canvas id="myChartGradient" height="25em" width="50em"></canvas>
+            </div>
+          </div>
+          <hr>
+        </div>
+
+        <div id="chart-canvas-3" class="d-none">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 ">
+            <h1 class="lang h4" key="sliding-diameter">Kĺzavý priemer</h1>
+          </div>
+          <div class="my-4 w-100">
+            <canvas id="myChartPriemer" height="25em" width="50em"></canvas>
+          </div>
+          <hr>
+          <h1 class="lang h4" key="statistics">Štatistické výpočty</h1>
+
+          <table id="statistika">
+            <thead>
+              <tr>
+                <th class="lang" key="aritmetic-average">Aritmetický priemer</th>
+                <th class="lang" key="spread">Rozptyl</th>
+                <th class="lang" key="max-value">Maximálna hodnota</th>
+                <th class="lang" key="min-value">Minimálna hodnota</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td id="aritmetickyPriemer"></td>
+                <td id="rozptyl"></td>
+                <td id="maximum"></td>
+                <td id="minimum"></td>
+              </tr>
+            </tbody>
+          </table>
+          <hr>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="js/jquery.multi-select.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')
+  </script>
+  <!--  Popper -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <!-- Bootstrap -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+  <script src="js/bootstrap-select.js"></script>
+  <script src='analyza-dat.js'></script>
+  <script src='language.js'></script>
+
+</body>
+
+</html>
