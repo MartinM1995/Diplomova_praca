@@ -9,10 +9,6 @@
       .catch(err => console.error(err));
   }
 
-  // export function renderTable(fileId) {
-  //   $("")
-  // }
-
   let fileId = null;
   let db = null;
 
@@ -27,13 +23,10 @@
       select.on("change", e => {
         fileId = e.target.value;
         const data = db.data.find(d => d._id === fileId);
-        console.log("Data:", data);
         renderTable(data);
       });
       db.data.forEach(data => {
-        console.log(data._id);
         const option = `<option value=${data._id}>${data.name}</option>`;
-
         select.append(option);
       });
       select.selectpicker();
@@ -286,7 +279,6 @@
 
       document.getElementById("file-status").innerHTML = `Status: ${STATUS_TYPES[data.status][lang]}`;
 
-      // STATUS_TYPES[file.status][lang]
     });
 
     $("#vyhovuje").on("click", event => {

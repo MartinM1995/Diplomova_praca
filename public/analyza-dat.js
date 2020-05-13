@@ -9,10 +9,6 @@
       .catch(err => console.error(err));
   }
 
-  // export function renderTable(fileId) {
-  //   $("")
-  // }
-
   function getRandomColor() {
     var letters = "0123456789ABCDEF";
     var color = "#";
@@ -143,13 +139,11 @@
         borderColor: chartModel[col].backgroundColor,
         pointBackgroundColor: "transparent",
         pointBorderColor: "transparent",
-        // pointBorderWidth: 1,
         borderWidth: 3,
       });
 
       if (maxLength < chartModel[col].data.length) {
         maxLength = chartModel[col].data.length;
-        console.log('Max length:', maxLength);
       }
     }
 
@@ -175,8 +169,6 @@
   async function setup() {
     const loadedData = await getOkData();
     data = loadedData.data;
-
-    console.log("loadedData", loadedData);
 
     $('#loading').hide();
     $('.action-button').removeClass("d-none");
@@ -221,7 +213,6 @@
       $("#databaza-no-data").show();
     }
     $("#co_co2").on("click", event => {
-      console.log("CO + CO2");
       $('#chart-canvas').removeClass('d-none');
       var lang = localStorage.getItem('lang');
 
@@ -229,7 +220,7 @@
       const chartModel = [];
 
       // Prechádzanie všetkých vybratých súborov
-      for (let i = 0; i < selected.length; i++) {
+      for (let i = 0; i < selected.length; i++) { 
         // Počítanie hodnôt CO + CO2
         var COPlusCO2 = [];
 
@@ -286,7 +277,6 @@
     });
 
     $("#gradient").on("click", event => {
-      console.log('gradient');
       $('#chart-canvas-2').removeClass("d-none");
       var lang = localStorage.getItem('lang');
 
@@ -356,7 +346,6 @@
     });
 
     $("#klzavy-priemer").on("click", event => {
-      console.log('klzavy priemer');
       var lang = localStorage.getItem('lang');
 
       var txt;
@@ -406,7 +395,6 @@
         var klzavyPriemer = [];
         let pomocnyArray = [];
 
-
         for (let j = 1; j < Object.keys(window.loadedData[selected[i]]['k4_co']).length; j++) {
 
           const valueCOcurrent = window.loadedData[selected[i]]['k4_co'][j];
@@ -433,9 +421,6 @@
           if (sumCOCO2current > 100) {
             sumCOCO2current = 100;
           }
-
-          // let kroky = (Object.keys(window.loadedData[selected[i]]['k4_co']).length) / krok;
-          // console.log('pocet krokov:', kroky)
 
           // Čiastkový gradient
           let resultValue = (Number(sumCOCO2current) - Number(sumCO2previous));

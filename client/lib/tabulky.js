@@ -15,13 +15,10 @@ export async function loadData() {
     select.on("change", e => {
       fileId = e.target.value;
       const data = db.data.find(d => d._id === fileId);
-      console.log("Data:", data)
       renderTable(data);
     });
     db.data.forEach(data => {
-      console.log(data._id)
       const option = `<option value=${data._id}>${data.name}</option>`;
-
       select.append(option);
     });
     select.selectpicker();

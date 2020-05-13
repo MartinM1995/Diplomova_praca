@@ -9,10 +9,6 @@
       .catch(err => console.error(err));
   }
 
-  // export function renderTable(fileId) {
-  //   $("")
-  // }
-
   let fileId = null;
   let db = null;
 
@@ -27,13 +23,10 @@
       select.on("change", e => {
         fileId = e.target.value;
         const data = db.data.find(d => d._id === fileId);
-        console.log("Data:", data);
         renderTable(data);
       });
       db.data.forEach(data => {
-        console.log(data._id);
         const option = `<option value=${data._id}>${data.name}</option>`;
-
         select.append(option);
       });
       select.selectpicker();
@@ -215,13 +208,11 @@
         borderColor: chartModel[col].backgroundColor,
         pointBackgroundColor: "transparent",
         pointBorderColor: "transparent",
-        // pointBorderWidth: 1,
         borderWidth: 3,
       });
 
       if (maxLength < chartModel[col].data.length) {
         maxLength = chartModel[col].data.length;
-        console.log('Max length:', maxLength);
       }
     }
 

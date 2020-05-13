@@ -27,7 +27,6 @@
         .then(res => res.json())
         .then(response => {
           if (response && response != 0) {
-            console.log("response: ", response);
             window.myJSONData = response.data;
 
             var fileName = $("input[type=file]")

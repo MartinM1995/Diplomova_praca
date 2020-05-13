@@ -45,7 +45,6 @@ router.get("/data/:id", function(req, res) {
 // POST
 
 router.post("/upload", function(req, res) {
-  console.log(req.body, req.files)
   upload(req, res, function(err) {
     if (err) {
       res.json({ error_code: 1, err_desc: err });
@@ -68,7 +67,6 @@ router.post("/upload", function(req, res) {
       } else {
         exceltojson = xlstojson;
       }
-      console.log(file.path);
       try {
         exceltojson(
           {

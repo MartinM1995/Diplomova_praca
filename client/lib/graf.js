@@ -402,13 +402,11 @@ export function renderChart(chartModel, chart) {
       borderColor: chartModel[col].backgroundColor,
       pointBackgroundColor: "transparent",
       pointBorderColor: "transparent",
-      // pointBorderWidth: 1,
       borderWidth: 3,
     });
 
     if (maxLength < chartModel[col].data.length) {
       maxLength = chartModel[col].data.length;
-      console.log('Max length:', maxLength)
     }
   }
 

@@ -24,7 +24,6 @@ async function setup() {
 
     document.getElementById("file-status").innerHTML = `Status: ${STATUS_TYPES[data.status][lang]}`;
 
-    // STATUS_TYPES[file.status][lang]
   });
 
   $("#vyhovuje").on("click", event => {

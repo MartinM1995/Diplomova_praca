@@ -46,7 +46,7 @@ export const Data = mongoose.model("Data", DataSchema);
 export const DataModel = new Data();
 
 export function connectDB() {
-  mongoose.connect("mongodb://localhost:27017/mroc-dipl", { useNewUrlParser: true });
+  mongoose.connect("mongodb://localhost:27017/mroc-dipl", { useUnifiedTopology: true, useNewUrlParser: true });
 
   const db = mongoose.connection;
   db.on("error", console.error.bind(console, "connection error:"));
