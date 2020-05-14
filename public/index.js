@@ -4,8 +4,8 @@
   $ = $ && Object.prototype.hasOwnProperty.call($, 'default') ? $['default'] : $;
 
   var config = {
-    frontendUrl: 'http://localhost:3000',
-    backendUrl: 'http://localhost:3000'
+    frontendUrl:  'http://178.128.195.197:3000',  
+    backendUrl:   'http://178.128.195.197:3000'  
   };
 
   function registerUploadFile() {
