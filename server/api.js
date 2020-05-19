@@ -36,7 +36,6 @@ router.get("/data/:id", function(req, res) {
     if (err) {
       res.json({ error_code: 1, err_desc: "Empty dataset" });
     } else {
-      console.log(result);
       res.json({ error_code: 0, err_desc: null, data: result });
     }
   });
@@ -104,7 +103,6 @@ router.post("/upload", function(req, res) {
 });
 
 router.post("/set-status/:id", function(req, res) {
-  console.log(req.body);
   Data.updateOne({ _id: req.params.id }, { status: req.body.status }, function(err, result) {
     if (err) {
       res.json({ error_code: 1, err_desc: "Empty dataset" });
