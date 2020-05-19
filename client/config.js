@@ -1,4 +1,4 @@
 export default {
-  frontendUrl:   'http://178.128.195.197:3000',  
-  backendUrl:    'http://178.128.195.197:3000'  
+  frontendUrl:   'http://134.209.239.135:3000',  
+  backendUrl:    'http://134.209.239.135:3000'  
 }
