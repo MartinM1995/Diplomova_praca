@@ -22,6 +22,6 @@ app.get("/", function(req, res) {
   res.sendFile(path.join(__dirname, "../public/index.html"));
 });
 
-app.listen("3000", function() {
+app.listen("80", function() {
   console.log("running on 3000...");
 });
