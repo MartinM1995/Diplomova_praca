@@ -133,7 +133,7 @@ export function initMainGraf(loadedData) {
   });
 }
 
-export function createNewChart(element, text, yAxesLabel, xAxesLabel) {
+export function createNewChart(element, text, yAxesLabel, xAxesLabel, displayLegend) {
 
   const defaultElementChart = element.cloneNode();
   const chartContainer = element.parentElement;
@@ -162,7 +162,7 @@ export function createNewChart(element, text, yAxesLabel, xAxesLabel) {
 
       legend: {
         position: "top",
-        display: true,
+        display: displayLegend,
         fontStyle: "bold",
       },
 

@@ -122,7 +122,7 @@ async function setup() {
       xAxesText = "Time (s)";
     }
 
-    const chart = createNewChart(myChartCOCO2, '', yAxesText, xAxesText);
+    const chart = createNewChart(myChartCOCO2, '', yAxesText, xAxesText, false);
     renderChart(chartModel, chart, false);
 
   });
@@ -191,7 +191,7 @@ async function setup() {
       xAxesText = "Time (s)";
     }
 
-    const chart = createNewChart(myChartGradient, '', yAxesText, xAxesText);
+    const chart = createNewChart(myChartGradient, '', yAxesText, xAxesText, false);
     renderChart(chartModel, chart, false);
 
   });
@@ -363,7 +363,7 @@ async function setup() {
       xAxesText = "Time (s)";
     }
 
-    const chart = createNewChart(myChartPriemer, '', yAxesText, xAxesText);
+    const chart = createNewChart(myChartPriemer, '', yAxesText, xAxesText, false);
     renderChart(chartModel, chart, false);
 
   });
