@@ -381,12 +381,12 @@ export function renderCOCO2Chart(data) {
   window.chart.update();
 }
 
-export function renderChart(chartModel, chart) {
+export function renderChart(chartModel, chart, displayLegend) {
   chart.options.scales.xAxes[0].scaleLabel.display = true;
   chart.options.scales.yAxes[0].scaleLabel.display = true;
   chart.options.pan.enabled = true;
   chart.options.zoom.enabled = true;
-  chart.options.legend.display = true;
+  chart.options.legend.display = displayLegend || true;
   chart.options.title.display = true;
   chart.data.datasets = [];
   chart.data.labels = [];

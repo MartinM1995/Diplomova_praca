@@ -123,7 +123,7 @@ async function setup() {
     }
 
     const chart = createNewChart(myChartCOCO2, '', yAxesText, xAxesText);
-    renderChart(chartModel, chart);
+    renderChart(chartModel, chart, false);
 
   });
 
@@ -192,7 +192,7 @@ async function setup() {
     }
 
     const chart = createNewChart(myChartGradient, '', yAxesText, xAxesText);
-    renderChart(chartModel, chart);
+    renderChart(chartModel, chart, false);
 
   });
 
@@ -364,7 +364,7 @@ async function setup() {
     }
 
     const chart = createNewChart(myChartPriemer, '', yAxesText, xAxesText);
-    renderChart(chartModel, chart);
+    renderChart(chartModel, chart, false);
 
   });
 }
